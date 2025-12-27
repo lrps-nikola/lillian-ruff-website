@@ -1,0 +1,66 @@
+---
+import { SEO } from "astro-seo";
+import Footer from "@/components/footer.astro";
+import Navbar from "@/components/navbar/navbar.astro";
+import FloatingButtons from "@/components/floating-buttons.astro";
+import "@fontsource-variable/inter/index.css";
+import "../styles/global.css";
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+
+const resolvedImageWithDomain = new URL(
+  "/opengraph.webp",
+  Astro.site
+).toString();
+
+const { title, description } = Astro.props;
+
+const makeTitle = title
+  ? title + " | " + "Lillian Ruff Pet Spa"
+  : "Lillian Ruff Pet Spa - Professional Dog Grooming in Ronkonkoma, NY";
+
+const makeDescription = description || "Professional dog grooming, memberships, and boarding in Ronkonkoma, NY. Walk-ins welcome. Premium Lillian Ruff products.";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEO
+      title={makeTitle}
+      description={makeDescription}
+      canonical={canonicalURL}
+      openGraph={{
+        basic: {
+          url: canonicalURL,
+          type: "website",
+          title: makeTitle,
+          image: resolvedImageWithDomain,
+        },
+        image: {
+          alt: "Lillian Ruff Pet Spa",
+        },
+      }}
+    />
+  </head>
+  <body>
+    <Navbar />
+    <slot />
+    <Footer />
+    <FloatingButtons />
+    <style is:global>
+      img {
+        content-visibility: auto;
+      }
+    </style>
+  </body>
+</html>

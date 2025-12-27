@@ -1,0 +1,280 @@
+---
+import Container from "@/components/container.astro";
+import { Icon } from "astro-icon/components";
+
+const menuitems = [
+  { title: "Home", path: "/" },
+  { title: "Grooming", path: "/grooming" },
+  { title: "Memberships", path: "/memberships" },
+  { title: "Boarding & Daycare", path: "/boarding" },
+  { title: "Shop", path: "/shop" },
+  { title: "Contact", path: "/contact" },
+  { title: "Work With Us", path: "/careers" },
+];
+---
+
+<style>
+  .header-info-block {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+  }
+  .header-info-block:hover {
+    background-color: #f9fafb;
+  }
+  .header-info-block__image {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .header-info-block__caption {
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    color: #6b7280;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .header-info-block__title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1.2;
+  }
+
+  .header-rounded-container {
+    background: white;
+    border: 2px solid #7ba650;
+    border-radius: 9999px;
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 100%;
+    height: 44px;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-button {
+    width: 3rem;
+    height: 3rem;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: none;
+  }
+
+  .icon-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-link {
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #7ba650;
+    transition: width 300ms ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+</style>
+
+<header class="site-header" style="background: white; padding: 0.75rem 0;">
+  <Container>
+    <!-- Desktop Layout -->
+    <div class="hidden lg:flex" style="align-items: center; gap: 1rem;">
+      <!-- Logo Container -->
+      <div class="logo-container">
+        <div class="logo">
+          <a href="/" style="display: inline-flex; align-items: center;">
+            <img src="/logo.png" alt="Lillian Ruff Pet Spa" style="height: 65px; width: auto; object-fit: contain;" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation Container (Second Oval) -->
+      <nav class="header-rounded-container" style="flex: 1; justify-content: center; gap: 0.75rem;">
+        {menuitems.map((item) => (
+          <a
+            href={item.path}
+            class="nav-link"
+            style="line-height: 1; color: #7ba650; position: relative; z-index: 9; display: inline-flex; font-size: 0.8125rem; font-weight: 500; transition: color 200ms ease; white-space: nowrap; flex-shrink: 0;"
+            onmouseover="this.style.color='#6b9447'"
+            onmouseout="this.style.color='#7ba650'"
+          >
+            {item.title}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Three Action Buttons (Desktop) - Outside ovals -->
+      <div class="flex items-center gap-2">
+        <a href="tel:+16316528485" class="flex items-center gap-2 border-2 border-brand-green text-brand-green bg-white px-4 py-2 rounded-full font-semibold transition-smooth hover:bg-brand-green hover:text-white hover:-translate-y-1 shadow-lg hover:shadow-xl whitespace-nowrap text-xs" style="height: 44px;">
+          <Icon name="lucide:phone" class="w-4 h-4" />
+          <span>(631) 652-8485</span>
+        </a>
+        <a href="https://booking.moego.pet/ol/book?name=LillianRuffPetSpa" class="flex items-center gap-2 bg-brand-blue text-white px-4 py-2 rounded-full font-semibold transition-smooth hover:bg-[#064a92] hover:-translate-y-1 shadow-lg hover:shadow-xl whitespace-nowrap text-xs" style="height: 44px;">
+          <Icon name="lucide:calendar-check" class="w-4 h-4" />
+          <span>Book Appointment</span>
+        </a>
+        <a href="/memberships" class="flex items-center gap-2 bg-brand-green text-white px-4 py-2 rounded-full font-semibold transition-smooth hover:bg-[#6b9447] hover:-translate-y-1 shadow-lg hover:shadow-xl whitespace-nowrap text-xs" style="height: 44px;">
+          <Icon name="lucide:crown" class="w-4 h-4" />
+          <span>Buy Membership</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile Layout: Just Logo and Menu Button -->
+    <div class="flex lg:hidden items-center justify-center relative">
+      <a href="/" style="display: inline-flex; align-items: center;">
+        <img src="/logo.png" alt="Lillian Ruff Pet Spa" style="height: 50px; width: auto; object-fit: contain;" />
+      </a>
+      <button id="mobile-menu-toggle" class="icon-button absolute right-0">
+        <Icon name="lucide:menu" class="w-6 h-6" id="menu-icon" />
+        <Icon name="lucide:x" class="w-6 h-6 hidden" id="close-icon" />
+      </button>
+    </div>
+  </Container>
+
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden opacity-0 invisible transition-all duration-300"></div>
+
+  <!-- Mobile Menu Sidebar -->
+  <div id="mobile-menu" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-50 lg:hidden transform translate-x-full transition-transform duration-300 overflow-y-auto">
+    <div class="flex flex-col h-full">
+      <!-- Menu Header -->
+      <div class="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
+        <a href="/" class="flex items-center">
+          <img src="/logo.png" alt="Lillian Ruff Pet Spa" class="h-10 w-auto" />
+        </a>
+        <button id="mobile-menu-close" class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+          <Icon name="lucide:x" class="w-6 h-6" />
+        </button>
+      </div>
+
+      <!-- Menu Navigation -->
+      <nav class="flex-1 px-6 py-8">
+        <ul class="space-y-6">
+          {menuitems.map((item) => (
+            <li>
+              <a href={item.path} class="flex items-center gap-3 text-gray-700 hover:text-[#7ba650] font-medium transition-colors text-lg group">
+                <div class="w-2 h-2 bg-[#7ba650] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                {item.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <!-- Mobile Info Blocks -->
+        <div class="mt-8 pt-8 border-t border-gray-200 space-y-4">
+          <a href="https://booking.moego.pet/ol/book?name=LillianRuffPetSpa&source=1&hl=en-US&gei=iQPPZ46ICYWLptQPz9mi8Q8&rwg_token=AAiGsobiIDptsapf6H1H4NKH1VUh2NXv3a_afpBAzbrXnzNW0MKqPH5XWOw7aNhnnGlgFSY6hX7kmjXaPeYdd-5yWNC4Y_EaZQ%3D%3D" class="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7ba650" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+            <div>
+              <div class="text-xs text-gray-500 uppercase">Buy Now</div>
+              <div class="text-sm font-semibold text-gray-900">Memberships</div>
+            </div>
+          </a>
+          <a href="https://booking.moego.pet/ol/LillianRuffPetSpa/book" class="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7ba650" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <div>
+              <div class="text-xs text-gray-500 uppercase">Book Online</div>
+              <div class="text-sm font-semibold text-gray-900">Make an Appointment</div>
+            </div>
+          </a>
+          <a href="tel:+16316528485" class="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7ba650" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <div>
+              <div class="text-xs text-gray-500 uppercase">Call Us</div>
+              <div class="text-sm font-semibold text-gray-900">(631) 652-8485</div>
+            </div>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script>
+  (function() {
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    function openMenu() {
+      if (mobileMenuOverlay) {
+        mobileMenuOverlay.classList.remove('opacity-0', 'invisible');
+        mobileMenuOverlay.classList.add('opacity-100', 'visible');
+      }
+      if (mobileMenu) {
+        mobileMenu.classList.remove('translate-x-full');
+        mobileMenu.classList.add('translate-x-0');
+      }
+      if (menuIcon) menuIcon.classList.add('hidden');
+      if (closeIcon) closeIcon.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeMenu() {
+      if (mobileMenuOverlay) {
+        mobileMenuOverlay.classList.remove('opacity-100', 'visible');
+        mobileMenuOverlay.classList.add('opacity-0', 'invisible');
+      }
+      if (mobileMenu) {
+        mobileMenu.classList.remove('translate-x-0');
+        mobileMenu.classList.add('translate-x-full');
+      }
+      if (menuIcon) menuIcon.classList.remove('hidden');
+      if (closeIcon) closeIcon.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', openMenu);
+    if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMenu);
+    if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMenu);
+
+    if (mobileMenu) {
+      const mobileNavLinks = mobileMenu.querySelectorAll('nav a');
+      mobileNavLinks.forEach(link => link.addEventListener('click', closeMenu));
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024) closeMenu();
+    });
+  })();
+
+</script>

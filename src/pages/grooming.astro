@@ -1,0 +1,1062 @@
+---
+import Container from "@/components/container.astro";
+import Layout from "@/layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+
+const groomingServices = [
+  {
+    name: "Full Service",
+    icon: "lucide:sparkles",
+    features: ["Face & Body Trim", "Sanitary Cut", "Complete Bath", "Gentle Blow Dry", "Thorough Brushing", "Nail Trimming", "Ear Cleaning", "Paw Pads", "Anal Gland Care", "Teeth Brushing"],
+    highlightCount: 2,
+    popular: true,
+    gradient: "from-brand-green to-emerald-500",
+    requiresAppointment: true
+  },
+  {
+    name: "Bath & Brush",
+    icon: "lucide:droplets",
+    features: ["Complete Bath", "Gentle Blow Dry", "Thorough Brushing", "Nail Trimming", "Ear Cleaning", "Paw Pads", "Anal Gland Care", "Teeth Brushing", ""],
+    highlightCount: 0,
+    popular: false,
+    gradient: "from-brand-blue to-sky-500",
+    requiresAppointment: true
+  }
+];
+
+const addOns = [
+  { name: "Face Trim", icon: "lucide:scissors", description: "Face Clean up", walkIn: true },
+  { name: "Sanitary Cut", icon: "lucide:sparkles", description: "Hygienic trim for comfort", walkIn: true },
+  { name: "Nail Trim", icon: "lucide:disc", description: "Quick Nail Clipping", walkIn: true },
+  { name: "Teeth Brushing", icon: "lucide:smile", description: "Fresh breath & clean teeth", walkIn: true },
+  { name: "Ear Cleaning", icon: "lucide:ear", description: "Gentle ear care & cleaning", walkIn: true }
+];
+
+const faqs = [
+  {
+    question: "How often should I get my dog groomed?",
+    answer: "Most dogs benefit from professional grooming every 4-8 weeks, depending on breed, coat type, and lifestyle. Long-haired breeds like Poodles or Shih Tzus may need more frequent visits, while short-haired breeds can go longer between appointments."
+  },
+  {
+    question: "Do I need to make an appointment?",
+    answer: "Full Service and Bath & Brush grooming require appointments to ensure we can give your pet the time and attention they deserve. However, our Add-On services (Face Trim, Sanitary Cut, Nail Trim, Teeth Brushing, and Ear Cleaning) are available as walk-ins - no appointment needed!"
+  },
+  {
+    question: "How long does a grooming session take?",
+    answer: "A Full Service grooming session takes 1-1.5 hours depending on your dog's size and coat condition. Bath & Brush services are completed in 30-45 minutes. We never rush your pet!"
+  },
+  {
+    question: "What if my dog is anxious or nervous?",
+    answer: "Our experienced groomers are specially trained to handle nervous pets with patience, care, and lots of positive reinforcement. We take breaks as needed and use calming techniques. Please let us know about any behavioral concerns when booking."
+  },
+  {
+    question: "What products do you use?",
+    answer: "We exclusively use our own Lillian Ruff professional-grade products, crafted with natural ingredients that are safe for all coat types and sensitive skin. We also offer hypoallergenic options upon request."
+  },
+  {
+    question: "Can I stay during the grooming?",
+    answer: "For safety and to help your pet stay calm, we ask that owners wait in our comfortable lobby or return at pickup time. Most pets are actually calmer and more cooperative when their owners aren't present!"
+  }
+];
+
+---
+
+<Layout title="Professional Dog Grooming" description="Premium dog grooming services in Ronkonkoma, NY. Full grooming, bath & brush, puppy grooming, and de-shedding treatments. Book your appointment today!">
+
+  <!-- Hero Section - Premium Professional Design -->
+  <section class="grooming-hero-section relative isolate">
+    <Container>
+      <div class="relative rounded-[2rem] overflow-hidden grooming-hero-card">
+        <!-- Image Background -->
+        <img
+          src="/grooming-hero.webp"
+          alt="Professional Dog Grooming"
+          class="w-full h-[85vh] object-cover"
+          id="hero-image"
+        />
+
+        <!-- Dark Overlay for Better Text Readability -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent"></div>
+
+        <!-- Content Container -->
+        <div class="absolute inset-0 flex flex-col justify-between p-6 md:p-8 lg:p-10">
+
+          <!-- Top Bar - Status Badge -->
+          <div class="flex justify-between items-start">
+            <div class="grooming-status-badge inline-flex items-center gap-3 bg-white px-5 py-2.5 rounded-full shadow-xl">
+              <div class="relative flex items-center justify-center">
+                <span class="absolute w-2.5 h-2.5 bg-brand-green rounded-full animate-ping opacity-75"></span>
+                <span class="relative w-2.5 h-2.5 bg-brand-green rounded-full"></span>
+              </div>
+              <span class="text-gray-900 font-semibold text-sm">Appointments & Walk-Ins Welcome</span>
+            </div>
+
+            <!-- Trust Badge -->
+            <div class="hidden md:flex items-center gap-2 bg-white px-4 py-2.5 rounded-full shadow-xl">
+              <div class="flex">
+                <Icon name="lucide:star" class="w-4 h-4 text-amber-400 fill-amber-400" />
+                <Icon name="lucide:star" class="w-4 h-4 text-amber-400 fill-amber-400" />
+                <Icon name="lucide:star" class="w-4 h-4 text-amber-400 fill-amber-400" />
+                <Icon name="lucide:star" class="w-4 h-4 text-amber-400 fill-amber-400" />
+                <Icon name="lucide:star" class="w-4 h-4 text-amber-400 fill-amber-400" />
+              </div>
+              <span class="text-gray-900 font-semibold text-sm">4.8 Rating</span>
+            </div>
+          </div>
+
+          <!-- Main Content - Bottom Aligned -->
+          <div class="max-w-3xl">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3 mb-4 grooming-hero-animate" style="animation-delay: 0.1s">
+              <div class="flex items-center gap-2">
+                <Icon name="lucide:scissors" class="w-5 h-5 text-brand-green" />
+                <span class="text-sm font-bold tracking-[0.2em] uppercase text-brand-green">Professional Grooming</span>
+              </div>
+              <div class="h-px flex-1 max-w-[100px] bg-gradient-to-r from-brand-green to-transparent"></div>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="grooming-hero-animate mb-4" style="animation-delay: 0.2s">
+              <span class="block text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white leading-[1.1] tracking-tight drop-shadow-lg">
+                Where Every Pet
+              </span>
+              <span class="block text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tight mt-1">
+                <span class="grooming-hero-gradient-text drop-shadow-lg">Feels Like Royalty</span>
+              </span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-base md:text-lg text-white leading-relaxed max-w-xl mb-6 grooming-hero-animate drop-shadow-md" style="animation-delay: 0.3s">
+              Expert grooming artistry combined with genuine love for pets.
+              <span class="font-semibold">Your best friend deserves nothing less.</span>
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-wrap gap-4 mb-6 grooming-hero-animate" style="animation-delay: 0.4s">
+              <a
+                href="https://booking.moego.pet/ol/book?name=LillianRuffPetSpa"
+                class="flex items-center gap-3 bg-brand-blue text-white px-6 md:px-8 py-4 rounded-full font-semibold transition-smooth hover:bg-[#064a92] hover:-translate-y-1 shadow-lg hover:shadow-xl"
+              >
+                <Icon name="lucide:calendar-check" class="w-5 h-5" />
+                <span>Book Appointment</span>
+              </a>
+              <a
+                href="tel:+16316528485"
+                class="flex items-center gap-3 border-2 border-brand-green text-brand-green bg-white px-6 md:px-8 py-4 rounded-full font-semibold transition-smooth hover:bg-brand-green hover:text-white hover:-translate-y-1 shadow-lg hover:shadow-xl"
+              >
+                <Icon name="lucide:phone" class="w-5 h-5" />
+                <span>(631) 652-8485</span>
+              </a>
+            </div>
+
+            <!-- Quick Info Pills -->
+            <div class="flex flex-wrap gap-3 grooming-hero-animate" style="animation-delay: 0.5s">
+              <div class="flex items-center gap-2 bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
+                <Icon name="lucide:clock" class="w-4 h-4 text-brand-green" />
+                <span class="text-white text-sm font-medium">Open Today 9-5</span>
+              </div>
+              <div class="flex items-center gap-2 bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
+                <Icon name="lucide:map-pin" class="w-4 h-4 text-brand-green" />
+                <span class="text-white text-sm font-medium">Ronkonkoma, NY</span>
+              </div>
+              <div class="flex items-center gap-2 bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
+                <Icon name="lucide:sparkles" class="w-4 h-4 text-brand-green" />
+                <span class="text-white text-sm font-medium">Expert Groomers</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </Container>
+  </section>
+
+  <!-- Services Section -->
+  <section class="pt-6 pb-16 md:pt-8 md:pb-20" id="services">
+    <Container>
+      <div class="mb-6">
+        <h2 class="text-4xl md:text-6xl font-black leading-tight">
+          <span class="text-gray-900">Grooming</span>
+          <span class="services-gradient-text"> Services</span>
+        </h2>
+      </div>
+
+      <!-- Services Grid -->
+      <div class="grid md:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+        {groomingServices.map((service) => (
+          <div class="group relative flex">
+            {/* Card with paw background */}
+            <div class:list={[
+              "service-card-paws flex flex-col w-full rounded-2xl p-6 lg:p-8 shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1 relative overflow-hidden",
+              service.popular ? "service-card-green" : "service-card-blue"
+            ]}>
+              {/* Header */}
+              <div class="flex items-start justify-between mb-5 relative z-10">
+                <div>
+                  <div class:list={[
+                    "inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full mb-2",
+                    service.popular ? "bg-brand-green/20 text-brand-green" : "bg-brand-blue/20 text-brand-blue"
+                  ]}>
+                    <Icon name="lucide:calendar" class="w-3 h-3" />
+                    <span>Appointment Required</span>
+                  </div>
+                  <h3 class="text-2xl lg:text-3xl font-black text-gray-900">{service.name}</h3>
+                </div>
+                <div class:list={[
+                  "w-12 h-12 rounded-xl flex items-center justify-center shadow-md flex-shrink-0",
+                  service.popular ? "bg-brand-green" : "bg-brand-blue"
+                ]}>
+                  <Icon name={service.icon} class="w-6 h-6 text-white" />
+                </div>
+              </div>
+
+              {/* Features List */}
+              <div class="grid grid-cols-2 gap-x-4 gap-y-2 mb-6 relative z-10">
+                {service.features.map((feature, i) => (
+                  <div class:list={["flex items-center gap-2", !feature && "invisible"]}>
+                    <Icon name="lucide:check" class:list={["w-4 h-4 flex-shrink-0", service.popular ? "text-brand-green" : "text-brand-blue"]} />
+                    <span class={`text-sm ${i < service.highlightCount ? 'font-bold text-gray-900' : 'text-gray-700'}`}>{feature || "Placeholder"}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA Button - Apple style */}
+              <a
+                href="https://booking.moego.pet/ol/book?name=LillianRuffPetSpa"
+                class:list={[
+                  "group/btn mt-auto w-full flex items-center justify-center gap-2 py-4 px-8 rounded-full font-semibold text-base tracking-tight transition-all duration-200 relative z-10",
+                  service.popular
+                    ? "service-btn-green"
+                    : "service-btn-blue"
+                ]}
+              >
+                <span>Book Online</span>
+                <Icon name="lucide:arrow-right" class="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- Add-Ons Section - Interactive Grid -->
+  <section class="mt-5 pt-0 pb-20 md:pb-24 relative overflow-hidden bg-transparent">
+
+    <Container>
+      <div class="relative z-10">
+        <!-- Header -->
+        <div class="mb-6">
+          <div class="inline-flex items-center gap-2 addon-card-green px-5 py-2.5 rounded-full border border-brand-green/30 mb-6">
+            <Icon name="lucide:plus-circle" class="w-5 h-5 text-gray-900" />
+            <span class="text-sm font-bold text-gray-900 tracking-wider uppercase">Enhance The Experience</span>
+          </div>
+          <h2 class="text-4xl md:text-6xl font-black leading-tight">
+            <span class="text-gray-900">Premium</span>
+            <span class="addons-gradient-text"> Add-Ons</span>
+          </h2>
+        </div>
+
+        <!-- Desktop: Add-ons Grid - 5 cards in a row -->
+        <div class="hidden md:block">
+          <div style="display: flex; flex-direction: row; justify-content: center; gap: 32px;">
+            {addOns.map((addon, index) => (
+              <div
+                class="addon-card-premium addon-card-green group relative rounded-xl p-5 border border-brand-green/30 hover:border-brand-green/50 transition-all duration-500 hover:-translate-y-2 overflow-hidden"
+                style={`width: 222px; flex-shrink: 0; animation-delay: ${index * 75}ms`}
+              >
+              {/* Glow Effect */}
+              <div class="absolute inset-0 bg-gradient-to-br from-brand-green/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+              {/* Icon */}
+              <div class="relative w-12 h-12 mx-auto rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mb-3 group-hover:scale-110 transition-all duration-500 border border-gray-300">
+                <Icon name={addon.icon} class="w-6 h-6 text-gray-700 group-hover:text-brand-green transition-colors duration-500" />
+              </div>
+
+              {/* Content */}
+              <div class="relative text-center">
+                <h3 class="font-bold text-gray-900 text-base mb-1">{addon.name}</h3>
+                <p class="text-gray-600 text-xs mb-2 leading-tight">{addon.description}</p>
+                <div class="inline-flex items-center gap-1 text-[11px] font-semibold text-gray-700">
+                  <Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green" />
+                  <span>Walk-ins Welcome</span>
+                </div>
+              </div>
+            </div>
+          ))}
+          </div>
+        </div>
+
+        <!-- Mobile: Auto-scrolling carousel -->
+        <div class="md:hidden overflow-hidden" id="addons-carousel">
+          <div class="flex gap-4 animate-scroll-addons" id="addons-track">
+            {/* First set of cards */}
+            {addOns.map((addon) => (
+              <div class="addon-card-mobile addon-card-green flex-shrink-0 w-40 rounded-xl p-4 border border-brand-green/30">
+                <div class="w-12 h-12 mx-auto rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mb-3 border border-gray-300">
+                  <Icon name={addon.icon} class="w-6 h-6 text-gray-700" />
+                </div>
+                <div class="text-center">
+                  <h3 class="font-bold text-gray-900 text-sm mb-1">{addon.name}</h3>
+                  <div class="inline-flex items-center gap-1 text-xs font-semibold text-gray-700">
+                    <Icon name="lucide:check-circle" class="w-3 h-3 text-brand-green" />
+                    <span>Walk-ins</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {/* Duplicate set for seamless loop */}
+            {addOns.map((addon) => (
+              <div class="addon-card-mobile addon-card-green flex-shrink-0 w-40 rounded-xl p-4 border border-brand-green/30">
+                <div class="w-12 h-12 mx-auto rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mb-3 border border-gray-300">
+                  <Icon name={addon.icon} class="w-6 h-6 text-gray-700" />
+                </div>
+                <div class="text-center">
+                  <h3 class="font-bold text-gray-900 text-sm mb-1">{addon.name}</h3>
+                  <div class="inline-flex items-center gap-1 text-xs font-semibold text-gray-700">
+                    <Icon name="lucide:check-circle" class="w-3 h-3 text-brand-green" />
+                    <span>Walk-ins</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </Container>
+  </section>
+
+  <!-- FAQ Section - Accordion Style -->
+  <section class="mt-5 pt-0 pb-10 relative overflow-hidden bg-transparent">
+
+    <Container>
+      <div class="relative z-10">
+        <!-- Section Header -->
+        <div class="text-center max-w-4xl mx-auto mb-16">
+          <div class="inline-flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-lg border border-gray-100 mb-8">
+            <Icon name="lucide:help-circle" class="w-5 h-5 text-brand-green" />
+            <span class="text-sm font-bold text-brand-green tracking-[0.2em] uppercase">Got Questions?</span>
+          </div>
+          <h2 class="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-8">
+            Frequently Asked
+            <br />
+            <span class="faq-gradient-text">Questions</span>
+          </h2>
+        </div>
+
+        <!-- FAQ Grid -->
+        <div class="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+          {faqs.map((faq, index) => (
+            <div
+              class="faq-card group addon-card-green rounded-3xl p-8 shadow-lg shadow-gray-100/50 border border-brand-green/30 hover:border-brand-green/50 hover:shadow-2xl hover:shadow-brand-green/10 transition-all duration-500 hover:-translate-y-1"
+              style={`animation-delay: ${index * 100}ms`}
+            >
+              <div class="flex items-start gap-5">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-green/10 to-emerald-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-all duration-500">
+                  <Icon name="lucide:message-circle" class="w-6 h-6 text-brand-green" />
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-brand-green transition-colors">{faq.question}</h3>
+                  <p class="text-gray-600 leading-relaxed">{faq.answer}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Contact CTA -->
+        <div class="text-center mt-5 mb-5">
+          <div class="inline-flex flex-col sm:flex-row items-center gap-4 addon-card-green rounded-2xl p-6 shadow-xl border border-brand-green/30">
+            <p class="text-gray-600 text-lg">Still have questions?</p>
+            <a
+              href="/contact"
+              class="flex items-center gap-2 bg-brand-green text-white px-6 py-3 rounded-full font-bold transition-all duration-300 hover:bg-emerald-600 hover:-translate-y-1"
+            >
+              <Icon name="lucide:mail" class="w-5 h-5" />
+              Contact Us
+              <Icon name="lucide:arrow-right" class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+        <span class="sr-only" aria-hidden="true">grooming</span>
+
+        <!-- Spacer to separate FAQ from footer -->
+        <div style="height: 20px;"></div>
+      </div>
+    </Container>
+  </section>
+
+</Layout>
+
+<style>
+  /* ===== SERVICE CARDS WITH PAWS ===== */
+  .service-card-paws {
+    position: relative;
+  }
+
+  .service-card-paws::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-200 -200 912 912'%3E%3Cpath fill='%23ffffff' d='M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z'/%3E%3C/svg%3E");
+    background-size: 70px 70px;
+    pointer-events: none;
+  }
+
+  .service-card-green {
+    background: linear-gradient(180deg, rgba(232, 245, 224, 0.4) 0%, rgba(223, 240, 216, 0.4) 50%, rgba(232, 245, 224, 0.4) 100%);
+  }
+
+  .addon-card-green {
+    background: linear-gradient(180deg, rgba(232, 245, 224, 0.4) 0%, rgba(223, 240, 216, 0.4) 50%, rgba(232, 245, 224, 0.4) 100%);
+  }
+
+  .service-card-blue {
+    background: linear-gradient(135deg, rgba(224, 236, 245, 0.4) 0%, rgba(200, 220, 240, 0.4) 50%, rgba(224, 236, 245, 0.4) 100%);
+  }
+
+  /* Apple-style buttons with glass effect */
+  .service-btn-green {
+    background: rgba(123, 166, 80, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  }
+
+  .service-btn-green:hover {
+    background: rgba(107, 148, 71, 0.9);
+    transform: scale(1.02);
+  }
+
+  .service-btn-green:active {
+    transform: scale(0.98);
+  }
+
+  .service-btn-blue {
+    background: rgba(7, 86, 173, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  }
+
+  .service-btn-blue:hover {
+    background: rgba(6, 74, 146, 0.9);
+    transform: scale(1.02);
+  }
+
+  .service-btn-blue:active {
+    transform: scale(0.98);
+  }
+
+  /* ===== GROOMING HERO SECTION - Premium Professional ===== */
+  .grooming-hero-section {
+    padding-top: 0;
+    padding-bottom: 1rem;
+  }
+
+  .grooming-hero-card {
+    isolation: isolate;
+    box-shadow:
+      0 0 0 1px rgba(123, 166, 80, 0.2),
+      0 25px 50px -12px rgba(0, 0, 0, 0.25),
+      0 0 100px -30px rgba(123, 166, 80, 0.3);
+  }
+
+  /* ===== MOBILE ONLY STYLES (max-width: 767px) ===== */
+  @media (max-width: 767px) {
+    .grooming-hero-card {
+      border-radius: 1rem;
+    }
+
+    .grooming-hero-card img {
+      height: 85vh;
+    }
+
+    .grooming-hero-card .grooming-status-badge {
+      padding: 0.5rem 0.75rem;
+      gap: 0.5rem;
+    }
+
+    .grooming-hero-card .grooming-status-badge span:last-child {
+      font-size: 0.7rem;
+    }
+
+    .grooming-hero-card h1 span {
+      font-size: 1.75rem;
+    }
+
+    .grooming-hero-card > div:last-child > div:last-child > p {
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .grooming-hero-card > div:last-child > div:last-child > div:nth-child(4) {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .grooming-hero-card > div:last-child > div:last-child > div:nth-child(4) a {
+      justify-content: center;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.875rem;
+    }
+
+    .grooming-hero-card > div:last-child > div:last-child > div:nth-child(5) {
+      gap: 0.5rem;
+    }
+
+    .grooming-hero-card > div:last-child > div:last-child > div:nth-child(5) > div {
+      padding: 0.375rem 0.75rem;
+      gap: 0.375rem;
+    }
+
+    .grooming-hero-card > div:last-child > div:last-child > div:nth-child(5) > div span {
+      font-size: 0.7rem;
+    }
+
+    .grooming-hero-card > div:last-child > div:last-child > div:nth-child(5) > div:last-child {
+      display: none;
+    }
+  }
+
+  /* ===== STATS BAR PREMIUM ===== */
+  .stats-bar-premium {
+    border-radius: 1.5rem;
+    box-shadow:
+      0 25px 50px -12px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  @media (min-width: 768px) {
+    .stats-bar-premium {
+      border-radius: 2rem;
+    }
+  }
+
+  .stat-item-premium {
+    opacity: 0;
+    animation: statFadeIn 0.6s ease-out forwards;
+  }
+
+  @keyframes statFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% {
+      opacity: 0.3;
+      transform: translateX(-10%);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translateX(10%);
+    }
+  }
+
+  .animate-gradient-shift {
+    animation: gradient-shift 8s ease-in-out infinite;
+  }
+
+  /* Gradient text for heading */
+  .grooming-hero-gradient-text {
+    background: linear-gradient(135deg, #7ba650 0%, #34d399 50%, #7ba650 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: groomingGradientShift 4s ease-in-out infinite;
+  }
+
+  @keyframes groomingGradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Hero content animations */
+  .grooming-hero-animate {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: groomingHeroReveal 0.8s ease-out forwards;
+  }
+
+  @keyframes groomingHeroReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Status badge subtle shine */
+  .grooming-status-badge {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .grooming-status-badge::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: groomingBadgeShine 3s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+
+  @keyframes groomingBadgeShine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  /* Scroll indicator animation */
+  .animate-scroll-indicator {
+    animation: scrollIndicatorBounce 1.5s ease-in-out infinite;
+  }
+
+  @keyframes scrollIndicatorBounce {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(8px); opacity: 0.5; }
+  }
+
+  /* ===== HERO SECTION ===== */
+  .hero-vignette {
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+  }
+
+  .hero-mesh {
+    background:
+      radial-gradient(at 20% 30%, rgba(123, 166, 80, 0.3) 0px, transparent 50%),
+      radial-gradient(at 80% 20%, rgba(16, 185, 129, 0.2) 0px, transparent 50%),
+      radial-gradient(at 40% 80%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+      radial-gradient(at 90% 70%, rgba(123, 166, 80, 0.2) 0px, transparent 50%);
+    animation: meshMove 30s ease-in-out infinite;
+  }
+
+  @keyframes meshMove {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(3deg); }
+  }
+
+  /* Hero Badge */
+  .hero-badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: badgeShine 4s ease-in-out infinite;
+  }
+
+  @keyframes badgeShine {
+    0%, 100% { left: -100%; }
+    50% { left: 100%; }
+  }
+
+  /* Hero Title Animation */
+  .hero-line {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: heroLineReveal 1s ease-out forwards;
+  }
+
+  .hero-line-1 { animation-delay: 0.2s; }
+  .hero-line-2 { animation-delay: 0.4s; }
+  .hero-line-3 { animation-delay: 0.6s; }
+
+  @keyframes heroLineReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-subtitle {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out 0.8s forwards;
+  }
+
+  .hero-cta {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out 1s forwards;
+  }
+
+  .hero-trust {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out 1.2s forwards;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Gradient Text */
+  .hero-gradient-text,
+  .services-gradient-text,
+  .addons-gradient-text,
+  .process-gradient-text,
+  .products-gradient-text,
+  .faq-gradient-text {
+    background: linear-gradient(135deg, #7ba650 0%, #10b981 40%, #34d399 70%, #7ba650 100%);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientFlow 6s ease infinite;
+  }
+
+  @keyframes gradientFlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Sparkle Icon */
+  .sparkle-icon {
+    animation: sparkleRotate 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px rgba(123, 166, 80, 0.6));
+  }
+
+  @keyframes sparkleRotate {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+  }
+
+  /* Floating Paws */
+  .hero-paw {
+    position: absolute;
+    animation: pawFloat 25s ease-in-out infinite;
+  }
+
+  .hero-paw-1 { top: 15%; right: 15%; animation-delay: 0s; }
+  .hero-paw-2 { top: 35%; right: 8%; animation-delay: 4s; }
+  .hero-paw-3 { bottom: 25%; right: 20%; animation-delay: 8s; }
+  .hero-paw-4 { top: 50%; right: 30%; animation-delay: 12s; }
+  .hero-paw-5 { bottom: 40%; right: 5%; animation-delay: 16s; }
+
+  @keyframes pawFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+    25% { transform: translateY(-30px) rotate(15deg); opacity: 0.7; }
+    50% { transform: translateY(-15px) rotate(-10deg); opacity: 0.5; }
+    75% { transform: translateY(-40px) rotate(20deg); opacity: 0.8; }
+  }
+
+  /* Sparkle Particles */
+  .sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    animation: sparkleFloat 8s ease-in-out infinite;
+  }
+
+  .sparkle-1 { top: 20%; right: 25%; animation-delay: 0s; }
+  .sparkle-2 { top: 40%; right: 15%; animation-delay: 1.5s; }
+  .sparkle-3 { top: 60%; right: 35%; animation-delay: 3s; }
+  .sparkle-4 { top: 30%; right: 40%; animation-delay: 4.5s; }
+  .sparkle-5 { top: 70%; right: 20%; animation-delay: 6s; }
+
+  @keyframes sparkleFloat {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+
+  /* Scroll Indicator */
+  .scroll-indicator {
+    opacity: 0;
+    animation: fadeIn 1s ease-out 1.5s forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  @keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(12px); }
+  }
+
+  .animate-scroll-bounce {
+    animation: scroll-bounce 2s ease-in-out infinite;
+  }
+
+  /* Float Animations */
+  .animate-float-slow {
+    animation: floatSlow 8s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: floatSlow 8s ease-in-out infinite;
+    animation-delay: 4s;
+  }
+
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  /* ===== STATS SECTION ===== */
+  .stats-bar {
+    animation: slideUp 1s ease-out forwards;
+  }
+
+  .stat-item {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: statReveal 0.8s ease-out forwards;
+  }
+
+  @keyframes statReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ===== SERVICES SECTION ===== */
+  .section-paw {
+    position: absolute;
+    animation: sectionPawFloat 20s ease-in-out infinite;
+  }
+
+  .section-paw-1 { top: 10%; left: 5%; }
+  .section-paw-2 { top: 50%; right: 8%; animation-delay: 5s; }
+  .section-paw-3 { bottom: 15%; left: 15%; animation-delay: 10s; }
+
+  @keyframes sectionPawFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(10deg); }
+  }
+
+  .service-card-premium {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: cardReveal 0.8s ease-out forwards;
+  }
+
+  @keyframes cardReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ===== ADD-ONS SECTION ===== */
+  .addons-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .addon-card-premium {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: addonReveal 0.6s ease-out forwards;
+  }
+
+  @keyframes addonReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Mobile carousel auto-scroll - seamless infinite loop */
+  .animate-scroll-addons {
+    animation: scrollAddons 8s linear infinite;
+    /* Width of 5 cards (160px each) + 5 gaps (16px each) = 880px */
+    width: calc((160px * 10) + (16px * 10));
+  }
+
+  @keyframes scrollAddons {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      /* Move exactly half (the width of first 5 cards + gaps) */
+      transform: translateX(calc(-160px * 5 - 16px * 5));
+    }
+  }
+
+  .animate-scroll-addons:hover {
+    animation-play-state: paused;
+  }
+
+  /* ===== PROCESS SECTION ===== */
+  .process-bg-pattern {
+    background-image: radial-gradient(circle at 1px 1px, rgba(123, 166, 80, 0.15) 1px, transparent 0);
+    background-size: 40px 40px;
+  }
+
+  .process-step {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: processReveal 0.8s ease-out forwards;
+  }
+
+  @keyframes processReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .process-icon {
+    animation: iconPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes iconPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  /* ===== FAQ SECTION ===== */
+  .faq-pattern {
+    background-image: radial-gradient(circle at 2px 2px, rgba(123, 166, 80, 0.1) 1px, transparent 0);
+    background-size: 32px 32px;
+  }
+
+  .faq-card {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: faqReveal 0.8s ease-out forwards;
+  }
+
+  @keyframes faqReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ===== CTA SECTION ===== */
+  .cta-gradient {
+    background: linear-gradient(135deg, #7ba650 0%, #10b981 25%, #059669 50%, #10b981 75%, #7ba650 100%);
+    background-size: 400% 400%;
+    animation: ctaGradient 15s ease infinite;
+  }
+
+  @keyframes ctaGradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .cta-paw-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-200 -200 912 912'%3E%3Cpath fill='%23ffffff' fill-opacity='0.3' d='M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z'/%3E%3C/svg%3E");
+    background-size: 100px 100px;
+  }
+
+  .cta-paw {
+    position: absolute;
+    animation: ctaPawFloat 20s ease-in-out infinite;
+  }
+
+  .cta-paw-1 { top: 10%; left: 10%; }
+  .cta-paw-2 { top: 30%; right: 15%; animation-delay: 5s; }
+  .cta-paw-3 { bottom: 20%; left: 20%; animation-delay: 10s; }
+  .cta-paw-4 { bottom: 30%; right: 10%; animation-delay: 15s; }
+
+  @keyframes ctaPawFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-40px) rotate(15deg); }
+  }
+
+  .cta-title {
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  /* ===== UTILITY ANIMATIONS ===== */
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .animate-wiggle {
+    animation: wiggle 0.5s ease-in-out;
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ===== INTERSECTION OBSERVER ANIMATIONS ===== */
+  @media (prefers-reduced-motion: no-preference) {
+    .service-card-premium,
+    .addon-card-premium,
+    .process-step,
+    .faq-card,
+    .stat-item {
+      animation-play-state: paused;
+    }
+
+    .service-card-premium.animate,
+    .addon-card-premium.animate,
+    .process-step.animate,
+    .faq-card.animate,
+    .stat-item.animate {
+      animation-play-state: running;
+    }
+  }
+</style>
+
+<script is:inline>
+  // Intersection Observer for scroll animations
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '50px' });
+
+    document.querySelectorAll('.service-card-premium, .addon-card-premium, .process-step, .faq-card, .stat-item').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Parallax effect on hero image
+    const heroImage = document.getElementById('hero-image');
+    if (heroImage) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * 0.3;
+        heroImage.style.transform = `scale(1.1) translateY(${rate}px)`;
+      });
+    }
+  });
+</script>

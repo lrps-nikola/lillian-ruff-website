@@ -1,0 +1,55 @@
+---
+import { Icon } from "astro-icon/components";
+
+const bookingUrl = "https://booking.moego.pet/ol/book?name=LillianRuffPetSpa";
+const membershipUrl = "/memberships";
+---
+
+<div id="floatingButtons" class="fixed bottom-4 left-1/2 -translate-x-1/2 flex gap-3 z-50 opacity-0 translate-y-4 transition-all duration-500 px-4 max-w-full">
+  <a href="tel:+16316528485" class="flex items-center gap-2 border-2 border-brand-green text-brand-green bg-white px-6 py-3 rounded-full font-semibold transition-smooth hover:bg-brand-green hover:text-white hover:-translate-y-1 shadow-lg hover:shadow-xl whitespace-nowrap" aria-label="Call (631) 652-8485">
+    <Icon name="lucide:phone" class="w-5 h-5" />
+    <span class="hidden md:inline">(631) 652-8485</span>
+  </a>
+  <a href={bookingUrl} class="flex items-center gap-2 bg-brand-blue text-white px-6 py-3 rounded-full font-semibold transition-smooth hover:bg-[#064a92] hover:-translate-y-1 shadow-lg hover:shadow-xl whitespace-nowrap" aria-label="Book Appointment">
+    <Icon name="lucide:calendar-check" class="w-5 h-5" />
+    <span class="hidden md:inline">Book Appointment</span>
+  </a>
+  <a href={membershipUrl} class="flex items-center gap-2 bg-brand-green text-white px-6 py-3 rounded-full font-semibold transition-smooth hover:bg-[#6b9447] hover:-translate-y-1 shadow-lg hover:shadow-xl whitespace-nowrap" aria-label="Buy Membership">
+    <Icon name="lucide:crown" class="w-5 h-5" />
+    <span class="hidden md:inline">Buy Membership</span>
+  </a>
+</div>
+
+<script>
+  const floatingButtons = document.getElementById('floatingButtons');
+  const footer = document.querySelector('footer');
+
+  // Hide on shop page
+  const isShopPage = window.location.pathname === '/shop' || window.location.pathname === '/shop/';
+
+  function toggleButtons() {
+    // Always hide on shop page
+    if (isShopPage) {
+      floatingButtons?.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+      floatingButtons?.classList.remove('opacity-100', 'translate-y-0');
+      return;
+    }
+
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const footerTop = footer?.getBoundingClientRect().top ?? Infinity;
+
+    // Hide if not scrolled enough OR if footer is visible
+    const isFooterVisible = footerTop < windowHeight;
+
+    if (scrollY > 200 && !isFooterVisible) {
+      floatingButtons?.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+      floatingButtons?.classList.add('opacity-100', 'translate-y-0');
+    } else {
+      floatingButtons?.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+      floatingButtons?.classList.remove('opacity-100', 'translate-y-0');
+    }
+  }
+  window.addEventListener('scroll', toggleButtons);
+  toggleButtons();
+</script>

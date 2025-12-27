@@ -1,0 +1,187 @@
+---
+import { getCollection } from "astro:content";
+import { Picture } from "astro:assets";
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import { Icon } from "astro-icon/components";
+
+export async function getStaticPaths({ paginate }) {
+  const publishedBlogEntries = await getCollection("blog", ({ data }) => {
+    return !data.draft && data.publishDate < new Date();
+  });
+
+  // Sort by publication date (newest first)
+  publishedBlogEntries.sort((a, b) =>
+    b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+  );
+
+  // 9 posts per page
+  return paginate(publishedBlogEntries, { pageSize: 9 });
+}
+
+const { page } = Astro.props;
+
+// Format date nicely
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+---
+
+<Layout title={page.currentPage === 1 ? "Blog" : `Blog - Page ${page.currentPage}`}>
+  <!-- Hero Section -->
+  <section class="pt-8 pb-12 bg-transparent">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 bg-gradient-to-r from-brand-green/10 to-emerald-100 px-5 py-2.5 rounded-full border border-brand-green/20 mb-6">
+          <Icon name="lucide:book-open" class="w-5 h-5 text-brand-green" />
+          <span class="text-sm font-bold text-gray-700 tracking-wider uppercase">Pet Care Tips</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black text-gray-900 mb-4">
+          Our
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-emerald-600"> Blog</span>
+        </h1>
+        <p class="text-lg text-gray-600 leading-relaxed">
+          Expert tips and advice for keeping your furry friends happy, healthy, and looking their best.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Blog Posts Grid -->
+  <section class="pb-12">
+    <Container>
+      {page.data.length > 0 ? (
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {page.data.map((blogPostEntry, index) => (
+            <a
+              href={`/blog/${blogPostEntry.slug}`}
+              class="group bg-white/80 backdrop-blur-sm rounded-3xl overflow-hidden border border-gray-100 shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
+            >
+              <div class="aspect-[16/10] overflow-hidden">
+                <Picture
+                  src={blogPostEntry.data.image.src}
+                  alt={blogPostEntry.data.image.alt}
+                  sizes="(max-width: 800px) 100vw, 400px"
+                  width={400}
+                  height={250}
+                  loading={index <= 2 ? "eager" : "lazy"}
+                  decoding={index <= 2 ? "sync" : "async"}
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="inline-flex items-center gap-1 bg-brand-green/10 text-brand-green px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
+                    {blogPostEntry.data.category}
+                  </span>
+                </div>
+                <h2 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-green transition-colors line-clamp-2">
+                  {blogPostEntry.data.title}
+                </h2>
+                <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                  {blogPostEntry.data.snippet}
+                </p>
+                <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                  <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-brand-green to-emerald-500 rounded-full flex items-center justify-center">
+                      <Icon name="lucide:user" class="w-4 h-4 text-white" />
+                    </div>
+                    <span class="text-sm text-gray-600">{blogPostEntry.data.author}</span>
+                  </div>
+                  <time class="text-xs text-gray-400" datetime={blogPostEntry.data.publishDate.toISOString()}>
+                    {formatDate(blogPostEntry.data.publishDate)}
+                  </time>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-20">
+          <div class="w-24 h-24 mx-auto bg-gradient-to-br from-brand-green/10 to-emerald-100 rounded-full flex items-center justify-center mb-6">
+            <Icon name="lucide:file-text" class="w-12 h-12 text-brand-green/50" />
+          </div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-3">Coming Soon!</h2>
+          <p class="text-gray-600 max-w-md mx-auto">
+            We're working on some great pet care content for you. Check back soon for tips, guides, and advice on keeping your furry friends happy and healthy.
+          </p>
+        </div>
+      )}
+    </Container>
+  </section>
+
+  <!-- Pagination -->
+  {page.lastPage > 1 && (
+    <section class="pb-20 px-4">
+      <Container>
+        <div class="flex flex-wrap items-center justify-center gap-2 max-w-6xl mx-auto">
+          <!-- Previous Button -->
+          {page.url.prev ? (
+            <a
+              href={page.url.prev}
+              class="flex items-center gap-2 px-5 py-3 rounded-full bg-white border border-gray-200 text-gray-700 font-semibold hover:bg-gray-50 hover:border-brand-green hover:text-brand-green transition-all duration-300"
+            >
+              <Icon name="lucide:chevron-left" class="w-4 h-4" />
+              Previous
+            </a>
+          ) : (
+            <span class="flex items-center gap-2 px-5 py-3 rounded-full bg-gray-100 text-gray-400 font-semibold cursor-not-allowed">
+              <Icon name="lucide:chevron-left" class="w-4 h-4" />
+              Previous
+            </span>
+          )}
+
+          <!-- Page Numbers -->
+          <div class="flex items-center gap-1">
+            {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((pageNum) => (
+              <a
+                href={pageNum === 1 ? '/blog' : `/blog/${pageNum}`}
+                class={`w-10 h-10 flex items-center justify-center rounded-full font-semibold transition-all duration-300 ${
+                  pageNum === page.currentPage
+                    ? 'bg-brand-green text-white'
+                    : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-brand-green hover:text-brand-green'
+                }`}
+              >
+                {pageNum}
+              </a>
+            ))}
+          </div>
+
+          <!-- Next Button -->
+          {page.url.next ? (
+            <a
+              href={page.url.next}
+              class="flex items-center gap-2 px-5 py-3 rounded-full bg-brand-green text-white font-semibold hover:bg-emerald-600 hover:-translate-y-0.5 transition-all duration-300 shadow-lg shadow-brand-green/25"
+            >
+              Next
+              <Icon name="lucide:chevron-right" class="w-4 h-4" />
+            </a>
+          ) : (
+            <span class="flex items-center gap-2 px-5 py-3 rounded-full bg-gray-100 text-gray-400 font-semibold cursor-not-allowed">
+              Next
+              <Icon name="lucide:chevron-right" class="w-4 h-4" />
+            </span>
+          )}
+        </div>
+
+        <!-- Page Info -->
+        <p class="text-center text-gray-500 text-sm mt-4">
+          Page {page.currentPage} of {page.lastPage} • {page.total} articles
+        </p>
+      </Container>
+    </section>
+  )}
+</Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

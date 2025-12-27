@@ -1,0 +1,43 @@
+---
+interface Props {
+  variant?: "green" | "blue" | "cyan" | "outline";
+  size?: "sm" | "md" | "lg";
+  block?: boolean;
+  class?: string;
+  [x: string]: any;
+}
+
+const {
+  variant = "green",
+  size = "md",
+  block,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const sizes = {
+  sm: "px-4 py-2 text-sm",
+  md: "px-6 py-3 text-base",
+  lg: "px-8 py-4 text-lg",
+};
+
+const variants = {
+  green: "bg-brand-green text-white hover:bg-[#6b9447] shadow-md hover:shadow-lg",
+  blue: "bg-brand-blue text-white hover:bg-[#064a92] shadow-md hover:shadow-lg",
+  cyan: "bg-brand-cyan text-white hover:bg-[#027d79] shadow-md hover:shadow-lg",
+  outline: "border-2 border-brand-green text-brand-green hover:bg-brand-green hover:text-white",
+};
+---
+
+<button
+  {...rest}
+  class:list={[
+    "rounded-full font-semibold text-center transition-smooth focus-visible:ring-2 ring-offset-2 ring-brand-green hover:-translate-y-0.5",
+    block && "w-full",
+    sizes[size],
+    variants[variant],
+    className,
+  ]}
+>
+  <slot />
+</button>

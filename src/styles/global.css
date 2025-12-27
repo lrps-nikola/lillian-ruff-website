@@ -1,0 +1,154 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  /* Fonts */
+  --font-sans: Inter Variable, Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  
+  /* Brand Colors - Full Service/Groom */
+  --color-brand-green: #7ba650;
+  --color-brand-green-light: #f9fff7;
+  
+  /* Brand Colors - Bath & Brush */
+  --color-brand-blue: #0756ad;
+  --color-brand-blue-light: #f7f9ff;
+  
+  /* Brand Colors - Walk-ins/Add-ons */
+  --color-brand-cyan: #03938e;
+  --color-brand-cyan-light: #eafffe;
+  
+  /* Brand Colors - Shop/Retail */
+  --color-brand-red: #d40d3e;
+  --color-brand-red-light: #fff4f7;
+  
+  /* Gray Scale */
+  --color-gray-50: #F9FAFB;
+  --color-gray-100: #F3F4F6;
+  --color-gray-200: #E5E7EB;
+  --color-gray-300: #D1D5DB;
+  --color-gray-400: #9CA3AF;
+  --color-gray-500: #6B7280;
+  --color-gray-600: #4B5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1F2937;
+  --color-gray-900: #111827;
+}
+
+/* Border color compatibility */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Base transitions for smooth animations */
+@layer components {
+  .transition-smooth {
+    transition: all 200ms ease-in-out;
+  }
+
+  /* Glass Morphism Effects */
+  .glass-button {
+    @apply bg-white/15 backdrop-blur-md border border-white/30 shadow-lg;
+    @apply hover:bg-white/25 hover:border-white/50 hover:shadow-xl;
+    @apply transition-all duration-300;
+  }
+
+  .glass-frame {
+    @apply border border-white/30;
+  }
+
+  .glass-badge {
+    @apply backdrop-blur-sm border border-white/30 shadow-lg;
+  }
+
+  /* Shine Animation Effect */
+  .shine-effect {
+    @apply relative overflow-hidden;
+  }
+
+  .shine-effect::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent;
+    @apply transform -translate-x-full transition-transform duration-700;
+    @apply pointer-events-none;
+  }
+
+  .shine-effect:hover::before {
+    @apply translate-x-full;
+  }
+
+  /* Glow Effect */
+  .glow-effect {
+    @apply relative;
+  }
+
+  .glow-effect::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent;
+    @apply opacity-0 transition-opacity duration-700 pointer-events-none;
+  }
+
+  .glow-effect:hover::after {
+    @apply opacity-100;
+  }
+
+  /* Premium Card Hover Effects */
+  .premium-card-hover {
+    @apply transition-all duration-500;
+    @apply hover:-translate-y-2 hover:shadow-2xl;
+  }
+
+  .premium-card-hover-large {
+    @apply transition-all duration-500;
+    @apply hover:-translate-y-3 hover:shadow-2xl;
+  }
+
+  /* Icon Float Effects */
+  .icon-float {
+    @apply bg-white/25 backdrop-blur-sm rounded-full;
+    @apply group-hover:bg-white/35 transition-all duration-300;
+  }
+
+  /* Interactive Hint */
+  .interaction-hint {
+    @apply flex items-center gap-2 px-3 py-2 rounded-full;
+    @apply bg-black/50 backdrop-blur-sm text-white text-xs;
+    @apply opacity-0 group-hover:opacity-100 transition-opacity duration-300;
+  }
+}
+
+/* Floating Paws Background */
+.floating-paw {
+  position: fixed;
+  pointer-events: none;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+.floating-paw svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Different sizes */
+.paw-xs { width: 12px; height: 12px; }
+.paw-sm { width: 16px; height: 16px; }
+.paw-md { width: 20px; height: 20px; }
+.paw-lg { width: 24px; height: 24px; }
+
+/* Different colors */
+.paw-green svg path { fill: #7ba650; }
+.paw-blue svg path { fill: #0756ad; }
+.paw-cyan svg path { fill: #03938e; }
+.paw-sky svg path { fill: #0ea5e9; }
+.paw-emerald svg path { fill: #10b981; }

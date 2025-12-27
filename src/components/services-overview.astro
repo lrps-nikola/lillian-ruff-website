@@ -1,0 +1,442 @@
+---
+import { Icon } from "astro-icon/components";
+
+const services = [
+  {
+    title: "Spa Day for Dogs",
+    subtitle: "Grooming",
+    description: "Professional bath, brush, nail trim, and styling for your pup",
+    image: "/grooming.webp",
+    cta: "BOOK ONLINE",
+    ctaLink: "https://booking.moego.pet/ol/book?name=LillianRuffPetSpa",
+    icon: "lucide:scissors",
+    external: false,
+    particleColor: "blue",
+    gradient: "from-[#0756ad] to-[#0ea5e9]",
+    bgGradient: "from-[#0756ad]/90 via-[#0756ad]/70 to-transparent",
+    glowColor: "rgba(7, 86, 173, 0.6)",
+    number: "01"
+  },
+  {
+    title: "Bath & Groom",
+    subtitle: "Memberships",
+    description: "Automated scheduling and priority booking for regular grooming needs",
+    image: "/member123.webp",
+    cta: "BUY NOW",
+    ctaLink: "/memberships",
+    icon: "lucide:crown",
+    external: false,
+    particleColor: "green",
+    gradient: "from-[#7ba650] to-[#10b981]",
+    bgGradient: "from-[#7ba650]/90 via-[#7ba650]/70 to-transparent",
+    glowColor: "rgba(123, 166, 80, 0.6)",
+    number: "02"
+  },
+  {
+    title: "Coming Soon",
+    subtitle: "Daycare & Boarding",
+    description: "Safe, comfortable overnight care and daycare in East Northport",
+    image: "/boarding.webp",
+    cta: "READ MORE",
+    ctaLink: "/boarding",
+    icon: "lucide:home",
+    external: false,
+    particleColor: "sky",
+    gradient: "from-[#0ea5e9] to-[#06b6d4]",
+    bgGradient: "from-[#0ea5e9]/90 via-[#0ea5e9]/70 to-transparent",
+    glowColor: "rgba(14, 165, 233, 0.6)",
+    number: "03"
+  },
+  {
+    title: "Premium Products",
+    subtitle: "Lillian Ruff Collection",
+    description: "Professional-grade shampoos and grooming products for home use",
+    image: "/shop.webp",
+    cta: "SHOP NOW",
+    ctaLink: "/shop",
+    icon: "lucide:shopping-bag",
+    external: false,
+    particleColor: "emerald",
+    gradient: "from-[#10b981] to-[#14b8a6]",
+    bgGradient: "from-[#10b981]/90 via-[#10b981]/70 to-transparent",
+    glowColor: "rgba(16, 185, 129, 0.6)",
+    number: "04"
+  },
+];
+---
+
+<section class="py-6 md:py-10 px-5 relative overflow-hidden services-glass-section" style="margin-right: calc(-50vw + 50%); padding-right: calc(50vw - 50%); border-top-left-radius: 2.5rem; border-bottom-left-radius: 2.5rem;">
+
+  <!-- Animated background orbs -->
+  <div class="absolute top-20 left-20 w-64 h-64 bg-brand-green/10 rounded-full blur-3xl animate-orb-1"></div>
+  <div class="absolute bottom-20 right-40 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl animate-orb-2"></div>
+  <div class="absolute top-1/2 left-1/3 w-48 h-48 bg-brand-green/5 rounded-full blur-2xl animate-orb-3"></div>
+
+  <!-- Desktop Header -->
+  <div class="hidden lg:block relative z-20 mb-6">
+    <div class="flex items-end justify-between">
+      <div>
+        <!-- Eyebrow -->
+        <div class="flex items-center gap-3 mb-4">
+          <div class="h-px w-12 bg-gradient-to-r from-brand-green to-transparent"></div>
+          <span class="text-sm font-bold text-brand-green tracking-[0.2em] uppercase">Our Services</span>
+        </div>
+
+        <h2 class="text-5xl lg:text-7xl font-black text-gray-900 leading-[0.9] mb-4">
+          Complete Pet
+          <br />
+          <span class="services-gradient-text" id="servicesText">Care Services</span>
+        </h2>
+
+        <p class="text-gray-500 text-lg max-w-md leading-relaxed">
+          From grooming to boarding, we provide comprehensive care for your furry family members.
+        </p>
+      </div>
+
+      <!-- Stats pills -->
+      <div class="hidden xl:flex items-center gap-4">
+        <div class="bg-white/80 backdrop-blur-md rounded-2xl px-6 py-4 shadow-lg border border-white/50">
+          <div class="text-3xl font-black text-brand-green">500+</div>
+          <div class="text-xs text-gray-500 font-medium">Happy Pets Monthly</div>
+        </div>
+        <div class="bg-white/80 backdrop-blur-md rounded-2xl px-6 py-4 shadow-lg border border-white/50">
+          <div class="text-3xl font-black text-brand-blue">4.8</div>
+          <div class="text-xs text-gray-500 font-medium">Google Rating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Header -->
+  <div class="lg:hidden relative z-20 mb-8">
+    <div class="flex items-center gap-2 mb-3">
+      <div class="h-px w-8 bg-brand-green"></div>
+      <span class="text-xs font-bold text-brand-green tracking-widest uppercase">Our Services</span>
+    </div>
+    <h2 class="text-3xl font-black text-gray-900 leading-tight">
+      Complete Pet
+      <span class="text-brand-green"> Care</span>
+    </h2>
+  </div>
+
+  <!-- Desktop: Premium card grid -->
+  <div class="hidden lg:grid lg:grid-cols-4 gap-5 relative z-20" id="serviceCards">
+    {services.map((service, index) => (
+      <div
+        class="service-card group relative"
+        data-index={index}
+        data-color={service.particleColor}
+        data-glow={service.glowColor}
+        style={`--glow-color: ${service.glowColor}; animation-delay: ${index * 150}ms`}
+      >
+        <!-- Card -->
+        <div class="relative h-[480px] rounded-3xl overflow-hidden card-inner">
+          <!-- Background Image with parallax effect -->
+          <div class="absolute inset-0 scale-105 group-hover:scale-110 transition-transform duration-1000 ease-out">
+            <img
+              src={service.image}
+              alt={`${service.subtitle} - ${service.description}`}
+              loading="lazy"
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <!-- Multi-layer gradient overlay -->
+          <div class={`absolute inset-0 bg-gradient-to-t ${service.bgGradient}`}></div>
+          <div class="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-transparent opacity-60"></div>
+
+          <!-- Animated grain texture -->
+          <div class="absolute inset-0 opacity-[0.03] mix-blend-overlay noise-texture"></div>
+
+          <!-- Glow on hover -->
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 card-glow"></div>
+
+          <!-- Number watermark -->
+          <div class="absolute top-6 right-6 text-[120px] font-black leading-none text-white/[0.07] select-none pointer-events-none">
+            {service.number}
+          </div>
+
+          <!-- Icon -->
+          <div class="absolute top-6 left-6 z-10">
+            <div class={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-2xl transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
+              <Icon name={service.icon} class="w-7 h-7 text-white" />
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="absolute inset-x-0 bottom-0 p-6 z-10">
+            <!-- Category tag -->
+            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full mb-4 border border-white/20">
+              <div class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></div>
+              <span class="text-[11px] font-semibold text-white/90 uppercase tracking-wider">{service.title}</span>
+            </div>
+
+            <h3 class="text-2xl font-black text-white mb-2 leading-tight">{service.subtitle}</h3>
+            <p class="text-sm text-white/70 mb-6 leading-relaxed line-clamp-2">{service.description}</p>
+
+            <!-- CTA Button -->
+            <a
+              href={service.ctaLink}
+              class="group/btn relative inline-flex items-center gap-3 bg-white text-gray-900 pl-6 pr-4 py-3.5 rounded-full font-bold text-sm overflow-hidden transition-all duration-300 hover:pr-6 hover:shadow-2xl"
+              target={service.external ? "_blank" : undefined}
+            >
+              <span class="relative z-10">{service.cta}</span>
+              <div class={`w-8 h-8 rounded-full bg-gradient-to-r ${service.gradient} flex items-center justify-center transition-transform duration-300 group-hover/btn:translate-x-1`}>
+                <Icon name="lucide:arrow-right" class="w-4 h-4 text-white" />
+              </div>
+            </a>
+          </div>
+
+          <!-- Border glow effect -->
+          <div class="absolute inset-0 rounded-3xl border border-white/10 group-hover:border-white/30 transition-colors duration-500 pointer-events-none"></div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Mobile: Horizontal scroll cards -->
+  <div class="lg:hidden relative z-20 -mx-5">
+    <div class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 px-5 scrollbar-hide">
+      {services.map((service, index) => (
+        <div class="flex-shrink-0 w-[85vw] max-w-[320px] snap-center">
+          <div class="relative h-[380px] rounded-3xl overflow-hidden shadow-xl">
+            <!-- Background Image -->
+            <div class="absolute inset-0">
+              <img
+                src={service.image}
+                alt={service.title}
+                class={`w-full h-full object-cover ${index === 1 || index === 2 ? 'object-[center_30%]' : ''}`}
+              />
+            </div>
+
+            <!-- Gradient overlay -->
+            <div class={`absolute inset-0 bg-gradient-to-t ${service.bgGradient}`}></div>
+
+            <!-- Number -->
+            <div class="absolute top-4 right-4 text-[80px] font-black leading-none text-white/10 select-none">
+              {service.number}
+            </div>
+
+            <!-- Icon -->
+            <div class="absolute top-5 left-5">
+              <div class={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-xl`}>
+                <Icon name={service.icon} class="w-6 h-6 text-white" />
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="absolute inset-x-0 bottom-0 p-5">
+              <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full mb-3 border border-white/20">
+                <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+                <span class="text-[10px] font-semibold text-white/90 uppercase tracking-wider">{service.title}</span>
+              </div>
+
+              <h3 class="text-xl font-black text-white mb-2">{service.subtitle}</h3>
+              <p class="text-xs text-white/70 mb-4 line-clamp-2">{service.description}</p>
+
+              <a
+                href={service.ctaLink}
+                class="inline-flex items-center gap-2 bg-white text-gray-900 pl-5 pr-3 py-2.5 rounded-full font-bold text-xs"
+                target={service.external ? "_blank" : undefined}
+              >
+                <span>{service.cta}</span>
+                <div class={`w-6 h-6 rounded-full bg-gradient-to-r ${service.gradient} flex items-center justify-center`}>
+                  <Icon name="lucide:arrow-right" class="w-3 h-3 text-white" />
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="flex justify-center gap-2 mt-4">
+      {services.map((_, index) => (
+        <div class="w-2 h-2 rounded-full bg-brand-green/30 scroll-dot" data-index={index}></div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  // Desktop card hover - changes heading gradient
+  (function() {
+    const gradients = {
+      blue: 'linear-gradient(135deg, #0756ad 0%, #0ea5e9 100%)',
+      green: 'linear-gradient(135deg, #7ba650 0%, #10b981 100%)',
+      sky: 'linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%)',
+      emerald: 'linear-gradient(135deg, #10b981 0%, #14b8a6 100%)'
+    };
+
+    const defaultGradient = 'linear-gradient(135deg, #7ba650 0%, #10b981 100%)';
+
+    function initDesktopCardHover() {
+      if (window.innerWidth < 1024) return;
+
+      const cards = document.querySelectorAll('.service-card');
+      const servicesText = document.getElementById('servicesText');
+
+      if (!servicesText) return;
+
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          const colorName = card.getAttribute('data-color');
+          if (colorName && gradients[colorName]) {
+            servicesText.style.backgroundImage = gradients[colorName];
+          }
+        });
+
+        card.addEventListener('mouseleave', () => {
+          servicesText.style.backgroundImage = defaultGradient;
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', initDesktopCardHover);
+    window.addEventListener('resize', initDesktopCardHover);
+  })();
+
+  // Mobile scroll indicator
+  (function() {
+    const container = document.querySelector('.scrollbar-hide');
+    const dots = document.querySelectorAll('.scroll-dot');
+
+    if (!container || dots.length === 0) return;
+
+    function updateDots() {
+      const scrollLeft = container.scrollLeft;
+      const cardWidth = container.querySelector('div')?.offsetWidth || 300;
+      const activeIndex = Math.round(scrollLeft / (cardWidth + 16));
+
+      dots.forEach((dot, index) => {
+        if (index === activeIndex) {
+          dot.classList.remove('bg-brand-green/30');
+          dot.classList.add('bg-brand-green', 'w-6');
+        } else {
+          dot.classList.add('bg-brand-green/30');
+          dot.classList.remove('bg-brand-green', 'w-6');
+        }
+      });
+    }
+
+    container.addEventListener('scroll', updateDots);
+    updateDots();
+  })();
+</script>
+
+<style>
+  /* Glass section styling */
+  .services-glass-section {
+    position: relative;
+    z-index: 1;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-200 -200 912 912'%3E%3Cpath fill='%23ffffff' fill-opacity='0.6' d='M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z'/%3E%3C/svg%3E"),
+      linear-gradient(180deg, #e8f5e0 0%, #dff0d8 50%, #e8f5e0 100%);
+    background-size: 70px 70px, 100% 100%;
+    box-shadow:
+      0 0 100px rgba(123, 166, 80, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border-top: 1px solid rgba(123, 166, 80, 0.15);
+    border-bottom: 1px solid rgba(123, 166, 80, 0.15);
+    border-left: 1px solid rgba(123, 166, 80, 0.15);
+  }
+
+  /* Gradient text for heading */
+  .services-gradient-text {
+    background: linear-gradient(135deg, #7ba650 0%, #10b981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: background-image 0.5s ease;
+  }
+
+  /* Card styling */
+  .service-card {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: cardReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .card-inner {
+    box-shadow:
+      0 25px 50px -12px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+  }
+
+  .service-card:hover .card-inner {
+    transform: translateY(-8px);
+    box-shadow:
+      0 35px 60px -15px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(255, 255, 255, 0.2),
+      0 0 40px var(--glow-color, rgba(123, 166, 80, 0.3));
+  }
+
+  .card-glow {
+    background: radial-gradient(circle at 50% 100%, var(--glow-color, rgba(123, 166, 80, 0.3)) 0%, transparent 70%);
+  }
+
+  /* Noise texture */
+  .noise-texture {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
+  /* Animations */
+  @keyframes cardReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes orb-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -30px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+  }
+
+  @keyframes orb-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-40px, 20px) scale(1.15); }
+    66% { transform: translate(20px, -30px) scale(0.95); }
+  }
+
+  @keyframes orb-3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(25px, 25px) scale(1.1); }
+  }
+
+  .animate-orb-1 { animation: orb-1 20s ease-in-out infinite; }
+  .animate-orb-2 { animation: orb-2 25s ease-in-out infinite; }
+  .animate-orb-3 { animation: orb-3 15s ease-in-out infinite; }
+
+  /* Scrollbar hide */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Line clamp */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Scroll dot transition */
+  .scroll-dot {
+    transition: all 0.3s ease;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 1023px) {
+    .services-glass-section {
+      background-size: 50px 50px, 100% 100%;
+    }
+  }
+</style>

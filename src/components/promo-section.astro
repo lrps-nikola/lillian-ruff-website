@@ -1,0 +1,232 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<section class="py-12 md:py-16 mx-4 md:mx-8 lg:mx-16 my-8 md:my-12 rounded-3xl promo-glass-section overflow-hidden relative">
+  <!-- Animated decorative elements -->
+  <div class="absolute top-6 right-6 md:top-10 md:right-10 animate-float-slow">
+    <div class="relative">
+      <div class="absolute inset-0 bg-brand-green/20 rounded-full blur-xl scale-150"></div>
+      <Icon name="lucide:sparkles" class="w-10 h-10 md:w-14 md:h-14 text-brand-green/40 relative z-10" />
+    </div>
+  </div>
+  <div class="absolute bottom-6 left-6 md:bottom-10 md:left-10 animate-float-delayed">
+    <div class="relative">
+      <div class="absolute inset-0 bg-brand-green/20 rounded-full blur-xl scale-150"></div>
+      <Icon name="lucide:heart" class="w-8 h-8 md:w-12 md:h-12 text-brand-green/40 relative z-10" />
+    </div>
+  </div>
+  <div class="absolute top-1/2 left-1/4 -translate-y-1/2 hidden lg:block animate-pulse-slow">
+    <Icon name="lucide:leaf" class="w-6 h-6 text-brand-green/20" />
+  </div>
+  <div class="absolute bottom-1/4 right-1/4 hidden lg:block animate-float-slow">
+    <Icon name="lucide:star" class="w-5 h-5 text-brand-green/25" />
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+      <!-- Image with glow effect -->
+      <div class="relative order-1 md:order-1 group">
+        <!-- Glow behind image -->
+        <div class="absolute inset-0 bg-gradient-to-br from-brand-green/30 via-emerald-400/20 to-brand-green/30 rounded-3xl blur-2xl scale-95 opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+
+        <!-- Image container -->
+        <div class="relative z-10">
+          <img
+            src="/promo-products.webp"
+            alt="Lillian Ruff Premium Products"
+            class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out drop-shadow-2xl"
+          />
+        </div>
+
+        <!-- Floating badge on image -->
+        <div class="absolute -bottom-3 -right-3 md:bottom-4 md:right-4 z-20 bg-white rounded-2xl px-4 py-2 shadow-xl border border-brand-green/10 animate-bounce-subtle">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-gradient-to-br from-brand-green to-emerald-500 rounded-full flex items-center justify-center">
+              <Icon name="lucide:check" class="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <p class="text-xs font-bold text-gray-900">100% Natural</p>
+              <p class="text-[10px] text-gray-500">Vet Approved</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="text-gray-800 order-2 md:order-2 relative z-10">
+        <!-- Badge with shine effect - Desktop only -->
+        <div class="hidden md:inline-flex items-center gap-2 bg-gradient-to-r from-white/90 to-white/70 backdrop-blur-md px-5 py-2.5 rounded-full mb-5 shadow-lg border border-white/50 shine-badge overflow-hidden">
+          <div class="w-6 h-6 bg-gradient-to-br from-brand-green to-emerald-500 rounded-full flex items-center justify-center">
+            <Icon name="lucide:award" class="w-3.5 h-3.5 text-white" />
+          </div>
+          <span class="text-sm font-bold text-brand-green tracking-wide">Professional Grade</span>
+        </div>
+
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-5 leading-tight">
+          <span class="text-gray-900">Premium</span>
+          <span class="bg-gradient-to-r from-brand-green via-emerald-500 to-brand-green bg-clip-text text-transparent"> Lillian Ruff</span>
+          <br class="hidden sm:block" />
+          <span class="text-gray-900">Products</span>
+        </h2>
+
+        <p class="text-base md:text-lg text-gray-600 mb-8 leading-relaxed max-w-lg">
+          Our extensive selection includes professional shampoos, conditioners, and grooming essentials to keep your pup looking and feeling their best between spa visits.
+        </p>
+
+        <!-- Feature cards instead of pills -->
+        <div class="grid grid-cols-3 gap-3 mb-8">
+          <div class="feature-card group/card bg-white/80 backdrop-blur-sm rounded-2xl p-4 text-center shadow-lg border border-white/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-default">
+            <div class="w-10 h-10 mx-auto mb-2 bg-gradient-to-br from-brand-blue/20 to-brand-blue/10 rounded-xl flex items-center justify-center group-hover/card:scale-110 transition-transform duration-300">
+              <Icon name="lucide:droplets" class="w-5 h-5 text-brand-blue" />
+            </div>
+            <span class="text-xs md:text-sm font-semibold text-gray-700">Shampoos</span>
+          </div>
+          <div class="feature-card group/card bg-white/80 backdrop-blur-sm rounded-2xl p-4 text-center shadow-lg border border-white/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-default">
+            <div class="w-10 h-10 mx-auto mb-2 bg-gradient-to-br from-brand-green/20 to-brand-green/10 rounded-xl flex items-center justify-center group-hover/card:scale-110 transition-transform duration-300">
+              <Icon name="lucide:sparkles" class="w-5 h-5 text-brand-green" />
+            </div>
+            <span class="text-xs md:text-sm font-semibold text-gray-700">Conditioners</span>
+          </div>
+          <div class="feature-card group/card bg-white/80 backdrop-blur-sm rounded-2xl p-4 text-center shadow-lg border border-white/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-default">
+            <div class="w-10 h-10 mx-auto mb-2 bg-gradient-to-br from-pink-500/20 to-pink-500/10 rounded-xl flex items-center justify-center group-hover/card:scale-110 transition-transform duration-300">
+              <Icon name="lucide:heart" class="w-5 h-5 text-pink-500" />
+            </div>
+            <span class="text-xs md:text-sm font-semibold text-gray-700">Oral Care</span>
+          </div>
+        </div>
+
+        <!-- CTA Button with enhanced styling -->
+        <a
+          href="/shop"
+          class="group inline-flex items-center gap-3 bg-gradient-to-r from-brand-green via-emerald-500 to-brand-green bg-[length:200%_100%] text-white px-8 py-4 rounded-full font-bold text-base shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 hover:bg-right cta-button relative overflow-hidden"
+        >
+          <span class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/25 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700"></span>
+          <Icon name="lucide:shopping-bag" class="w-5 h-5 relative z-10" />
+          <span class="relative z-10">Shop Now</span>
+          <Icon name="lucide:arrow-right" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 relative z-10" />
+        </a>
+
+        <!-- Trust indicators -->
+        <div class="flex items-center gap-6 mt-8 pt-6 border-t border-brand-green/10">
+          <div class="flex items-center gap-2">
+            <Icon name="lucide:truck" class="w-4 h-4 text-brand-green" />
+            <span class="text-xs text-gray-500">Free Local Pickup</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <Icon name="lucide:shield-check" class="w-4 h-4 text-brand-green" />
+            <span class="text-xs text-gray-500">Quality Guaranteed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .promo-glass-section {
+    position: relative;
+    z-index: 1;
+    background:
+      /* Paw prints pattern overlay */
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-200 -200 912 912'%3E%3Cpath fill='%23ffffff' fill-opacity='0.5' d='M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z'/%3E%3C/svg%3E"),
+      /* Subtle gradient */
+      linear-gradient(135deg, rgba(232, 245, 224, 0.9) 0%, rgba(220, 240, 210, 0.95) 50%, rgba(232, 245, 224, 0.9) 100%);
+    background-color: #e8f5e0;
+    background-size: 60px 60px, 100% 100%;
+    box-shadow:
+      0 0 80px rgba(123, 166, 80, 0.2),
+      0 25px 50px -12px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(123, 166, 80, 0.2);
+  }
+
+  /* Floating animations */
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+  }
+
+  @keyframes float-delayed {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(-5deg); }
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.1); }
+  }
+
+  @keyframes bounce-subtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  @keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .animate-float-slow {
+    animation: float-slow 6s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float-delayed 7s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+
+  .animate-bounce-subtle {
+    animation: bounce-subtle 3s ease-in-out infinite;
+  }
+
+  /* Shine effect on badge */
+  .shine-badge::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shine 3s ease-in-out infinite;
+  }
+
+  /* CTA button gradient animation */
+  .cta-button {
+    background-position: left center;
+  }
+  .cta-button:hover {
+    background-position: right center;
+  }
+
+  /* Feature cards hover effect */
+  .feature-card {
+    position: relative;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Mobile responsive adjustments */
+  @media (max-width: 767px) {
+    .promo-glass-section {
+      background-size: 40px 40px, 100% 100%;
+    }
+  }
+</style>

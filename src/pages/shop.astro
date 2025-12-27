@@ -1,0 +1,1511 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import { Icon } from "astro-icon/components";
+
+// Square credentials from environment variables
+const squareAppId = import.meta.env.PUBLIC_SQUARE_APPLICATION_ID;
+const squareLocationId = import.meta.env.PUBLIC_SQUARE_LOCATION_ID;
+
+// Product data organized by category
+const categories = [
+  {
+    id: "all",
+    name: "All Products",
+    icon: "lucide:grid-3x3",
+    description: "Browse our complete collection"
+  },
+  {
+    id: "shampoos",
+    name: "Shampoos",
+    icon: "lucide:droplets",
+    description: "Premium formulas for every coat type"
+  },
+  {
+    id: "conditioners",
+    name: "Conditioners",
+    icon: "lucide:sparkles",
+    description: "Silky smooth, tangle-free coats"
+  },
+  {
+    id: "sets",
+    name: "Bundles & Sets",
+    icon: "lucide:gift",
+    description: "Complete grooming bundles"
+  },
+  {
+    id: "oral-ear",
+    name: "Oral & Ear Care",
+    icon: "lucide:heart",
+    description: "Fresh breath & clean ears"
+  },
+  {
+    id: "travel",
+    name: "Travel Size",
+    icon: "lucide:plane",
+    description: "Perfect for on-the-go"
+  },
+  {
+    id: "accessories",
+    name: "Accessories",
+    icon: "lucide:shopping-bag",
+    description: "Grooming tools & extras"
+  }
+];
+
+const products = [
+  // Shampoos
+  { id: 1, name: "Berry Blue Brightening Face & Body Wash", price: 19.95, image: "/images/products/berry-blue-brightening-wash.webp", badge: "Best Seller", category: "shampoos", rating: 5, reviews: 342, size: "16 oz", description: "The specially designed blueberry-infused formula safely and gently removes stain-causing particles from the fur around your dog's eyes while restoring even the whitest coat colors. Crafted with natural essential oils, it safely eliminates yellowing, stains & dingy fur to bring out your pet's natural bright coat. pH-balanced, sulfate-free, paraben-free, and proudly made in the USA.", features: ["Brightens white & light coats", "Tearless formula", "Removes tear stains", "pH balanced"], ingredients: "Water, Alpha Olefin Sulfonate, Coco-Glucoside, Cocamidopropyl Betaine, Panthenol, Blueberry Fruit Extract" },
+  { id: 2, name: "Oatmeal Shampoo", price: 19.95, image: "/images/products/oatmeal-shampoo.webp", badge: "Sensitive Skin", category: "shampoos", rating: 5, reviews: 256, size: "16 oz", description: "Soothe and cleanse normal and sensitive skin with this gentle oatmeal formula. Made with premium colloidal oatmeal to relieve dry, itchy skin while moisturizing and conditioning your pet's coat. Calming lavender scent leaves your pet smelling fresh. Gluten-free, paraben-free, sulfate-free, and vegan.", features: ["Relieves itchy skin", "Moisturizes dry coats", "Hypoallergenic", "Calming lavender scent"], ingredients: "Purified Water, Colloidal Oatmeal, Coconut Oil, Lavender Extract, Vitamin E, Aloe Vera" },
+  { id: 3, name: "Brightening & Whitening Shampoo", price: 19.95, image: "/images/products/brightening-whitening-shampoo.webp", badge: "", category: "shampoos", rating: 5, reviews: 189, size: "16 oz", description: "Professional-strength whitening shampoo with coconut-infused formula that safely brightens all coat colors, especially white. Removes stains and yellowing without harsh bleaches or chemicals. Conditions and hydrates while leaving a fresh coconut scent. Safe for regular use on all breeds.", features: ["Removes tough stains", "Brightens white coats", "No harsh chemicals", "Coconut scent"], ingredients: "Purified Water, Optical Brighteners, Coconut Surfactants, Vitamin E, Silk Proteins, Aloe" },
+  { id: 4, name: "Ultra Concentrated Shampoo", price: 19.95, image: "/images/products/ultra-concentrated-shampoo.webp", badge: "Pro Grade", category: "shampoos", rating: 5, reviews: 178, size: "16 oz", description: "Professional-grade concentrated formula designed for groomers and multi-pet households. Dilutes up to 15:1 for economical use - one bottle makes up to 15 bottles of regular shampoo. Deep cleaning formula removes dirt and odors while being gentle on skin and coat.", features: ["15:1 dilution ratio", "Professional grade", "Economical", "Deep cleaning"], ingredients: "Purified Water, Concentrated Coconut Surfactants, Vitamin E, Aloe Vera, Natural Fragrance" },
+  { id: 5, name: "Flea and Tick Shampoo", price: 19.95, image: "/images/products/flea-tick-shampoo.webp", badge: "", category: "shampoos", rating: 5, reviews: 145, size: "16 oz", description: "Natural flea and tick repellent shampoo formulated with essential oils including peppermint, cedarwood, and lemongrass. Kills fleas and ticks on contact while leaving your pet smelling fresh and clean. Safe for regular use and gentle on sensitive skin.", features: ["Kills fleas on contact", "Natural essential oils", "Repels ticks", "Fresh scent"], ingredients: "Purified Water, Peppermint Oil, Cedarwood Oil, Lemongrass Oil, Coconut Surfactants" },
+  { id: 6, name: "Activated Charcoal Shampoo", price: 19.95, image: "/images/products/activated-charcoal-shampoo.webp", badge: "New", category: "shampoos", rating: 5, reviews: 67, size: "16 oz", description: "Odor-neutralizing deep cleanser with activated charcoal that absorbs impurities, toxins, grease, and dirt while remaining gentle and pH-balanced. Neutralizes difficult odors like skunk spray, urine, and sweat. Acts as a stain remover for both light and dark coats. Infused with refreshing Lemon Sage scent. Gluten-free, paraben-free, sulfate-free, dye-free, and vegan.", features: ["Deep detoxifying", "Removes odors", "Purifies coat", "Lemon sage scent"], ingredients: "Purified Water, Activated Charcoal, Coconut Surfactants, Aloe Vera, Lemon Extract, Sage" },
+  { id: 7, name: "Shed Control De-Shedding Shampoo", price: 19.95, image: "/images/products/shed-control-shampoo.webp", badge: "New", category: "shampoos", rating: 5, reviews: 89, size: "16 oz", description: "Powerful concentrated 15:1 formula that reduces shedding and promotes healthy coat growth. Enriched with omega fatty acids and natural oils to strengthen hair follicles and prevent breakage. Leaves coat soft, shiny, and manageable while reducing loose fur.", features: ["Reduces shedding", "Omega fatty acids", "Strengthens coat", "15:1 concentration"], ingredients: "Purified Water, Omega-3 & 6 Fatty Acids, Flaxseed Oil, Vitamin E, Biotin" },
+  { id: 8, name: "Sandalwood Amber Oatmeal Shampoo", price: 19.95, image: "/images/products/sandalwood-amber-oatmeal-shampoo.webp", badge: "New", category: "shampoos", rating: 5, reviews: 54, size: "16 oz", description: "Luxurious oatmeal shampoo with a sophisticated sandalwood and amber fragrance. Premium colloidal oatmeal soothes and moisturizes while the warm, rich scent lingers for days. Perfect for pets with sensitive skin who deserve a spa-like experience.", features: ["Luxury scent", "Moisturizing oatmeal", "Long-lasting fragrance", "Sensitive skin safe"], ingredients: "Purified Water, Colloidal Oatmeal, Sandalwood Extract, Amber, Coconut Oil" },
+  { id: 9, name: "HypoCare+ Hypoallergenic Shampoo", price: 20.95, image: "/images/products/hypocare-shampoo.webp", badge: "Hypoallergenic", category: "shampoos", rating: 5, reviews: 203, size: "16 oz", description: "Clinically tested hypoallergenic formula for pets with allergies and extremely sensitive skin. Completely fragrance-free and dye-free for maximum gentleness. Vet-recommended for dogs with skin conditions. Soothes irritation while gently cleansing without stripping natural oils.", features: ["Fragrance-free", "Dye-free", "Vet recommended", "Clinically tested"], ingredients: "Purified Water, Gentle Plant Surfactants, Aloe Vera, Vitamin E, Chamomile Extract" },
+  { id: 10, name: "Waterless Shampoo - Lavender Coconut", price: 19.95, image: "/images/products/waterless-lavender-coconut.webp", badge: "", category: "shampoos", rating: 5, reviews: 134, size: "8 oz", description: "No-rinse waterless shampoo for quick clean-ups between baths. Simply spray, massage into coat, and towel dry. Calming lavender and coconut scent leaves your pet smelling fresh. Perfect for spot cleaning, freshening up, or when bath time isn't possible.", features: ["No water needed", "Quick clean-up", "Lavender coconut scent", "Conditions coat"], ingredients: "Purified Water, Coconut Extract, Lavender Oil, Aloe Vera, Vitamin E" },
+  { id: 11, name: "Waterless Shampoo - Citrus", price: 19.95, image: "/images/products/waterless-citrus.webp", badge: "", category: "shampoos", rating: 5, reviews: 98, size: "8 oz", description: "Refreshing citrus-scented waterless shampoo that cleans and deodorizes without water. The bright, energizing scent of orange and lemon freshens your pet anytime, anywhere. Great for travel, between baths, or quick touch-ups.", features: ["No water needed", "Fresh citrus scent", "Deodorizes", "Portable"], ingredients: "Purified Water, Orange Extract, Lemon Oil, Aloe Vera, Vitamin E" },
+  { id: 12, name: "Waterless Shampoo - Blueberry", price: 19.95, image: "/images/products/waterless-blueberry.webp", badge: "", category: "shampoos", rating: 5, reviews: 112, size: "8 oz", description: "Sweet blueberry-scented waterless shampoo that cleans and conditions without water. Same brightening benefits as our Berry Blue line in a convenient no-rinse formula. Perfect for travel or freshening up between baths.", features: ["No water needed", "Blueberry scent", "Travel-friendly", "Gentle formula"], ingredients: "Purified Water, Blueberry Extract, Aloe Vera, Vitamin E, Silk Proteins" },
+
+  // Conditioners
+  { id: 13, name: "Berry Blue Brightening Face & Body Conditioner", price: 19.95, image: "/images/products/berry-blue-conditioner.webp", badge: "Best Seller", category: "conditioners", rating: 5, reviews: 287, size: "16 oz", description: "The perfect companion to our Berry Blue Shampoo. This blueberry-infused conditioner restores luster, detangles, and softens all coat types while adding brilliant shine. Helps maintain bright, white coats and leaves a fresh blueberry scent.", features: ["Detangles instantly", "Adds shine", "Softens coat", "Blueberry scent"], ingredients: "Purified Water, Blueberry Extract, Silk Proteins, Vitamin E, Coconut Oil" },
+  { id: 14, name: "Oatmeal Conditioner", price: 19.95, image: "/images/products/oatmeal-conditioner.webp", badge: "Sensitive Skin", category: "conditioners", rating: 5, reviews: 198, size: "16 oz", description: "Restore smoothness and luster with this deeply moisturizing oatmeal conditioner. Premium colloidal oatmeal soothes irritated skin while shea butter and aloe vera leave coats silky smooth. Pairs perfectly with our Oatmeal Shampoo for complete sensitive skin care.", features: ["Deep moisture", "Soothes skin", "Silky finish", "Hypoallergenic"], ingredients: "Purified Water, Colloidal Oatmeal, Shea Butter, Aloe Vera, Vitamin E" },
+  { id: 15, name: "Leave in Conditioner & Detangler Spray", price: 16.95, image: "/images/products/leave-in-conditioner-detangler.webp", badge: "", category: "conditioners", rating: 5, reviews: 234, size: "8 oz", description: "Professional leave-in conditioner and detangler spray that eliminates tangles and mats instantly. Simply spray on damp or dry coat and brush through. Adds shine, reduces static, and prevents future matting. Essential for long-haired breeds.", features: ["Leave-in formula", "Instant detangling", "Prevents mats", "Adds shine"], ingredients: "Purified Water, Silk Proteins, Vitamin E, Aloe Vera, Jojoba Oil" },
+  { id: 16, name: "Sandalwood Coconut Oatmeal Conditioner", price: 19.95, image: "/images/products/sandalwood-coconut-conditioner.webp", badge: "New", category: "conditioners", rating: 5, reviews: 45, size: "16 oz", description: "Luxurious conditioner with calming sandalwood and coconut. Pairs perfectly with our Sandalwood Amber Oatmeal Shampoo for a complete spa experience. Deep conditioning oatmeal formula with a warm, sophisticated fragrance that lasts.", features: ["Luxury fragrance", "Deep conditioning", "Moisturizing", "Long-lasting scent"], ingredients: "Purified Water, Colloidal Oatmeal, Coconut Oil, Sandalwood Extract, Shea Butter" },
+
+  // Sets
+  { id: 17, name: "New Puppy Starter Pack", price: 69.99, image: "/images/products/new-puppy-starter-pack.webp", badge: "Best Value", category: "sets", rating: 5, reviews: 156, size: "Complete Kit", description: "Everything you need for your new puppy! This complete grooming kit includes shampoo, conditioner, detangler spray, ear cleaner, and brush. The perfect welcome gift for new pet parents. Save over $20 compared to buying separately.", features: ["5 essential products", "Perfect for puppies", "Great gift", "Save $20+"], ingredients: "See individual products" },
+  { id: 18, name: "Berry Blue Brilliance Bundle", price: 49.95, image: "/images/products/berry-blue-brilliance-bundle.webp", badge: "Popular", category: "sets", rating: 5, reviews: 234, size: "3-Piece Set", description: "Our complete Berry Blue collection featuring our best-selling Shampoo, Conditioner, and Leave-in Detangler Spray. The ultimate brightening system for maintaining a brilliant, white coat. Save 20% vs buying separately.", features: ["Complete system", "Best seller combo", "Save 20%", "Gift ready"], ingredients: "See individual products" },
+  { id: 19, name: "Berry Blue Shampoo & Conditioner Set", price: 38.95, image: "/images/products/berry-blue-shampoo-conditioner-set.webp", badge: "", category: "sets", rating: 5, reviews: 312, size: "2-Piece Set", description: "The dynamic duo! Berry Blue Brightening Shampoo and Conditioner together for the complete brightening experience. Perfect for all coat types, especially white and light-colored fur.", features: ["Shampoo + Conditioner", "Brightening system", "Value pack", "All coat types"], ingredients: "See individual products" },
+  { id: 20, name: "Oatmeal Shampoo & Conditioner Set", price: 38.95, image: "/images/products/oatmeal-shampoo-conditioner-set.webp", badge: "", category: "sets", rating: 5, reviews: 189, size: "2-Piece Set", description: "Complete sensitive skin care set with our gentle Oatmeal Shampoo and deeply moisturizing Oatmeal Conditioner. Perfect for pets with allergies, dry skin, or itching. Gentle enough for frequent use.", features: ["Sensitive skin safe", "Complete care", "Soothing formula", "Value pack"], ingredients: "See individual products" },
+  { id: 21, name: "The Gentle & Calming Set", price: 44.95, image: "/images/products/gentle-calming-set.webp", badge: "Sensitive Skin", category: "sets", rating: 5, reviews: 145, size: "3-Piece Set", description: "Our most gentle collection for pets with allergies or sensitive skin. Includes HypoCare+ Hypoallergenic Shampoo, Oatmeal Conditioner, and calming spray. Vet-recommended for dogs with skin conditions.", features: ["Hypoallergenic", "Vet recommended", "Calming formula", "Complete care"], ingredients: "See individual products" },
+  { id: 22, name: "Brightening Shampoo & Detangler Set", price: 35.95, image: "/images/products/brightening-shampoo-detangler-set.webp", badge: "", category: "sets", rating: 5, reviews: 167, size: "2-Piece Set", description: "Brighten and detangle with this perfect pair. Brightening & Whitening Shampoo plus Leave-in Detangler Spray. Great for white and light-colored coats that need extra shine and manageability.", features: ["Whitening power", "Easy detangling", "Light coats", "Value bundle"], ingredients: "See individual products" },
+  { id: 23, name: "Jet Set Pet Travel Kit", price: 16.99, image: "/images/products/jet-set-travel-kit.webp", badge: "", category: "sets", rating: 5, reviews: 98, size: "Travel Kit", description: "TSA-approved travel sizes of our most popular products in a convenient waterproof bag. Perfect for vacations, road trips, boarding, or keeping in your car. Includes 5 mini essentials.", features: ["TSA approved", "5 travel sizes", "Waterproof bag", "Perfect for trips"], ingredients: "See individual products" },
+  { id: 24, name: "Premium Sample Set", price: 18.95, image: "/images/products/premium-sample-set.webp", badge: "", category: "sets", rating: 5, reviews: 256, size: "Sample Kit", description: "Try before you buy! Sample sizes of 6 of our most popular products so you can find your pet's favorites. Makes a great gift for new pet parents or for discovering what works best for your furry friend.", features: ["6 sample sizes", "Try before you buy", "Great gift", "Discover favorites"], ingredients: "See individual products" },
+
+  // Oral & Ear Care
+  { id: 25, name: "Breath Spray", price: 16.95, image: "/images/products/breath-spray.webp", badge: "Fresh Breath", category: "oral-ear", rating: 5, reviews: 178, size: "4 oz", description: "Instant fresh breath for your pet! Natural mint formula with peppermint and spearmint kills odor-causing bacteria and promotes healthy gums. Simply spray directly into mouth or onto food. Safe for daily use.", features: ["Instant fresh breath", "Kills bacteria", "Healthy gums", "Easy to use"], ingredients: "Purified Water, Peppermint Oil, Spearmint Extract, Chlorophyll, Zinc" },
+  { id: 26, name: "Ear Cleaner and Otic Wax Solvent", price: 13.95, image: "/images/products/ear-cleaner.webp", badge: "", category: "oral-ear", rating: 5, reviews: 234, size: "8 oz", description: "Gentle yet effective ear cleaner that dissolves wax and debris while helping prevent ear infections. Vet-recommended formula with aloe vera and witch hazel soothes irritation. Safe for regular maintenance cleaning.", features: ["Dissolves wax", "Prevents infections", "Vet recommended", "Gentle formula"], ingredients: "Purified Water, Salicylic Acid, Aloe Vera, Tea Tree Oil, Witch Hazel" },
+
+  // Travel
+  { id: 27, name: "Premium Sample Set", price: 18.95, image: "/images/products/premium-sample-set.webp", badge: "", category: "travel", rating: 5, reviews: 256, size: "Sample Kit", description: "Try before you buy! Sample sizes of 6 of our most popular products. Perfect for travel or discovering your pet's favorites.", features: ["6 sample sizes", "Try before you buy", "Great gift", "Discover favorites"], ingredients: "See individual products" },
+  { id: 28, name: "Berry Blue Brilliance Travel Set", price: 10.95, image: "/images/products/berry-blue-travel-set.webp", badge: "", category: "travel", rating: 5, reviews: 145, size: "Travel Set", description: "Mini versions of our best-selling Berry Blue Shampoo and Conditioner. TSA-approved sizes perfect for weekend trips, boarding, or keeping in your bag.", features: ["TSA approved", "Shampoo + Conditioner", "Weekend ready", "Portable"], ingredients: "See individual products" },
+  { id: 29, name: "RUFF Premium Lunchbox Travel Set", price: 25.99, image: "/images/products/ruff-lunchbox-travel-set.webp", badge: "New", category: "travel", rating: 5, reviews: 34, size: "Lunchbox Kit", description: "Adorable retro-style lunchbox filled with travel-sized grooming essentials. Includes 5 mini products in a reusable collectible case. Makes a perfect gift for any pet lover!", features: ["Cute lunchbox case", "5 travel products", "Reusable case", "Gift ready"], ingredients: "See individual products" },
+  { id: 30, name: "Leave-in Conditioner/Detangler Travel", price: 3.95, image: "/images/products/leave-in-conditioner-travel.webp", badge: "", category: "travel", rating: 5, reviews: 89, size: "2 oz", description: "Travel-sized leave-in conditioner for on-the-go detangling. TSA-approved, pocket-sized, and essential for keeping coats tangle-free while traveling.", features: ["TSA approved", "Instant detangling", "Pocket sized", "Essential travel item"], ingredients: "See full-size product" },
+  { id: 31, name: "Berry Blue Brightening Wash Travel", price: 3.95, image: "/images/products/berry-blue-wash-travel.webp", badge: "", category: "travel", rating: 5, reviews: 123, size: "2 oz", description: "Our best-selling Berry Blue Brightening Shampoo in a convenient TSA-approved travel size. Never leave home without it!", features: ["Best seller mini", "TSA approved", "Brightening", "Convenient"], ingredients: "See full-size product" },
+  { id: 32, name: "Oatmeal Shampoo Travel", price: 3.95, image: "/images/products/oatmeal-shampoo-travel.webp", badge: "", category: "travel", rating: 5, reviews: 78, size: "2 oz", description: "Gentle oatmeal shampoo for sensitive pets in a TSA-approved travel size. Perfect for pets who need sensitive skin care on the go.", features: ["Sensitive skin", "TSA approved", "Soothing", "Travel ready"], ingredients: "See full-size product" },
+  { id: 33, name: "Brightening Shampoo Travel", price: 3.95, image: "/images/products/brightening-shampoo-travel.webp", badge: "", category: "travel", rating: 5, reviews: 67, size: "2 oz", description: "Whitening shampoo for light coats in a handy TSA-approved travel size. Keep your pet's coat bright even when away from home.", features: ["Whitening", "TSA approved", "Light coats", "Mini size"], ingredients: "See full-size product" },
+  { id: 34, name: "Flea & Tick Travel", price: 3.95, image: "/images/products/flea-tick-travel.webp", badge: "", category: "travel", rating: 5, reviews: 56, size: "2 oz", description: "Protection on the go! TSA-approved travel-sized flea and tick shampoo. Essential for camping, hiking, or any outdoor adventure with your pet.", features: ["Flea protection", "TSA approved", "Outdoor ready", "Essential"], ingredients: "See full-size product" },
+
+  // Accessories
+  { id: 35, name: "Premium Lunchbox With Samples", price: 25.99, image: "/images/products/premium-lunchbox-samples.webp", badge: "Great Gift", category: "accessories", rating: 5, reviews: 189, size: "Gift Set", description: "Adorable retro-style collectible lunchbox filled with 6 sample-sized products. The perfect gift for any pet parent! Reusable container makes a cute storage solution long after the samples are gone.", features: ["Collectible lunchbox", "6 sample products", "Reusable container", "Gift wrapped"], ingredients: "N/A" },
+  { id: 36, name: "Pet Bath Brush Set of 2", price: 12.99, image: "/images/products/pet-bath-brush-set.webp", badge: "", category: "accessories", rating: 5, reviews: 234, size: "2-Pack", description: "Silicone bath brushes that massage shampoo deep into the coat while providing a relaxing spa experience for your pet. Soft bristles are gentle on skin yet effective at removing dirt. Easy to clean and long-lasting.", features: ["Silicone bristles", "Massage action", "Easy to clean", "2-pack value"], ingredients: "N/A" },
+  { id: 37, name: "Waste Bag Dispenser 3pc Set", price: 10.99, image: "/images/products/waste-bag-dispenser-3pc.webp", badge: "", category: "accessories", rating: 5, reviews: 156, size: "3-Piece", description: "Stylish waste bag dispensers in a 3-pack with 45 eco-friendly bags included. Easily clips to any leash for convenient access. Never be caught without bags again!", features: ["3 dispensers", "45 bags included", "Clips to leash", "Eco-friendly bags"], ingredients: "N/A" },
+  { id: 38, name: "Waste Bag Dispenser Refill Pack", price: 10.99, image: "/images/products/waste-bag-refill-pack.webp", badge: "", category: "accessories", rating: 5, reviews: 198, size: "Refill Pack", description: "120 eco-friendly waste bags to refill your dispensers. Universal fit works with all standard bone-shaped dispensers. Stock up and save!", features: ["120 bags", "Eco-friendly", "Universal fit", "Value pack"], ingredients: "N/A" },
+  { id: 39, name: "Gallon Pump Set of 2", price: 6.25, image: "/images/products/gallon-pump-set.webp", badge: "", category: "accessories", rating: 5, reviews: 145, size: "2-Pack", description: "Professional-grade pumps designed to fit gallon-sized products. Makes dispensing easy and mess-free. Essential for groomers and anyone who buys in bulk.", features: ["Fits gallon jugs", "Easy dispensing", "No mess", "Professional grade"], ingredients: "N/A" },
+];
+---
+
+<Layout title="Shop Lillian Ruff Products">
+  <!-- Hero Banner Slider - Hidden on mobile -->
+  <section class="relative isolate pt-4 md:pt-6 hidden md:block">
+    <Container>
+      <div id="banner-slider" class="group relative rounded-[2rem] overflow-hidden">
+        <!-- Slide 1 - Travel Size / Minis -->
+        <div class="banner-slide relative w-full h-[280px] md:h-[320px] lg:h-[360px]">
+          <img
+            src="/images/shop-banner-1.webp"
+            alt="Lillian Ruff Travel Size Products"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent flex items-center">
+            <div class="px-8 md:px-12 lg:px-16 max-w-xl">
+              <p class="text-white/80 text-xs md:text-sm font-semibold tracking-wider uppercase mb-2 drop-shadow">Find Your Favorite With</p>
+              <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-3 drop-shadow-lg tracking-tight">
+                MINIS
+              </h1>
+              <p class="text-white/90 text-sm md:text-base mb-5 drop-shadow max-w-md hidden md:block">
+                Explore Lillian Ruff's mini travel-size products, perfect for trying out our premium grooming essentials.
+              </p>
+              <button onclick="filterByCategory('travel')" class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md text-white px-8 py-3.5 rounded-full font-bold hover:bg-white/30 transition-all duration-300 shadow-lg uppercase tracking-wider text-sm border border-white/30">
+                Shop Minis
+              </button>
+            </div>
+          </div>
+          <!-- Free Shipping Badge -->
+          <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-xl text-gray-900 px-4 py-2.5 rounded-2xl text-xs md:text-sm font-semibold shadow-2xl flex items-center gap-2.5">
+            <span class="w-6 h-6 bg-brand-green rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            </span>
+            <span>Free Shipping Over $49.99</span>
+          </div>
+        </div>
+        <!-- Slide 2 - Bundles & Sets -->
+        <div class="banner-slide hidden relative w-full h-[280px] md:h-[320px] lg:h-[360px]">
+          <img
+            src="/images/shop-banner-2.webp"
+            alt="Lillian Ruff Product Kits and Bundles"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent flex items-center">
+            <div class="px-8 md:px-12 lg:px-16 max-w-xl">
+              <p class="text-white/80 text-xs md:text-sm font-semibold tracking-wider uppercase mb-2 drop-shadow">Save Up To 20%</p>
+              <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-3 drop-shadow-lg tracking-tight">
+                SHOP KITS
+              </h1>
+              <p class="text-white/90 text-sm md:text-base mb-5 drop-shadow max-w-md hidden md:block">
+                Discover the perfect grooming solution with Lillian Ruff's exclusive product kits and bundles.
+              </p>
+              <button onclick="filterByCategory('sets')" class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md text-white px-8 py-3.5 rounded-full font-bold hover:bg-white/30 transition-all duration-300 shadow-lg uppercase tracking-wider text-sm border border-white/30">
+                Shop Kits
+              </button>
+            </div>
+          </div>
+          <!-- Free Shipping Badge -->
+          <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-xl text-gray-900 px-4 py-2.5 rounded-2xl text-xs md:text-sm font-semibold shadow-2xl flex items-center gap-2.5">
+            <span class="w-6 h-6 bg-brand-green rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            </span>
+            <span>Free Shipping Over $49.99</span>
+          </div>
+        </div>
+        <!-- Slider Dots -->
+        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+          <button class="slider-dot w-2.5 h-2.5 rounded-full bg-white/80 transition-all duration-300" data-slide="0"></button>
+          <button class="slider-dot w-2.5 h-2.5 rounded-full bg-white/40 transition-all duration-300" data-slide="1"></button>
+        </div>
+        <!-- Slider Arrows - Hidden by default, visible on hover -->
+        <button id="prev-slide" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-all duration-300 opacity-0 group-hover:opacity-100">
+          <Icon name="lucide:chevron-left" class="w-5 h-5" />
+        </button>
+        <button id="next-slide" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-all duration-300 opacity-0 group-hover:opacity-100">
+          <Icon name="lucide:chevron-right" class="w-5 h-5" />
+        </button>
+      </div>
+    </Container>
+  </section>
+
+
+  <!-- Floating Cart Button -->
+  <button
+    id="cart-button"
+    class="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-14 h-14 md:w-16 md:h-16 bg-brand-green text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300"
+  >
+    <Icon name="lucide:shopping-cart" class="w-6 h-6 md:w-7 md:h-7" />
+    <span id="cart-count" class="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center opacity-0 scale-0 transition-all">0</span>
+  </button>
+
+  <!-- Category Navigation -->
+  <section class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+    <Container>
+      <!-- Mobile: Modern category tabs with icons -->
+      <div class="md:hidden py-2">
+        <div class="relative">
+          <!-- Scrollable tabs container -->
+          <div class="flex gap-1 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4">
+            {categories.map((cat, index) => (
+              <button
+                data-category={cat.id}
+                class={`category-btn mobile-cat-btn flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ${index === 0 ? 'bg-gradient-to-r from-brand-green to-emerald-500 text-white shadow-md shadow-brand-green/30' : 'bg-gray-50 text-gray-600 hover:bg-gray-100 active:scale-95'}`}
+              >
+                <Icon name={cat.icon} class="w-3.5 h-3.5" />
+                <span>{cat.name}</span>
+              </button>
+            ))}
+          </div>
+          <!-- Fade indicators for scroll -->
+          <div class="absolute right-0 top-0 bottom-2 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
+        </div>
+      </div>
+      <!-- Desktop: Full buttons with icons -->
+      <div class="hidden md:flex gap-2 py-4 justify-center">
+        {categories.map((cat, index) => (
+          <button
+            data-category={cat.id}
+            class={`category-btn flex items-center gap-2 px-4 py-2.5 rounded-full border text-sm font-medium transition-all duration-300 ${index === 0 ? 'bg-brand-green text-white border-brand-green' : 'bg-white border-gray-200 text-gray-700 hover:border-brand-green hover:text-brand-green hover:bg-brand-green/5'}`}
+          >
+            <Icon name={cat.icon} class="w-4 h-4" />
+            <span>{cat.name}</span>
+          </button>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- Products Grid -->
+  <section class="py-12">
+    <Container>
+      <!-- Product Count & Sort -->
+      <div class="flex items-center justify-between mb-4 md:mb-8">
+        <p id="product-count" class="hidden md:block text-base text-gray-600">
+          Showing <span class="font-bold text-gray-900">{products.length}</span> products
+        </p>
+        <div class="flex items-center gap-2 ml-auto">
+          <span class="text-sm text-gray-600 hidden sm:inline">Sort by:</span>
+          <select id="sort-select" class="px-2.5 py-1.5 rounded-lg border border-gray-200 text-sm focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 cursor-pointer">
+            <option value="featured">Featured</option>
+            <option value="price-low">Price ↑</option>
+            <option value="price-high">Price ↓</option>
+            <option value="name">A-Z</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        {products.map((product) => (
+          <div
+            class="product-card group bg-white rounded-2xl md:rounded-3xl overflow-hidden border border-gray-100 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+            data-product-id={product.id}
+            data-category={product.category}
+            data-price={product.price}
+            data-rating={product.rating}
+            data-name={product.name.toLowerCase()}
+          >
+            <div class="relative aspect-square overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+              <img
+                src={product.image}
+                alt={product.name}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                loading="lazy"
+              />
+              {product.badge && (
+                <div class="absolute top-2 left-2 md:top-3 md:left-3">
+                  <span class="inline-flex items-center px-2 py-0.5 md:px-2.5 md:py-1 rounded-md text-[10px] md:text-xs font-semibold bg-brand-green text-white shadow-sm">
+                    {product.badge}
+                  </span>
+                </div>
+              )}
+              <!-- Quick Add Button -->
+              <button
+                class="quick-add absolute bottom-3 right-3 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 hover:bg-brand-green hover:text-white"
+                data-product-id={product.id}
+                onclick="event.stopPropagation()"
+              >
+                <Icon name="lucide:plus" class="w-5 h-5" />
+              </button>
+            </div>
+            <div class="p-3 md:p-5">
+              <!-- Rating -->
+              <div class="flex items-center gap-1 mb-1.5 md:mb-2">
+                <div class="flex items-center">
+                  {[...Array(5)].map((_, i) => (
+                    <Icon
+                      name="lucide:star"
+                      class={`w-3 md:w-3.5 h-3 md:h-3.5 ${i < Math.floor(product.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                    />
+                  ))}
+                </div>
+                <span class="text-[10px] md:text-xs text-gray-500">({product.reviews})</span>
+              </div>
+              <h3 class="font-bold text-gray-900 text-xs md:text-base mb-0.5 md:mb-1 line-clamp-2 min-h-[2rem] md:min-h-[3rem]">
+                {product.name}
+              </h3>
+              <p class="text-[10px] md:text-xs text-gray-500 mb-2 md:mb-3">{product.size}</p>
+              <div class="flex items-center justify-between">
+                <span class="text-base md:text-xl font-black text-brand-green">${product.price.toFixed(2)}</span>
+                <button
+                  class="add-to-cart w-8 h-8 md:w-10 md:h-10 bg-brand-green/10 rounded-full flex items-center justify-center group-hover:bg-brand-green transition-all duration-300 active:scale-95"
+                  data-product-id={product.id}
+                  onclick="event.stopPropagation()"
+                >
+                  <Icon name="lucide:shopping-cart" class="w-4 h-4 md:w-5 md:h-5 text-brand-green group-hover:text-white transition-colors" />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- No Results -->
+      <div id="no-results" class="hidden text-center py-16">
+        <div class="w-20 h-20 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-4">
+          <Icon name="lucide:search-x" class="w-10 h-10 text-gray-400" />
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">No products found</h3>
+        <p class="text-gray-600">Try adjusting your search or filter criteria</p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Cart Sidebar -->
+  <div id="cart-overlay" class="fixed inset-0 bg-black/50 z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+  <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:max-w-md bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300">
+    <div class="flex flex-col h-full">
+      <!-- Cart Header -->
+      <div class="flex items-center justify-between p-4 md:p-6 border-b border-gray-100">
+        <div class="flex items-center gap-2.5 md:gap-3">
+          <div class="w-9 h-9 md:w-10 md:h-10 bg-brand-green/10 rounded-full flex items-center justify-center">
+            <Icon name="lucide:shopping-cart" class="w-4 h-4 md:w-5 md:h-5 text-brand-green" />
+          </div>
+          <div>
+            <h2 class="text-lg md:text-xl font-bold text-gray-900">Your Cart</h2>
+            <p id="cart-item-count" class="text-xs md:text-sm text-gray-500">0 items</p>
+          </div>
+        </div>
+        <button id="close-cart" class="w-9 h-9 md:w-10 md:h-10 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors active:scale-95">
+          <Icon name="lucide:x" class="w-5 h-5 md:w-6 md:h-6 text-gray-500" />
+        </button>
+      </div>
+
+      <!-- Cart Items -->
+      <div id="cart-items" class="flex-1 overflow-y-auto p-4 md:p-6">
+        <!-- Empty Cart State -->
+        <div id="empty-cart" class="text-center py-8 md:py-12">
+          <div class="w-20 h-20 md:w-24 md:h-24 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-3 md:mb-4">
+            <Icon name="lucide:shopping-bag" class="w-10 h-10 md:w-12 md:h-12 text-gray-400" />
+          </div>
+          <h3 class="text-base md:text-lg font-bold text-gray-900 mb-1.5 md:mb-2">Your cart is empty</h3>
+          <p class="text-sm md:text-base text-gray-600 mb-4 md:mb-6">Add some products to get started!</p>
+          <button id="continue-shopping" class="inline-flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 bg-brand-green text-white rounded-full font-bold hover:-translate-y-1 transition-all duration-300 text-sm md:text-base active:scale-95">
+            <Icon name="lucide:arrow-left" class="w-4 h-4" />
+            Continue Shopping
+          </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cart-items-list" class="space-y-3 md:space-y-4 hidden">
+          <!-- Items will be inserted here via JS -->
+        </div>
+      </div>
+
+      <!-- Cart Footer -->
+      <div id="cart-footer" class="border-t border-gray-100 p-4 md:p-6 hidden">
+        <div class="space-y-2 md:space-y-3 mb-4 md:mb-6">
+          <div class="flex items-center justify-between text-sm md:text-base text-gray-600">
+            <span>Subtotal</span>
+            <span id="cart-subtotal" class="font-semibold">$0.00</span>
+          </div>
+          <div id="shipping-row" class="flex items-center justify-between text-sm md:text-base text-gray-600">
+            <span>Shipping</span>
+            <span id="cart-shipping" class="font-semibold">$4.99</span>
+          </div>
+          <div id="free-shipping-promo" class="hidden text-xs text-brand-green font-medium">
+            <Icon name="lucide:truck" class="w-3.5 h-3.5 inline mr-1" />
+            Free shipping on orders over $49.99!
+          </div>
+          <div class="flex items-center justify-between text-sm md:text-base text-gray-600">
+            <span>NY Sales Tax (8.875%)</span>
+            <span id="cart-tax" class="font-semibold">$0.00</span>
+          </div>
+          <div class="border-t border-gray-200 pt-2 md:pt-3 flex items-center justify-between">
+            <span class="text-base md:text-lg font-bold text-gray-900">Total</span>
+            <span id="cart-total" class="text-xl md:text-2xl font-black text-brand-green">$0.00</span>
+          </div>
+        </div>
+        <button id="checkout-btn" class="w-full py-3.5 md:py-4 bg-brand-green text-white rounded-xl md:rounded-2xl font-bold text-base md:text-lg hover:-translate-y-1 transition-all duration-300 shadow-lg flex items-center justify-center gap-2 active:scale-[0.98]">
+          <Icon name="lucide:credit-card" class="w-5 h-5" />
+          <span>Checkout</span>
+        </button>
+        <p class="text-center text-[10px] md:text-xs text-gray-500 mt-2 md:mt-3">Secure checkout with Apple Pay, Google Pay, or Card</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Modal -->
+  <div id="product-modal" class="fixed inset-0 z-50 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4 md:p-6">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" id="modal-backdrop"></div>
+    <div class="relative w-full max-w-lg bg-white rounded-2xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300" id="modal-content">
+      <!-- Close Button -->
+      <button id="close-modal" class="absolute top-3 right-3 z-10 w-8 h-8 bg-black/10 hover:bg-black/20 rounded-full flex items-center justify-center transition-colors">
+        <Icon name="lucide:x" class="w-4 h-4 text-gray-600" />
+      </button>
+
+      <!-- Product Image -->
+      <div class="relative bg-gradient-to-br from-gray-50 to-gray-100 p-4">
+        <div class="relative aspect-square bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-emerald-50/50 via-transparent to-teal-50/50"></div>
+          <img id="modal-image" src="" alt="" class="absolute inset-0 w-full h-full object-cover drop-shadow-md" />
+        </div>
+      </div>
+
+      <!-- Product Info -->
+      <div class="p-5 pt-3">
+        <!-- Title & Rating Row -->
+        <div class="flex items-start justify-between gap-3 mb-2">
+          <h2 id="modal-title" class="text-lg font-bold text-gray-900 leading-tight flex-1"></h2>
+          <p id="modal-price" class="text-xl font-black text-brand-green whitespace-nowrap"></p>
+        </div>
+
+        <!-- Rating & Size -->
+        <div class="flex items-center gap-3 mb-3">
+          <div class="flex items-center gap-1">
+            <div id="modal-rating" class="flex items-center"></div>
+            <span id="modal-reviews" class="text-xs text-gray-500"></span>
+          </div>
+          <span class="text-gray-300">|</span>
+          <span id="modal-size" class="text-xs text-gray-500 font-medium"></span>
+        </div>
+
+        <!-- Description -->
+        <p id="modal-description" class="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3"></p>
+
+        <!-- Features - Compact Chips -->
+        <div class="mb-4">
+          <ul id="modal-features" class="flex flex-wrap gap-1.5"></ul>
+        </div>
+
+        <!-- Quantity & Add to Cart Row -->
+        <div class="flex items-center gap-3">
+          <!-- Quantity Selector -->
+          <div class="flex items-center bg-gray-100 rounded-full h-12">
+            <button id="qty-decrease" class="w-11 h-full flex items-center justify-center text-gray-500 hover:text-brand-green transition-colors active:scale-95">
+              <Icon name="lucide:minus" class="w-4 h-4" />
+            </button>
+            <span id="modal-qty" class="w-8 text-center font-bold text-gray-900 text-sm">1</span>
+            <button id="qty-increase" class="w-11 h-full flex items-center justify-center text-gray-500 hover:text-brand-green transition-colors active:scale-95">
+              <Icon name="lucide:plus" class="w-4 h-4" />
+            </button>
+          </div>
+
+          <!-- Add to Cart Button -->
+          <button id="modal-add-to-cart" class="flex-1 h-12 bg-brand-green text-white rounded-full font-bold text-sm hover:bg-emerald-600 transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98] shadow-md">
+            <Icon name="lucide:shopping-cart" class="w-4 h-4" />
+            Add to Cart
+          </button>
+        </div>
+
+        <!-- Ingredients - Collapsible Style -->
+        <details class="mt-4 group">
+          <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-gray-700 py-2 border-t border-gray-100">
+            <span>Ingredients</span>
+            <Icon name="lucide:chevron-down" class="w-4 h-4 text-gray-400 group-open:rotate-180 transition-transform" />
+          </summary>
+          <p id="modal-ingredients" class="text-xs text-gray-500 pt-2 pb-1 leading-relaxed"></p>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Modal with Square Payments -->
+  <div id="checkout-modal" class="fixed inset-0 z-50 opacity-0 pointer-events-none transition-opacity duration-300 flex items-end md:items-center justify-center">
+    <div class="absolute inset-0 bg-black/40" id="checkout-backdrop"></div>
+    <div class="relative w-full md:max-w-[420px] bg-white rounded-t-2xl md:rounded-2xl overflow-hidden shadow-2xl transform translate-y-full md:translate-y-0 md:scale-95 transition-all duration-300" id="checkout-content">
+      <!-- Header -->
+      <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+        <div>
+          <p class="text-xs text-gray-500 mb-0.5">Total</p>
+          <p id="checkout-total" class="text-xl font-bold text-gray-900">$0.00</p>
+        </div>
+        <button id="close-checkout" class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors">
+          <Icon name="lucide:x" class="w-5 h-5 text-gray-400" />
+        </button>
+      </div>
+
+      <div class="p-5 max-h-[75vh] overflow-y-auto">
+        <!-- Order Items - Compact -->
+        <div id="checkout-items-wrapper" class="mb-5">
+          <button id="toggle-order-details" class="w-full flex items-center justify-between text-sm text-gray-600 hover:text-gray-900 transition-colors">
+            <span><span id="checkout-item-count">0</span> items in cart</span>
+            <Icon name="lucide:chevron-down" class="w-4 h-4 transition-transform" id="toggle-chevron" />
+          </button>
+          <div id="checkout-items" class="hidden mt-3 space-y-2 max-h-32 overflow-y-auto">
+            <!-- Items inserted via JS -->
+          </div>
+        </div>
+
+        <!-- Payment Form -->
+        <div id="payment-form">
+          <!-- Customer Info -->
+          <div class="mb-4">
+            <p class="text-xs font-medium text-gray-500 mb-2 flex items-center gap-1.5">
+              <Icon name="lucide:user" class="w-3.5 h-3.5" />
+              Contact Information
+            </p>
+            <input type="text" id="customer-name" required class="w-full px-4 py-3 mb-2 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-900 focus:ring-0 transition-all text-sm outline-none" placeholder="Full name" />
+            <input type="email" id="customer-email" required class="w-full px-4 py-3 mb-2 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-900 focus:ring-0 transition-all text-sm outline-none" placeholder="Email for receipt" />
+            <input type="tel" id="customer-phone" required class="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-900 focus:ring-0 transition-all text-sm outline-none" placeholder="Phone number" />
+          </div>
+
+          <!-- Delivery or Pickup Toggle -->
+          <div class="mb-4">
+            <p class="text-xs font-medium text-gray-500 mb-2 flex items-center gap-1.5">
+              <Icon name="lucide:package" class="w-3.5 h-3.5" />
+              Fulfillment Method
+            </p>
+            <div class="grid grid-cols-2 gap-2">
+              <button type="button" id="option-delivery" class="fulfillment-option flex items-center justify-center gap-2 px-4 py-3 rounded-lg border-2 border-gray-900 bg-gray-900 text-white text-sm font-medium transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path></svg>
+                Delivery
+              </button>
+              <button type="button" id="option-pickup" class="fulfillment-option flex items-center justify-center gap-2 px-4 py-3 rounded-lg border-2 border-gray-200 bg-white text-gray-700 text-sm font-medium transition-all hover:border-gray-300">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                Pickup
+              </button>
+            </div>
+          </div>
+
+          <!-- Delivery Address (shown when delivery selected) -->
+          <div id="delivery-address-section" class="mb-4">
+            <p class="text-xs font-medium text-gray-500 mb-2 flex items-center gap-1.5">
+              <Icon name="lucide:map-pin" class="w-3.5 h-3.5" />
+              Delivery Address
+            </p>
+            <input type="text" id="address-street" class="w-full px-4 py-3 mb-2 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-900 focus:ring-0 transition-all text-sm outline-none" placeholder="Street address" />
+            <input type="text" id="address-apt" class="w-full px-4 py-3 mb-2 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-900 focus:ring-0 transition-all text-sm outline-none" placeholder="Apt, suite, unit (optional)" />
+            <div class="flex gap-2">
+              <input type="text" id="address-city" class="flex-1 px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-900 focus:ring-0 transition-all text-sm outline-none" placeholder="City" />
+              <input type="text" id="address-state" class="w-20 px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-900 focus:ring-0 transition-all text-sm outline-none" placeholder="State" />
+              <input type="text" id="address-zip" class="w-24 px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-900 focus:ring-0 transition-all text-sm outline-none" placeholder="ZIP" />
+            </div>
+          </div>
+
+          <!-- Pickup Location (shown when pickup selected) -->
+          <div id="pickup-address-section" class="mb-4 hidden">
+            <p class="text-xs font-medium text-gray-500 mb-2 flex items-center gap-1.5">
+              <Icon name="lucide:map-pin" class="w-3.5 h-3.5" />
+              Pickup Location
+            </p>
+            <div class="px-4 py-3 rounded-lg border border-gray-200 bg-gray-50">
+              <p class="text-sm font-medium text-gray-900">Lillian Ruff Pet Spa</p>
+              <p class="text-sm text-gray-600">835 Portion Rd, Ronkonkoma, NY 11779</p>
+              <p class="text-xs text-brand-green mt-1 font-medium">Ready for pickup within 24 hours</p>
+            </div>
+          </div>
+
+          <!-- Discount Code -->
+          <div class="mb-4">
+            <p class="text-xs font-medium text-gray-500 mb-2 flex items-center gap-1.5">
+              <Icon name="lucide:tag" class="w-3.5 h-3.5" />
+              Discount Code
+            </p>
+            <div class="flex gap-2">
+              <input type="text" id="discount-code" class="flex-1 px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-900 focus:ring-0 transition-all text-sm outline-none uppercase" placeholder="Enter code" />
+              <button type="button" id="apply-discount" class="px-4 py-3 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium hover:bg-gray-200 transition-all">
+                Apply
+              </button>
+            </div>
+            <p id="discount-message" class="text-xs mt-1.5 hidden"></p>
+          </div>
+
+          <!-- Payment -->
+          <div class="mb-4">
+            <p class="text-xs font-medium text-gray-500 mb-2 flex items-center gap-1.5">
+              <Icon name="lucide:credit-card" class="w-3.5 h-3.5" />
+              Payment
+            </p>
+            <!-- Card Form Container - Square injects here -->
+            <div id="card-container"></div>
+          </div>
+
+          <!-- Pay Button -->
+          <button id="card-pay-button" class="w-full py-4 bg-gray-900 text-white rounded-xl font-semibold text-base hover:bg-black active:scale-[0.98] transition-all duration-150 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+            <Icon name="lucide:lock" class="w-4 h-4 opacity-60" />
+            <span id="pay-button-text">Pay $0.00</span>
+          </button>
+
+          <!-- Security Note -->
+          <p class="text-center text-[11px] text-gray-400 mt-3">
+            Payments secured by Square
+          </p>
+        </div>
+
+        <!-- Payment Status -->
+        <div id="payment-status" class="hidden">
+          <!-- Loading State -->
+          <div id="payment-loading" class="hidden text-center py-10">
+            <div class="w-8 h-8 mx-auto mb-3 border-2 border-gray-200 border-t-gray-900 rounded-full animate-spin"></div>
+            <p class="text-gray-500 text-sm">Processing payment...</p>
+          </div>
+
+          <!-- Success State -->
+          <div id="payment-success" class="hidden text-center py-10">
+            <div class="w-12 h-12 mx-auto mb-4 bg-green-500 rounded-full flex items-center justify-center">
+              <Icon name="lucide:check" class="w-6 h-6 text-white" />
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-1">Payment successful</h3>
+            <p class="text-sm text-gray-500 mb-5">A receipt has been sent to your email</p>
+            <button id="close-success" class="px-6 py-2.5 bg-gray-900 text-white rounded-lg font-medium text-sm hover:bg-black transition-colors">Done</button>
+          </div>
+
+          <!-- Error State -->
+          <div id="payment-error" class="hidden text-center py-8">
+            <div class="w-12 h-12 mx-auto mb-3 bg-red-100 rounded-full flex items-center justify-center">
+              <Icon name="lucide:x" class="w-6 h-6 text-red-500" />
+            </div>
+            <p id="error-message" class="text-gray-900 font-medium text-sm mb-1">Payment failed</p>
+            <p class="text-gray-500 text-xs mb-4">Please check your card details and try again</p>
+            <button id="retry-payment" class="text-sm text-gray-900 font-medium underline">Try again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Toast -->
+  <div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 opacity-0 translate-y-4 pointer-events-none transition-all duration-300">
+    <Icon name="lucide:check-circle" class="w-5 h-5 text-green-400" />
+    <span id="toast-message">Added to cart!</span>
+  </div>
+
+  <!-- Visit Us CTA -->
+  <section class="py-10 md:py-16 px-4 md:px-0">
+    <Container>
+      <div class="max-w-4xl mx-auto">
+        <div class="rounded-2xl md:rounded-3xl p-6 md:p-12 bg-gradient-to-br from-brand-green to-emerald-600 text-white text-center relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-40 md:w-64 h-40 md:h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+          <div class="absolute bottom-0 left-0 w-32 md:w-48 h-32 md:h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 md:w-20 md:h-20 mx-auto bg-white/20 rounded-xl md:rounded-2xl flex items-center justify-center mb-4 md:mb-6">
+              <Icon name="lucide:store" class="w-7 h-7 md:w-10 md:h-10" />
+            </div>
+            <h2 class="text-2xl md:text-4xl font-black mb-3 md:mb-4">Visit Our Spa to Shop!</h2>
+            <p class="text-white/90 text-sm md:text-lg mb-5 md:mb-8 max-w-2xl mx-auto">
+              All products are available for purchase at our spa. Come in for a grooming appointment and take home your favorites!
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
+              <a href="/grooming" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-brand-green px-6 md:px-8 py-3 md:py-4 rounded-full font-bold hover:-translate-y-1 transition-all duration-300 shadow-lg text-sm md:text-base active:scale-95">
+                <Icon name="lucide:calendar" class="w-4 h-4 md:w-5 md:h-5" />
+                Book Appointment
+              </a>
+              <a href="/contact" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/20 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-bold hover:bg-white/30 transition-all duration-300 text-sm md:text-base active:scale-95">
+                <Icon name="lucide:map-pin" class="w-4 h-4 md:w-5 md:h-5" />
+                Get Directions
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+</Layout>
+
+<script define:vars={{ products, squareAppId, squareLocationId }}>
+  // Store products data and Square config for use in JS
+  window.productsData = products;
+  window.SQUARE_APP_ID = squareAppId;
+  window.SQUARE_LOCATION_ID = squareLocationId;
+</script>
+
+<!-- Square Web Payments SDK -->
+<script src="https://web.squarecdn.com/v1/square.js" async></script>
+
+<script>
+  // Banner Slider
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.banner-slide');
+  const dots = document.querySelectorAll('.slider-dot');
+  const prevBtn = document.getElementById('prev-slide');
+  const nextBtn = document.getElementById('next-slide');
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      if (i === index) {
+        slide.classList.remove('hidden');
+      } else {
+        slide.classList.add('hidden');
+      }
+    });
+    dots.forEach((dot, i) => {
+      if (i === index) {
+        dot.classList.remove('bg-white/40');
+        dot.classList.add('bg-white/80');
+      } else {
+        dot.classList.remove('bg-white/80');
+        dot.classList.add('bg-white/40');
+      }
+    });
+    currentSlide = index;
+  }
+
+  function nextSlide() {
+    showSlide((currentSlide + 1) % slides.length);
+  }
+
+  function prevSlide() {
+    showSlide((currentSlide - 1 + slides.length) % slides.length);
+  }
+
+  // Auto-advance slider every 5 seconds
+  let sliderInterval = setInterval(nextSlide, 5000);
+
+  // Reset interval on manual navigation
+  function resetInterval() {
+    clearInterval(sliderInterval);
+    sliderInterval = setInterval(nextSlide, 5000);
+  }
+
+  prevBtn?.addEventListener('click', () => {
+    prevSlide();
+    resetInterval();
+  });
+
+  nextBtn?.addEventListener('click', () => {
+    nextSlide();
+    resetInterval();
+  });
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      showSlide(i);
+      resetInterval();
+    });
+  });
+
+  // Cart state
+  let cart = JSON.parse(localStorage.getItem('lillianruff-cart') || '[]');
+  let currentModalProduct = null;
+  let modalQuantity = 1;
+
+  // DOM Elements
+  const searchInput = document.getElementById('search-input');
+  const categoryBtns = document.querySelectorAll('.category-btn');
+  const sortSelect = document.getElementById('sort-select');
+  const productsGrid = document.getElementById('products-grid');
+  const productCards = document.querySelectorAll('.product-card');
+  const noResults = document.getElementById('no-results');
+  const productCount = document.getElementById('product-count');
+  const cartButton = document.getElementById('cart-button');
+  const cartCount = document.getElementById('cart-count');
+  const cartOverlay = document.getElementById('cart-overlay');
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const closeCart = document.getElementById('close-cart');
+  const continueShopping = document.getElementById('continue-shopping');
+  const cartItemsList = document.getElementById('cart-items-list');
+  const emptyCart = document.getElementById('empty-cart');
+  const cartFooter = document.getElementById('cart-footer');
+  const cartSubtotal = document.getElementById('cart-subtotal');
+  const cartTotal = document.getElementById('cart-total');
+  const cartItemCount = document.getElementById('cart-item-count');
+  const productModal = document.getElementById('product-modal');
+  const modalBackdrop = document.getElementById('modal-backdrop');
+  const closeModal = document.getElementById('close-modal');
+  const checkoutBtn = document.getElementById('checkout-btn');
+  const checkoutModal = document.getElementById('checkout-modal');
+  const checkoutBackdrop = document.getElementById('checkout-backdrop');
+  const closeCheckout = document.getElementById('close-checkout');
+  const toast = document.getElementById('toast');
+  const toastMessage = document.getElementById('toast-message');
+  const optionDelivery = document.getElementById('option-delivery');
+  const optionPickup = document.getElementById('option-pickup');
+  const deliveryAddressSection = document.getElementById('delivery-address-section');
+  const pickupAddressSection = document.getElementById('pickup-address-section');
+  const discountCodeInput = document.getElementById('discount-code');
+  const applyDiscountBtn = document.getElementById('apply-discount');
+  const discountMessage = document.getElementById('discount-message');
+
+  // Get products data from window
+  const products = window.productsData || [];
+
+  // Fulfillment state
+  let fulfillmentMethod = 'delivery';
+  let appliedDiscount = null;
+
+  // Initialize
+  updateCartUI();
+
+  // Fulfillment toggle
+  optionDelivery?.addEventListener('click', () => {
+    fulfillmentMethod = 'delivery';
+    optionDelivery.classList.remove('border-gray-200', 'bg-white', 'text-gray-700');
+    optionDelivery.classList.add('border-gray-900', 'bg-gray-900', 'text-white');
+    optionPickup?.classList.remove('border-gray-900', 'bg-gray-900', 'text-white');
+    optionPickup?.classList.add('border-gray-200', 'bg-white', 'text-gray-700');
+    deliveryAddressSection?.classList.remove('hidden');
+    pickupAddressSection?.classList.add('hidden');
+    updateCartUI(); // Recalculate totals with shipping
+  });
+
+  optionPickup?.addEventListener('click', () => {
+    fulfillmentMethod = 'pickup';
+    optionPickup.classList.remove('border-gray-200', 'bg-white', 'text-gray-700');
+    optionPickup.classList.add('border-gray-900', 'bg-gray-900', 'text-white');
+    optionDelivery?.classList.remove('border-gray-900', 'bg-gray-900', 'text-white');
+    optionDelivery?.classList.add('border-gray-200', 'bg-white', 'text-gray-700');
+    deliveryAddressSection?.classList.add('hidden');
+    pickupAddressSection?.classList.remove('hidden');
+    updateCartUI(); // Recalculate totals without shipping
+  });
+
+  // Discount code handler
+  applyDiscountBtn?.addEventListener('click', () => {
+    const code = (discountCodeInput as HTMLInputElement)?.value?.trim().toUpperCase();
+    if (!code) return;
+
+    // Example discount codes - replace with real validation
+    const discounts = {
+      'WELCOME10': { type: 'percent', value: 10, label: '10% off' },
+      'SAVE20': { type: 'percent', value: 20, label: '20% off' },
+      'FIRST5': { type: 'fixed', value: 5, label: '$5 off' }
+    };
+
+    if (discounts[code]) {
+      appliedDiscount = { code, ...discounts[code] };
+      discountMessage?.classList.remove('hidden', 'text-red-500');
+      discountMessage?.classList.add('text-green-600');
+      if (discountMessage) discountMessage.textContent = `✓ ${appliedDiscount.label} applied!`;
+      updateCartUI();
+    } else {
+      appliedDiscount = null;
+      discountMessage?.classList.remove('hidden', 'text-green-600');
+      discountMessage?.classList.add('text-red-500');
+      if (discountMessage) discountMessage.textContent = 'Invalid discount code';
+    }
+  });
+
+  // Search functionality
+  searchInput?.addEventListener('input', filterProducts);
+
+  // Category filter - handle both mobile and desktop buttons
+  categoryBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const categoryId = btn.dataset.category;
+      // Update all buttons with the same category (mobile and desktop)
+      categoryBtns.forEach(b => {
+        const isSameCategory = b.dataset.category === categoryId;
+        // Reset styles based on button type (mobile vs desktop)
+        if (b.classList.contains('border')) {
+          // Desktop button
+          b.classList.remove('bg-brand-green', 'text-white', 'border-brand-green', 'bg-white', 'border-gray-200', 'text-gray-700');
+          if (isSameCategory) {
+            b.classList.add('bg-brand-green', 'text-white', 'border-brand-green');
+          } else {
+            b.classList.add('bg-white', 'border-gray-200', 'text-gray-700');
+          }
+        } else {
+          // Mobile button - new gradient design
+          b.classList.remove('bg-gradient-to-r', 'from-brand-green', 'to-emerald-500', 'text-white', 'shadow-md', 'shadow-brand-green/30', 'bg-gray-50', 'text-gray-600');
+          if (isSameCategory) {
+            b.classList.add('bg-gradient-to-r', 'from-brand-green', 'to-emerald-500', 'text-white', 'shadow-md', 'shadow-brand-green/30');
+          } else {
+            b.classList.add('bg-gray-50', 'text-gray-600');
+          }
+        }
+      });
+      filterProducts();
+    });
+  });
+
+  // Sort functionality
+  sortSelect?.addEventListener('change', sortProducts);
+
+  // Product card clicks - open modal
+  productCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.quick-add') || e.target.closest('.add-to-cart')) return;
+      const productId = parseInt(card.dataset.productId);
+      openProductModal(productId);
+    });
+  });
+
+  // Quick add buttons
+  document.querySelectorAll('.quick-add, .add-to-cart').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const productId = parseInt(btn.dataset.productId);
+      addToCart(productId, 1);
+    });
+  });
+
+  // Cart button
+  cartButton?.addEventListener('click', openCart);
+  closeCart?.addEventListener('click', closeCartSidebar);
+  continueShopping?.addEventListener('click', closeCartSidebar);
+  cartOverlay?.addEventListener('click', closeCartSidebar);
+
+  // Modal controls
+  closeModal?.addEventListener('click', closeProductModal);
+  modalBackdrop?.addEventListener('click', closeProductModal);
+
+  document.getElementById('qty-decrease')?.addEventListener('click', () => {
+    if (modalQuantity > 1) {
+      modalQuantity--;
+      document.getElementById('modal-qty').textContent = modalQuantity;
+    }
+  });
+
+  document.getElementById('qty-increase')?.addEventListener('click', () => {
+    modalQuantity++;
+    document.getElementById('modal-qty').textContent = modalQuantity;
+  });
+
+  document.getElementById('modal-add-to-cart')?.addEventListener('click', () => {
+    if (currentModalProduct) {
+      addToCart(currentModalProduct.id, modalQuantity);
+      closeProductModal();
+    }
+  });
+
+  // Checkout
+  checkoutBtn?.addEventListener('click', openCheckoutModal);
+  closeCheckout?.addEventListener('click', closeCheckoutModalFn);
+  checkoutBackdrop?.addEventListener('click', closeCheckoutModalFn);
+
+  // Toggle order details in checkout
+  document.getElementById('toggle-order-details')?.addEventListener('click', () => {
+    const itemsDiv = document.getElementById('checkout-items');
+    const chevron = document.getElementById('toggle-chevron');
+    if (itemsDiv?.classList.contains('hidden')) {
+      itemsDiv.classList.remove('hidden');
+      chevron?.classList.add('rotate-180');
+    } else {
+      itemsDiv?.classList.add('hidden');
+      chevron?.classList.remove('rotate-180');
+    }
+  });
+
+  // Retry payment button
+  document.getElementById('retry-payment')?.addEventListener('click', () => {
+    document.getElementById('payment-status')?.classList.add('hidden');
+    document.getElementById('payment-error')?.classList.add('hidden');
+    document.getElementById('payment-form')?.classList.remove('hidden');
+  });
+
+  // Close success button
+  document.getElementById('close-success')?.addEventListener('click', () => {
+    closeCheckoutModalFn();
+  });
+
+  // Square Web Payments SDK - credentials from environment variables
+  const SQUARE_APPLICATION_ID = window.SQUARE_APP_ID;
+  const SQUARE_LOCATION_ID = window.SQUARE_LOCATION_ID;
+
+  let squarePayments = null;
+  let card = null;
+
+  // Initialize Square when checkout modal opens
+  async function initializeSquarePayments() {
+    if (!window.Square) {
+      // Square SDK not loaded - show error to user
+      const errorEl = document.getElementById('payment-error-message');
+      if (errorEl) errorEl.textContent = 'Payment system unavailable. Please try again later.';
+      return;
+    }
+
+    try {
+      squarePayments = window.Square.payments(SQUARE_APPLICATION_ID, SQUARE_LOCATION_ID);
+
+      // Initialize Card with all fields in one component
+      card = await squarePayments.card();
+      await card.attach('#card-container');
+
+    } catch (error) {
+      // Show error to user instead of console
+      const errorEl = document.getElementById('payment-error-message');
+      if (errorEl) errorEl.textContent = 'Failed to initialize payment form. Please refresh and try again.';
+    }
+  }
+
+  function getCartTotal() {
+    return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  }
+
+  // Process payment
+  async function processPayment(sourceId) {
+    const email = document.getElementById('customer-email')?.value;
+    const totalAmount = getCartTotal();
+
+    // Show loading state
+    document.getElementById('payment-form')?.classList.add('hidden');
+    document.getElementById('payment-status')?.classList.remove('hidden');
+    document.getElementById('payment-loading')?.classList.remove('hidden');
+    document.getElementById('payment-success')?.classList.add('hidden');
+    document.getElementById('payment-error')?.classList.add('hidden');
+
+    try {
+      const response = await fetch('/api/create-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sourceId,
+          amount: totalAmount,
+          currency: 'USD',
+          items: cart,
+          customerEmail: email,
+        }),
+      });
+
+      const result = await response.json();
+
+      document.getElementById('payment-loading')?.classList.add('hidden');
+
+      if (result.success) {
+        // Payment successful
+        document.getElementById('payment-success')?.classList.remove('hidden');
+        if (result.payment?.receiptUrl) {
+          const receiptLink = document.getElementById('receipt-link');
+          if (receiptLink) {
+            receiptLink.innerHTML = `<a href="${result.payment.receiptUrl}" target="_blank" rel="noopener noreferrer" class="text-brand-green hover:underline">View Receipt</a>`;
+          }
+        }
+        // Clear cart
+        cart = [];
+        saveCart();
+        updateCartUI();
+      } else {
+        // Payment failed
+        document.getElementById('payment-error')?.classList.remove('hidden');
+        const errorMsg = document.getElementById('error-message');
+        if (errorMsg) errorMsg.textContent = result.error || 'Payment failed. Please try again.';
+      }
+    } catch (error) {
+      document.getElementById('payment-loading')?.classList.add('hidden');
+      document.getElementById('payment-error')?.classList.remove('hidden');
+      const errorMsg = document.getElementById('error-message');
+      if (errorMsg) errorMsg.textContent = 'Network error. Please try again.';
+    }
+  }
+
+  // Card pay button click handler
+  document.getElementById('card-pay-button')?.addEventListener('click', async () => {
+    const email = document.getElementById('customer-email')?.value;
+    if (!email) {
+      showToast('Please enter your email');
+      return;
+    }
+
+    const payButton = document.getElementById('card-pay-button');
+    if (payButton) {
+      payButton.disabled = true;
+      payButton.querySelector('#pay-button-text').textContent = 'Processing...';
+    }
+
+    try {
+      const result = await card.tokenize();
+      if (result.status === 'OK') {
+        await processPayment(result.token);
+      } else {
+        let errorMessage = 'Card verification failed';
+        if (result.errors) {
+          errorMessage = result.errors.map(e => e.message).join(', ');
+        }
+        showToast(errorMessage);
+      }
+    } catch (error) {
+      showToast('Error processing card. Please try again.');
+    } finally {
+      if (payButton) {
+        payButton.disabled = false;
+        payButton.querySelector('#pay-button-text').textContent = `Pay $${getCartTotal().toFixed(2)}`;
+      }
+    }
+  });
+
+  // Filter products
+  function filterProducts() {
+    const searchTerm = searchInput?.value.toLowerCase() || '';
+    const activeCategory = document.querySelector('.category-btn.bg-brand-green')?.dataset.category || 'all';
+    let visibleCount = 0;
+
+    productCards.forEach(card => {
+      const name = card.dataset.name;
+      const category = card.dataset.category;
+      const matchesSearch = name.includes(searchTerm);
+      const matchesCategory = activeCategory === 'all' || category === activeCategory;
+
+      if (matchesSearch && matchesCategory) {
+        card.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    // Update count and no results
+    if (productCount) {
+      productCount.innerHTML = `Showing <span class="font-bold text-gray-900">${visibleCount}</span> products`;
+    }
+    noResults?.classList.toggle('hidden', visibleCount > 0);
+    productsGrid?.classList.toggle('hidden', visibleCount === 0);
+  }
+
+  // Sort products
+  function sortProducts() {
+    const sortValue = sortSelect?.value || 'featured';
+    const cards = Array.from(productCards);
+
+    cards.sort((a, b) => {
+      switch(sortValue) {
+        case 'price-low':
+          return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+        case 'price-high':
+          return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+        case 'name':
+          return a.dataset.name.localeCompare(b.dataset.name);
+        default:
+          return 0;
+      }
+    });
+
+    cards.forEach(card => productsGrid?.appendChild(card));
+  }
+
+  // Add to cart
+  function addToCart(productId, quantity = 1) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    const existingItem = cart.find(item => item.id === productId);
+    if (existingItem) {
+      existingItem.quantity += quantity;
+    } else {
+      cart.push({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        size: product.size,
+        quantity: quantity
+      });
+    }
+
+    saveCart();
+    updateCartUI();
+    showToast('Added to cart!');
+
+    // Animate cart button
+    cartButton?.classList.add('scale-125');
+    setTimeout(() => cartButton?.classList.remove('scale-125'), 200);
+  }
+
+  // Remove from cart
+  function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    saveCart();
+    updateCartUI();
+  }
+
+  // Update quantity
+  function updateQuantity(productId, change) {
+    const item = cart.find(item => item.id === productId);
+    if (item) {
+      item.quantity += change;
+      if (item.quantity <= 0) {
+        removeFromCart(productId);
+      } else {
+        saveCart();
+        updateCartUI();
+      }
+    }
+  }
+
+  // Save cart to localStorage
+  function saveCart() {
+    localStorage.setItem('lillianruff-cart', JSON.stringify(cart));
+  }
+
+  // Update cart UI
+  function updateCartUI() {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+    // Update cart count badge
+    if (cartCount) {
+      cartCount.textContent = totalItems > 99 ? '99+' : totalItems.toString();
+      if (totalItems > 0) {
+        cartCount.classList.remove('opacity-0', 'scale-0');
+        cartCount.classList.add('opacity-100', 'scale-100');
+      } else {
+        cartCount.classList.add('opacity-0', 'scale-0');
+        cartCount.classList.remove('opacity-100', 'scale-100');
+      }
+    }
+
+    // Update cart sidebar
+    if (cartItemCount) {
+      cartItemCount.textContent = `${totalItems} item${totalItems !== 1 ? 's' : ''}`;
+    }
+
+    if (totalItems === 0) {
+      emptyCart?.classList.remove('hidden');
+      cartItemsList?.classList.add('hidden');
+      cartFooter?.classList.add('hidden');
+    } else {
+      emptyCart?.classList.add('hidden');
+      cartItemsList?.classList.remove('hidden');
+      cartFooter?.classList.remove('hidden');
+
+      // Render cart items
+      if (cartItemsList) {
+        cartItemsList.innerHTML = cart.map(item => `
+          <div class="flex gap-4 p-4 bg-gray-50 rounded-xl">
+            <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-contain bg-white rounded-lg" />
+            <div class="flex-1 min-w-0">
+              <h4 class="font-bold text-gray-900 text-sm line-clamp-2">${item.name}</h4>
+              <p class="text-xs text-gray-500">${item.size}</p>
+              <div class="flex items-center justify-between mt-2">
+                <div class="flex items-center gap-2">
+                  <button onclick="updateQuantity(${item.id}, -1)" class="w-7 h-7 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:border-brand-green hover:text-brand-green">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
+                  </button>
+                  <span class="font-bold text-gray-900 w-6 text-center">${item.quantity}</span>
+                  <button onclick="updateQuantity(${item.id}, 1)" class="w-7 h-7 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:border-brand-green hover:text-brand-green">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                  </button>
+                </div>
+                <span class="font-bold text-brand-green">$${(item.price * item.quantity).toFixed(2)}</span>
+              </div>
+            </div>
+            <button onclick="removeFromCart(${item.id})" class="self-start text-gray-400 hover:text-red-500">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+          </div>
+        `).join('');
+      }
+
+      // Calculate shipping (free over $49.99 or if pickup selected)
+      const isPickup = fulfillmentMethod === 'pickup';
+      const shippingCost = isPickup ? 0 : (totalPrice >= 49.99 ? 0 : 4.99);
+      const cartShipping = document.getElementById('cart-shipping');
+      const freeShippingPromo = document.getElementById('free-shipping-promo');
+      const shippingRow = document.getElementById('shipping-row');
+
+      // Hide shipping row entirely for pickup
+      if (shippingRow) {
+        if (isPickup) {
+          shippingRow.classList.add('hidden');
+        } else {
+          shippingRow.classList.remove('hidden');
+        }
+      }
+
+      if (cartShipping && !isPickup) {
+        if (shippingCost === 0) {
+          cartShipping.textContent = 'FREE';
+          cartShipping.classList.add('text-brand-green');
+        } else {
+          cartShipping.textContent = `$${shippingCost.toFixed(2)}`;
+          cartShipping.classList.remove('text-brand-green');
+        }
+      }
+
+      // Show promo if close to free shipping (only for delivery)
+      if (freeShippingPromo) {
+        if (isPickup) {
+          freeShippingPromo.innerHTML = `<svg class="w-3.5 h-3.5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Pickup at spa - no shipping cost!`;
+          freeShippingPromo.classList.remove('hidden');
+        } else if (totalPrice > 0 && totalPrice < 49.99) {
+          const remaining = (49.99 - totalPrice).toFixed(2);
+          freeShippingPromo.innerHTML = `<svg class="w-3.5 h-3.5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>Add $${remaining} more for FREE shipping!`;
+          freeShippingPromo.classList.remove('hidden');
+        } else if (shippingCost === 0) {
+          freeShippingPromo.innerHTML = `<svg class="w-3.5 h-3.5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>You qualify for FREE shipping!`;
+          freeShippingPromo.classList.remove('hidden');
+        } else {
+          freeShippingPromo.classList.add('hidden');
+        }
+      }
+
+      // Calculate NY sales tax (8.875%)
+      const taxRate = 0.08875;
+      const taxAmount = (totalPrice + shippingCost) * taxRate;
+      const cartTax = document.getElementById('cart-tax');
+      if (cartTax) cartTax.textContent = `$${taxAmount.toFixed(2)}`;
+
+      // Calculate total
+      const grandTotal = totalPrice + shippingCost + taxAmount;
+
+      // Update totals
+      if (cartSubtotal) cartSubtotal.textContent = `$${totalPrice.toFixed(2)}`;
+      if (cartTotal) cartTotal.textContent = `$${grandTotal.toFixed(2)}`;
+    }
+  }
+
+  // Make functions available globally
+  window.updateQuantity = updateQuantity;
+  window.removeFromCart = removeFromCart;
+  window.filterByCategory = filterByCategory;
+
+  // Filter by category (called from banner buttons)
+  function filterByCategory(categoryId) {
+    // Update all buttons with matching category (both mobile and desktop)
+    categoryBtns.forEach(b => {
+      const isSameCategory = b.dataset.category === categoryId;
+      // Reset styles based on button type (mobile vs desktop)
+      if (b.classList.contains('border')) {
+        // Desktop button
+        b.classList.remove('bg-brand-green', 'text-white', 'border-brand-green', 'bg-white', 'border-gray-200', 'text-gray-700');
+        if (isSameCategory) {
+          b.classList.add('bg-brand-green', 'text-white', 'border-brand-green');
+        } else {
+          b.classList.add('bg-white', 'border-gray-200', 'text-gray-700');
+        }
+      } else {
+        // Mobile button - new gradient design
+        b.classList.remove('bg-gradient-to-r', 'from-brand-green', 'to-emerald-500', 'text-white', 'shadow-md', 'shadow-brand-green/30', 'bg-gray-50', 'text-gray-600');
+        if (isSameCategory) {
+          b.classList.add('bg-gradient-to-r', 'from-brand-green', 'to-emerald-500', 'text-white', 'shadow-md', 'shadow-brand-green/30');
+        } else {
+          b.classList.add('bg-gray-50', 'text-gray-600');
+        }
+      }
+    });
+
+    // Filter products
+    filterProducts();
+
+    // Scroll to products section
+    document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Open/close cart sidebar
+  function openCart() {
+    cartOverlay?.classList.remove('opacity-0', 'pointer-events-none');
+    cartSidebar?.classList.remove('translate-x-full');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCartSidebar() {
+    cartOverlay?.classList.add('opacity-0', 'pointer-events-none');
+    cartSidebar?.classList.add('translate-x-full');
+    document.body.style.overflow = '';
+  }
+
+  // Product modal
+  function openProductModal(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    currentModalProduct = product;
+    modalQuantity = 1;
+
+    // Populate modal
+    document.getElementById('modal-image').src = product.image;
+    document.getElementById('modal-image').alt = product.name;
+    document.getElementById('modal-title').textContent = product.name;
+    document.getElementById('modal-price').textContent = `$${product.price.toFixed(2)}`;
+    document.getElementById('modal-description').textContent = product.description;
+    document.getElementById('modal-size').textContent = product.size;
+    document.getElementById('modal-reviews').textContent = `(${product.reviews} reviews)`;
+    document.getElementById('modal-ingredients').textContent = product.ingredients;
+    document.getElementById('modal-qty').textContent = '1';
+
+    // Rating
+    const ratingEl = document.getElementById('modal-rating');
+    ratingEl.innerHTML = [...Array(5)].map((_, i) =>
+      `<svg class="w-4 h-4 ${i < Math.floor(product.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>`
+    ).join('');
+
+    // Features - Chip style
+    const featuresEl = document.getElementById('modal-features');
+    featuresEl.innerHTML = product.features.map(f =>
+      `<li class="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-medium">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        ${f}
+      </li>`
+    ).join('');
+
+    // Show modal
+    productModal?.classList.remove('opacity-0', 'pointer-events-none');
+    document.getElementById('modal-content')?.classList.remove('scale-95');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeProductModal() {
+    productModal?.classList.add('opacity-0', 'pointer-events-none');
+    document.getElementById('modal-content')?.classList.add('scale-95');
+    document.body.style.overflow = '';
+    currentModalProduct = null;
+    modalQuantity = 1;
+  }
+
+  // Checkout modal
+  let squareInitialized = false;
+
+  async function openCheckoutModal() {
+    if (cart.length === 0) return;
+
+    // Reset payment form state
+    document.getElementById('payment-form')?.classList.remove('hidden');
+    document.getElementById('payment-status')?.classList.add('hidden');
+    document.getElementById('payment-loading')?.classList.add('hidden');
+    document.getElementById('payment-success')?.classList.add('hidden');
+    document.getElementById('payment-error')?.classList.add('hidden');
+
+    // Populate checkout items
+    const checkoutItems = document.getElementById('checkout-items');
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    if (checkoutItems) {
+      checkoutItems.innerHTML = cart.map(item =>
+        `<div class="flex items-center gap-2 text-sm py-1">
+          <span class="text-gray-400 text-xs w-5">${item.quantity}x</span>
+          <span class="flex-1 text-gray-600 truncate text-xs">${item.name}</span>
+          <span class="font-medium text-gray-900 text-xs">$${(item.price * item.quantity).toFixed(2)}</span>
+        </div>`
+      ).join('');
+    }
+
+    // Update item count
+    const itemCount = document.getElementById('checkout-item-count');
+    if (itemCount) itemCount.textContent = totalItems.toString();
+
+    // Reset order details toggle
+    const itemsDiv = document.getElementById('checkout-items');
+    const chevron = document.getElementById('toggle-chevron');
+    itemsDiv?.classList.add('hidden');
+    chevron?.classList.remove('rotate-180');
+
+    const totalPrice = getCartTotal();
+    const checkoutTotal = document.getElementById('checkout-total');
+    if (checkoutTotal) checkoutTotal.textContent = `$${totalPrice.toFixed(2)}`;
+
+    // Update pay button text
+    const payButtonText = document.getElementById('pay-button-text');
+    if (payButtonText) payButtonText.textContent = `Pay $${totalPrice.toFixed(2)}`;
+
+    // Show modal with animation
+    closeCartSidebar();
+    checkoutModal?.classList.remove('opacity-0', 'pointer-events-none');
+    // Animate in
+    setTimeout(() => {
+      const content = document.getElementById('checkout-content');
+      content?.classList.remove('translate-y-full', 'md:scale-95');
+      content?.classList.add('translate-y-0', 'md:scale-100');
+    }, 10);
+    document.body.style.overflow = 'hidden';
+
+    // Initialize Square payments if not already done
+    if (!squareInitialized) {
+      await initializeSquarePayments();
+      squareInitialized = true;
+    }
+  }
+
+  function closeCheckoutModalFn() {
+    const content = document.getElementById('checkout-content');
+    content?.classList.add('translate-y-full', 'md:scale-95');
+    content?.classList.remove('translate-y-0', 'md:scale-100');
+    setTimeout(() => {
+      checkoutModal?.classList.add('opacity-0', 'pointer-events-none');
+    }, 300);
+    document.body.style.overflow = '';
+  }
+
+  // Toast notification
+  function showToast(message) {
+    if (toastMessage) toastMessage.textContent = message;
+    toast?.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+    setTimeout(() => {
+      toast?.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+    }, 2000);
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeProductModal();
+      closeCartSidebar();
+      closeCheckoutModalFn();
+    }
+  });
+</script>
+
+<style>
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

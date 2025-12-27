@@ -1,0 +1,371 @@
+---
+import { Icon } from "astro-icon/components";
+
+const galleryImages = [
+  {
+    id: 1,
+    beforeImage: "/maltipoo-before.webp",
+    afterImage: "/maltipoo-after.webp",
+    altText: "Maltipoo grooming transformation",
+    dogName: "Maltipoo",
+    service: "Full Service",
+    color: "green"
+  },
+  {
+    id: 2,
+    beforeImage: "/pomeranian-before.webp",
+    afterImage: "/pomeranian-after.webp",
+    altText: "Pomeranian grooming transformation",
+    dogName: "Pomeranian",
+    service: "Bath & Brush",
+    color: "blue"
+  },
+  {
+    id: 3,
+    beforeImage: "/poodle-before.webp",
+    afterImage: "/poodle-after.webp",
+    altText: "Standard Poodle grooming transformation",
+    dogName: "Standard Poodle",
+    service: "Full Service",
+    color: "green"
+  },
+  {
+    id: 4,
+    beforeImage: "/husky-before.webp",
+    afterImage: "/husky-after.webp",
+    altText: "Siberian Husky grooming transformation",
+    dogName: "Siberian Husky",
+    service: "Bath & Brush",
+    color: "blue"
+  },
+];
+---
+
+<section class="py-14 md:py-20 px-5 mt-8 md:mt-12 mb-12 md:mb-16 relative overflow-hidden gallery-glass-section" style="margin-left: calc(-50vw + 50%); padding-left: calc(50vw - 50%); border-top-right-radius: 2rem; border-bottom-right-radius: 2rem; border-top-left-radius: 0; border-bottom-left-radius: 0;">
+
+  <!-- Animated decorative elements -->
+  <div class="absolute top-8 right-8 md:top-12 md:right-16 animate-float-slow hidden lg:block">
+    <div class="relative">
+      <div class="absolute inset-0 bg-brand-blue/20 rounded-full blur-xl scale-150"></div>
+      <Icon name="lucide:camera" class="w-10 h-10 text-brand-blue/30 relative z-10" />
+    </div>
+  </div>
+  <div class="absolute bottom-8 left-8 md:bottom-12 md:left-16 animate-float-delayed hidden lg:block">
+    <div class="relative">
+      <div class="absolute inset-0 bg-brand-blue/20 rounded-full blur-xl scale-150"></div>
+      <Icon name="lucide:sparkles" class="w-8 h-8 text-brand-blue/30 relative z-10" />
+    </div>
+  </div>
+
+  <!-- Desktop Header -->
+  <div class="hidden lg:block relative z-20 text-center mb-12">
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-full mb-6 shadow-lg border border-white/50">
+      <div class="w-6 h-6 bg-gradient-to-br from-brand-blue to-sky-500 rounded-full flex items-center justify-center">
+        <Icon name="lucide:camera" class="w-3.5 h-3.5 text-white" />
+      </div>
+      <span class="text-sm font-bold text-brand-blue tracking-wide">Real Transformations</span>
+    </div>
+
+    <div class="flex items-center justify-center gap-5 mb-4">
+      <div class="flex items-center gap-2">
+        <div class="w-12 h-12 bg-gradient-to-br from-brand-green to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg animate-pulse-subtle">
+          <Icon name="lucide:scissors" class="w-6 h-6 text-white" />
+        </div>
+      </div>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold">
+        <span class="text-gray-900">Transformation</span>
+        <span class="bg-gradient-to-r from-brand-blue via-sky-500 to-brand-blue bg-clip-text text-transparent"> Gallery</span>
+      </h2>
+      <div class="flex items-center gap-2">
+        <div class="w-12 h-12 bg-gradient-to-br from-brand-blue to-sky-500 rounded-2xl flex items-center justify-center shadow-lg animate-pulse-subtle-delayed">
+          <Icon name="lucide:droplets" class="w-6 h-6 text-white" />
+        </div>
+      </div>
+    </div>
+
+    <p class="text-gray-600 text-lg max-w-2xl mx-auto">Hover over each card to see the amazing before & after results</p>
+  </div>
+
+  <!-- Desktop: 4 cards in a row -->
+  <div class="hidden lg:grid lg:grid-cols-4 gap-6 relative z-20">
+    {galleryImages.map((item, index) => (
+      <div
+        class="transformation-card group relative overflow-hidden rounded-3xl cursor-pointer h-96"
+        data-card-id={item.id}
+        style={`animation-delay: ${index * 100}ms`}
+      >
+        <!-- Card glow effect -->
+        <div class={`absolute -inset-1 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl ${
+          item.color === 'green'
+            ? 'bg-gradient-to-br from-brand-green/50 to-emerald-500/50'
+            : 'bg-gradient-to-br from-brand-blue/50 to-sky-500/50'
+        }`}></div>
+
+        <!-- Card container -->
+        <div class="relative h-full rounded-3xl overflow-hidden shadow-xl group-hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2">
+          <!-- After Image (Always Visible Background) -->
+          <div class="absolute inset-0 z-0">
+            <img
+              src={item.afterImage}
+              alt={`After: ${item.altText}`}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            <!-- Gradient Overlay -->
+            <div class={`absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent`}></div>
+          </div>
+
+          <!-- Before Image (Slide Reveal on Hover) -->
+          <div class="before-reveal absolute inset-0 z-10 pointer-events-none">
+            <div class="absolute inset-0 overflow-hidden">
+              <img
+                src={item.beforeImage}
+                alt={`Before: ${item.altText}`}
+                class="w-full h-full object-cover"
+              />
+              <!-- Before overlay -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            </div>
+          </div>
+
+          <!-- Shine sweep effect -->
+          <div class="absolute inset-0 z-30 pointer-events-none overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out"></div>
+          </div>
+
+          <!-- Service Badge - Top Right -->
+          <div class={`absolute top-4 right-4 z-40 px-4 py-2 rounded-full backdrop-blur-md border shadow-xl transition-all duration-300 group-hover:scale-110 ${
+            item.color === 'green'
+              ? 'bg-brand-green/90 border-brand-green/50'
+              : 'bg-brand-blue/90 border-brand-blue/50'
+          }`}>
+            <div class="flex items-center gap-2">
+              <Icon
+                name={item.color === 'green' ? 'lucide:scissors' : 'lucide:droplets'}
+                class="w-4 h-4 text-white"
+              />
+              <span class="text-white text-xs font-bold">{item.service}</span>
+            </div>
+          </div>
+
+          <!-- Bottom info card -->
+          <div class="absolute bottom-0 left-0 right-0 z-40 p-5">
+            <div class="bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-white/50 transform transition-all duration-300 group-hover:translate-y-0 translate-y-2 opacity-90 group-hover:opacity-100">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="font-bold text-gray-900 text-lg">{item.dogName}</h3>
+                  <p class="text-sm text-gray-500">Hover to see before</p>
+                </div>
+                <div class={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                  item.color === 'green'
+                    ? 'bg-brand-green/10'
+                    : 'bg-brand-blue/10'
+                }`}>
+                  <Icon
+                    name="lucide:arrow-left-right"
+                    class={`w-5 h-5 ${item.color === 'green' ? 'text-brand-green' : 'text-brand-blue'}`}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Mobile: Enhanced side-by-side before/after -->
+  <div class="lg:hidden relative z-20 px-2">
+    <!-- Mobile Header -->
+    <div class="text-center mb-6">
+      <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full mb-4 shadow-lg border border-white/50">
+        <Icon name="lucide:camera" class="w-4 h-4 text-brand-blue" />
+        <span class="text-xs font-bold text-brand-blue">Real Transformations</span>
+      </div>
+      <h2 class="text-2xl font-extrabold text-gray-900">
+        Transformation <span class="text-brand-blue">Gallery</span>
+      </h2>
+    </div>
+
+    <div class="flex flex-col gap-6">
+      {galleryImages.map((item) => (
+        <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/50">
+          <!-- Dog name with service badge -->
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <div class={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                item.color === 'green'
+                  ? 'bg-gradient-to-br from-brand-green to-emerald-500'
+                  : 'bg-gradient-to-br from-brand-blue to-sky-500'
+              }`}>
+                <Icon name={item.color === 'green' ? 'lucide:scissors' : 'lucide:droplets'} class="w-4 h-4 text-white" />
+              </div>
+              <h3 class="text-base font-bold text-gray-900">{item.dogName}</h3>
+            </div>
+            <span class={`text-xs font-semibold px-3 py-1 rounded-full ${
+              item.color === 'green'
+                ? 'bg-brand-green/10 text-brand-green'
+                : 'bg-brand-blue/10 text-brand-blue'
+            }`}>
+              {item.service}
+            </span>
+          </div>
+
+          <!-- Before/After side by side -->
+          <div class="flex gap-3 items-center">
+            <!-- Before -->
+            <div class="flex-1 relative overflow-hidden rounded-xl shadow-lg group">
+              <div class="aspect-square">
+                <img
+                  src={item.beforeImage}
+                  alt={`Before: ${item.altText}`}
+                  loading="lazy"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-3">
+                <span class="bg-white/90 backdrop-blur-sm text-gray-800 text-xs font-bold px-3 py-1 rounded-full">BEFORE</span>
+              </div>
+            </div>
+
+            <!-- Arrow with animation -->
+            <div class="flex-shrink-0">
+              <div class={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg ${
+                item.color === 'green'
+                  ? 'bg-gradient-to-br from-brand-green to-emerald-500'
+                  : 'bg-gradient-to-br from-brand-blue to-sky-500'
+              }`}>
+                <Icon name="lucide:arrow-right" class="w-5 h-5 text-white animate-pulse-arrow" />
+              </div>
+            </div>
+
+            <!-- After -->
+            <div class="flex-1 relative overflow-hidden rounded-xl shadow-lg group">
+              <div class="aspect-square">
+                <img
+                  src={item.afterImage}
+                  alt={`After: ${item.altText}`}
+                  loading="lazy"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class={`absolute inset-0 ${
+                item.color === 'green'
+                  ? 'bg-gradient-to-t from-brand-green/80 via-transparent to-transparent'
+                  : 'bg-gradient-to-t from-brand-blue/80 via-transparent to-transparent'
+              }`}></div>
+              <div class="absolute bottom-0 left-0 right-0 p-3">
+                <span class={`text-white text-xs font-bold px-3 py-1 rounded-full ${
+                  item.color === 'green' ? 'bg-brand-green' : 'bg-brand-blue'
+                }`}>AFTER</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Glass section styling with paw prints - Blue version */
+  .gallery-glass-section {
+    position: relative;
+    z-index: 1;
+    background:
+      /* Paw prints pattern overlay */
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-200 -200 912 912'%3E%3Cpath fill='%23ffffff' fill-opacity='0.5' d='M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z'/%3E%3C/svg%3E"),
+      /* Subtle gradient */
+      linear-gradient(135deg, rgba(224, 236, 245, 0.95) 0%, rgba(200, 220, 240, 1) 50%, rgba(224, 236, 245, 0.95) 100%);
+    background-color: #e0ecf5;
+    background-size: 60px 60px, 100% 100%;
+    box-shadow:
+      0 0 80px rgba(7, 86, 173, 0.25),
+      0 25px 50px -12px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(7, 86, 173, 0.15);
+  }
+
+  @media (max-width: 1023px) {
+    .gallery-glass-section {
+      background-size: 40px 40px, 100% 100%;
+      box-shadow:
+        0 0 40px rgba(7, 86, 173, 0.2),
+        0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  /* Slide Reveal Effect */
+  .transformation-card .before-reveal {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .transformation-card:hover .before-reveal {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Floating animations */
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  @keyframes float-delayed {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(-5deg); }
+  }
+
+  @keyframes pulse-subtle {
+    0%, 100% { transform: scale(1); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2); }
+    50% { transform: scale(1.05); box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.3); }
+  }
+
+  @keyframes pulse-arrow {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(3px); }
+  }
+
+  .animate-float-slow {
+    animation: float-slow 6s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float-delayed 7s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+
+  .animate-pulse-subtle {
+    animation: pulse-subtle 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-subtle-delayed {
+    animation: pulse-subtle 3s ease-in-out infinite;
+    animation-delay: 1.5s;
+  }
+
+  .animate-pulse-arrow {
+    animation: pulse-arrow 1.5s ease-in-out infinite;
+  }
+
+  /* Card entrance animation */
+  .transformation-card {
+    opacity: 0;
+    animation: cardEntrance 0.6s ease-out forwards;
+  }
+
+  @keyframes cardEntrance {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

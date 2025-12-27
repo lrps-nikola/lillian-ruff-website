@@ -1,0 +1,132 @@
+---
+import { SEO } from "astro-seo";
+import Footer from "@/components/footer.astro";
+import Navbar from "@/components/navbar/navbar.astro";
+import FloatingButtons from "@/components/floating-buttons.astro";
+import "@fontsource-variable/inter/index.css";
+import "../styles/global.css";
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+
+const resolvedImageWithDomain = new URL(
+  "/opengraph.webp",
+  Astro.site
+).toString();
+
+const { title, description } = Astro.props;
+
+const makeTitle = title
+  ? title + " | " + "Lillian Ruff Pet Spa"
+  : "Lillian Ruff Pet Spa - Professional Dog Grooming in Ronkonkoma, NY";
+
+const makeDescription = description || "Professional dog grooming, memberships, and boarding in Ronkonkoma, NY. Walk-ins welcome. Premium Lillian Ruff products.";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEO
+      title={makeTitle}
+      description={makeDescription}
+      canonical={canonicalURL}
+      openGraph={{
+        basic: {
+          url: canonicalURL,
+          type: "website",
+          title: makeTitle,
+          image: resolvedImageWithDomain,
+        },
+        image: {
+          alt: "Lillian Ruff Pet Spa",
+        },
+      }}
+    />
+  </head>
+  <body>
+    <Navbar />
+    <slot />
+    <Footer />
+    <FloatingButtons />
+
+    <script is:inline>
+      // Floating paws - using a fixed overlay container
+      (function() {
+        var colors = {
+          'green': '#7ba650',
+          'blue': '#0756ad',
+          'cyan': '#03938e',
+          'sky': '#0ea5e9',
+          'emerald': '#10b981'
+        };
+        var colorNames = ['green', 'blue', 'cyan', 'sky', 'emerald'];
+        var sizes = [12, 16, 20, 24];
+
+        // Create a fixed container for all paws
+        var container = document.createElement('div');
+        container.id = 'paws-container';
+        container.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:-1;overflow:hidden;';
+        document.body.insertBefore(container, document.body.firstChild);
+
+        var numPaws = 40;
+        var pawData = [];
+
+        for (var i = 0; i < numPaws; i++) {
+          var colorName = colorNames[Math.floor(Math.random() * colorNames.length)];
+          var size = sizes[Math.floor(Math.random() * sizes.length)];
+
+          var paw = document.createElement('div');
+          paw.style.cssText = 'position:absolute;pointer-events:none;opacity:0.15;width:' + size + 'px;height:' + size + 'px;';
+          paw.innerHTML = '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><path fill="' + colors[colorName] + '" d="M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z"/></svg>';
+          container.appendChild(paw);
+
+          // Use percentage of viewport for positioning
+          var baseX = Math.random() * 100;
+          var baseY = Math.random() * 100;
+
+          pawData.push({
+            el: paw,
+            baseX: baseX,
+            baseY: baseY,
+            phase: Math.random() * Math.PI * 2,
+            speed: 0.3 + Math.random() * 0.5,
+            ampX: 0.5 + Math.random() * 1,
+            ampY: 0.5 + Math.random() * 1
+          });
+        }
+
+        var time = 0;
+        function animate() {
+          time += 0.02;
+
+          for (var i = 0; i < pawData.length; i++) {
+            var p = pawData[i];
+            var x = p.baseX + Math.sin(time * p.speed + p.phase) * p.ampX;
+            var y = p.baseY + Math.cos(time * p.speed * 0.8 + p.phase) * p.ampY;
+            p.el.style.left = x + '%';
+            p.el.style.top = y + '%';
+          }
+
+          requestAnimationFrame(animate);
+        }
+        animate();
+      })();
+    </script>
+
+    <style is:global>
+      /* Improve Page speed */
+      img {
+        content-visibility: auto;
+      }
+    </style>
+  </body>
+</html>
