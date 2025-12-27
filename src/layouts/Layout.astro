@@ -1,6 +1,7 @@
 ---
 import { SEO } from "astro-seo";
 import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
 import FloatingButtons from "@/components/floating-buttons.astro";
@@ -59,6 +60,7 @@ const makeDescription = description || "Professional dog grooming, memberships, 
     <Footer />
     <FloatingButtons />
     <Analytics />
+    <SpeedInsights />
 
     <script is:inline>
       // Floating paws - using a fixed overlay container
