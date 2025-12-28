@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    { "source": "/pages/boarding", "destination": "/boarding", "permanent": true },
+    { "source": "/pages/grooming", "destination": "/grooming", "permanent": true },
+    { "source": "/pages/shop", "destination": "/shop", "permanent": true },
+    { "source": "/pages/contact", "destination": "/contact", "permanent": true },
+    { "source": "/pages/:path*", "destination": "/:path*", "permanent": true }
+  ]
+}
