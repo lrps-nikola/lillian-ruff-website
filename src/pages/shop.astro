@@ -585,6 +585,17 @@ const products = [
               <Icon name="lucide:credit-card" class="w-3.5 h-3.5" />
               Payment
             </p>
+
+            <!-- Apple Pay Button Container -->
+            <div id="apple-pay-button" class="hidden mb-3"></div>
+
+            <!-- Divider between Apple Pay and Card -->
+            <div id="apple-pay-divider" class="hidden flex items-center gap-3 mb-3">
+              <div class="flex-1 h-px bg-gray-200"></div>
+              <span class="text-xs text-gray-400">or pay with card</span>
+              <div class="flex-1 h-px bg-gray-200"></div>
+            </div>
+
             <!-- Card Form Container - Square injects here -->
             <div id="card-container"></div>
           </div>
@@ -964,6 +975,27 @@ const products = [
 
   let squarePayments = null;
   let card = null;
+  let applePay = null;
+
+  // Build payment request for Apple Pay
+  function buildPaymentRequest(payments) {
+    const total = getCartTotal();
+    return payments.paymentRequest({
+      countryCode: 'US',
+      currencyCode: 'USD',
+      total: {
+        amount: total.toFixed(2),
+        label: 'Lillian Ruff Pet Spa',
+      },
+    });
+  }
+
+  // Initialize Apple Pay
+  async function initializeApplePay(payments) {
+    const paymentRequest = buildPaymentRequest(payments);
+    const applePayInstance = await payments.applePay(paymentRequest);
+    return applePayInstance;
+  }
 
   // Initialize Square when checkout modal opens
   async function initializeSquarePayments() {
@@ -980,6 +1012,21 @@ const products = [
       // Initialize Card with all fields in one component
       card = await squarePayments.card();
       await card.attach('#card-container');
+
+      // Initialize Apple Pay
+      try {
+        applePay = await initializeApplePay(squarePayments);
+        // Show Apple Pay button and divider if available
+        const applePayButton = document.getElementById('apple-pay-button');
+        const applePayDivider = document.getElementById('apple-pay-divider');
+        if (applePayButton && applePay) {
+          await applePay.attach('#apple-pay-button');
+          applePayButton.classList.remove('hidden');
+          if (applePayDivider) applePayDivider.classList.remove('hidden');
+        }
+      } catch (applePayError) {
+        // Apple Pay not available - that's okay, card payment still works
+      }
 
     } catch (error) {
       // Show error to user instead of console
@@ -1082,6 +1129,38 @@ const products = [
         payButton.disabled = false;
         payButton.querySelector('#pay-button-text').textContent = `Pay $${getCartTotal().toFixed(2)}`;
       }
+    }
+  });
+
+  // Apple Pay button click handler
+  document.getElementById('apple-pay-button')?.addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    if (!applePay) {
+      showToast('Apple Pay is not available');
+      return;
+    }
+
+    const email = document.getElementById('customer-email')?.value;
+    if (!email) {
+      showToast('Please enter your email');
+      return;
+    }
+
+    try {
+      // Tokenize immediately on click per Square docs
+      const result = await applePay.tokenize();
+      if (result.status === 'OK') {
+        await processPayment(result.token);
+      } else {
+        let errorMessage = 'Apple Pay verification failed';
+        if (result.errors) {
+          errorMessage = result.errors.map(e => e.message).join(', ');
+        }
+        showToast(errorMessage);
+      }
+    } catch (error) {
+      showToast('Error processing Apple Pay. Please try again.');
     }
   });
 
