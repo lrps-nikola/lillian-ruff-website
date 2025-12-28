@@ -586,8 +586,8 @@ const products = [
               Payment
             </p>
 
-            <!-- Apple Pay Button Container -->
-            <div id="apple-pay-button" class="hidden mb-3"></div>
+            <!-- Apple Pay Button -->
+            <button id="apple-pay-button" type="button" class="apple-pay-button hidden mb-3 w-full h-12 rounded-xl cursor-pointer"></button>
 
             <!-- Divider between Apple Pay and Card -->
             <div id="apple-pay-divider" class="hidden flex items-center gap-3 mb-3">
@@ -1586,5 +1586,23 @@ const products = [
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  /* Apple Pay Button Styling */
+  #apple-pay-button {
+    -webkit-appearance: -apple-pay-button;
+    -apple-pay-button-type: plain;
+    -apple-pay-button-style: black;
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+  }
+
+  /* Fallback for non-Safari browsers */
+  @supports not (-webkit-appearance: -apple-pay-button) {
+    #apple-pay-button {
+      display: none !important;
+    }
   }
 </style>
