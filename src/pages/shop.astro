@@ -1016,11 +1016,12 @@ const products = [
       // Initialize Apple Pay
       try {
         applePay = await initializeApplePay(squarePayments);
-        // Show Apple Pay button and divider if available
+        // Apple Pay is available - show the button container and divider
         const applePayButton = document.getElementById('apple-pay-button');
         const applePayDivider = document.getElementById('apple-pay-divider');
         if (applePayButton && applePay) {
-          await applePay.attach('#apple-pay-button');
+          // Apple Pay doesn't use attach() - we create our own button
+          applePayButton.innerHTML = '<button type="button" id="apple-pay-btn" class="apple-pay-btn"></button>';
           applePayButton.classList.remove('hidden');
           if (applePayDivider) applePayDivider.classList.remove('hidden');
           console.log('Apple Pay initialized successfully');
