@@ -4,6 +4,9 @@
     { "source": "/pages/grooming", "destination": "/grooming", "permanent": true },
     { "source": "/pages/shop", "destination": "/shop", "permanent": true },
     { "source": "/pages/contact", "destination": "/contact", "permanent": true },
-    { "source": "/pages/:path*", "destination": "/:path*", "permanent": true }
+    { "source": "/pages/:path*", "destination": "/:path*", "permanent": true },
+    { "source": "/book-an-appointment", "destination": "/grooming", "permanent": true },
+    { "source": "/collections/frontpage", "destination": "/shop", "permanent": true },
+    { "source": "/collections/:path*", "destination": "/shop", "permanent": true }
   ]
 }
