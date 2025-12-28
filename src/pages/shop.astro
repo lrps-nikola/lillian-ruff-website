@@ -976,6 +976,7 @@ const products = [
   let squarePayments = null;
   let card = null;
   let applePay = null;
+  let applePayRequest = null;
 
   // Build payment request for Apple Pay
   function buildPaymentRequest(payments) {
@@ -996,10 +997,25 @@ const products = [
     return payments.paymentRequest(request);
   }
 
+  // Update payment request with current cart total
+  function updatePaymentRequest() {
+    if (applePayRequest) {
+      const total = getCartTotal();
+      const fulfillmentMethod = document.querySelector('input[name="fulfillment"]:checked')?.value || 'delivery';
+      applePayRequest.update({
+        total: {
+          amount: total.toFixed(2),
+          label: 'Lillian Ruff Pet Spa',
+        },
+        requestShippingContact: fulfillmentMethod === 'delivery',
+      });
+    }
+  }
+
   // Initialize Apple Pay
   async function initializeApplePay(payments) {
-    const paymentRequest = buildPaymentRequest(payments);
-    const applePayInstance = await payments.applePay(paymentRequest);
+    applePayRequest = buildPaymentRequest(payments);
+    const applePayInstance = await payments.applePay(applePayRequest);
     return applePayInstance;
   }
 
@@ -1151,8 +1167,11 @@ const products = [
       return;
     }
 
+    // Update payment request with current cart total (must be done before tokenize)
+    updatePaymentRequest();
+
     try {
-      // Tokenize - Apple Pay will collect contact info from user
+      // Tokenize immediately - Apple Pay will collect contact info from user
       const result = await applePay.tokenize();
       if (result.status === 'OK') {
         // Extract contact info from Apple Pay result
