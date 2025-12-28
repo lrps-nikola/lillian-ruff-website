@@ -587,7 +587,7 @@ const products = [
             </p>
 
             <!-- Apple Pay Button -->
-            <div id="apple-pay-button" class="hidden mb-3"></div>
+            <button id="apple-pay-button" type="button" class="apple-pay-button hidden mb-3"></button>
 
             <!-- Divider between Apple Pay and Card -->
             <div id="apple-pay-divider" class="hidden flex items-center gap-3 mb-3">
@@ -978,36 +978,28 @@ const products = [
   let applePay = null;
   let applePayRequest = null;
 
-  // Build payment request for Apple Pay
+  // Build payment request for Apple Pay - matches Square's official example
   function buildPaymentRequest(payments) {
     const total = getCartTotal();
-    const fulfillmentMethod = document.querySelector('input[name="fulfillment"]:checked')?.value || 'delivery';
-
-    const request = {
+    return payments.paymentRequest({
       countryCode: 'US',
       currencyCode: 'USD',
       total: {
         amount: total.toFixed(2),
-        label: 'Lillian Ruff Pet Spa',
+        label: 'Total',
       },
-      requestBillingContact: true,
-      requestShippingContact: fulfillmentMethod === 'delivery',
-    };
-
-    return payments.paymentRequest(request);
+    });
   }
 
   // Update payment request with current cart total
   function updatePaymentRequest() {
     if (applePayRequest) {
       const total = getCartTotal();
-      const fulfillmentMethod = document.querySelector('input[name="fulfillment"]:checked')?.value || 'delivery';
       applePayRequest.update({
         total: {
           amount: total.toFixed(2),
-          label: 'Lillian Ruff Pet Spa',
+          label: 'Total',
         },
-        requestShippingContact: fulfillmentMethod === 'delivery',
       });
     }
   }
@@ -1016,6 +1008,7 @@ const products = [
   async function initializeApplePay(payments) {
     applePayRequest = buildPaymentRequest(payments);
     const applePayInstance = await payments.applePay(applePayRequest);
+    // Note: You do not need to `attach` applePay.
     return applePayInstance;
   }
 
@@ -1038,18 +1031,17 @@ const products = [
       // Initialize Apple Pay
       try {
         applePay = await initializeApplePay(squarePayments);
-        // Apple Pay is available - show the button container and divider
+        // Apple Pay is available - show the button and divider
         const applePayButton = document.getElementById('apple-pay-button');
         const applePayDivider = document.getElementById('apple-pay-divider');
         if (applePayButton && applePay) {
-          // Apple Pay doesn't use attach() - we create our own styled button
-          applePayButton.innerHTML = '<button type="button" id="apple-pay-btn" style="-webkit-appearance: -apple-pay-button; -apple-pay-button-type: plain; -apple-pay-button-style: black; width: 100%; height: 48px; border: none; border-radius: 12px; cursor: pointer;"></button>';
           applePayButton.classList.remove('hidden');
           if (applePayDivider) applePayDivider.classList.remove('hidden');
           console.log('Apple Pay initialized successfully');
         }
       } catch (applePayError) {
         // Apple Pay not available - that's okay, card payment still works
+        // Common reasons: browser support, device support, account issues
         console.log('Apple Pay not available:', applePayError?.message || applePayError);
       }
 
@@ -1158,44 +1150,38 @@ const products = [
     }
   });
 
-  // Apple Pay button click handler
-  document.getElementById('apple-pay-button')?.addEventListener('click', async (event) => {
-    event.preventDefault();
+  // Apple Pay button click handler - matches Square's official example
+  if (document.getElementById('apple-pay-button')) {
+    document.getElementById('apple-pay-button').addEventListener('click', async function (event) {
+      event.preventDefault();
 
-    if (!applePay) {
-      showToast('Apple Pay is not available');
-      return;
-    }
-
-    // Update payment request with current cart total (must be done before tokenize)
-    updatePaymentRequest();
-
-    try {
-      // Tokenize immediately - Apple Pay will collect contact info from user
-      const result = await applePay.tokenize();
-      if (result.status === 'OK') {
-        // Extract contact info from Apple Pay result
-        const applePayContact = result.details?.shipping?.contact || result.details?.billing?.contact || {};
-        const applePayEmail = applePayContact.email || result.details?.billing?.contact?.email;
-
-        // Use Apple Pay contact info for the order
-        await processPayment(result.token, {
-          email: applePayEmail,
-          shippingContact: result.details?.shipping?.contact,
-          billingContact: result.details?.billing?.contact,
-        });
-      } else {
-        let errorMessage = 'Apple Pay verification failed';
-        if (result.errors) {
-          errorMessage = result.errors.map(e => e.message).join(', ');
-        }
-        showToast(errorMessage);
+      if (!applePay) {
+        showToast('Apple Pay is not available');
+        return;
       }
-    } catch (error) {
-      console.error('Apple Pay error:', error);
-      showToast('Error processing Apple Pay. Please try again.');
-    }
-  });
+
+      // Update payment request with current cart total
+      updatePaymentRequest();
+
+      try {
+        // Tokenize immediately
+        const tokenResult = await applePay.tokenize();
+        if (tokenResult.status === 'OK') {
+          await processPayment(tokenResult.token);
+        } else {
+          let errorMessage = `Tokenization failed: ${tokenResult.status}`;
+          if (tokenResult.errors) {
+            errorMessage += ` - ${JSON.stringify(tokenResult.errors)}`;
+          }
+          console.error(errorMessage);
+          showToast('Apple Pay failed. Please try again.');
+        }
+      } catch (error) {
+        console.error('Apple Pay error:', error);
+        showToast('Error processing Apple Pay. Please try again.');
+      }
+    });
+  }
 
   // Filter products
   function filterProducts() {
@@ -1621,19 +1607,14 @@ const products = [
     overflow: hidden;
   }
 
-  /* Apple Pay Button Styling - Square injects button inside the div */
+  /* Apple Pay Button Styling - matches Square's official example */
   #apple-pay-button {
+    height: 48px;
     width: 100%;
-    min-height: 48px;
-  }
-
-  #apple-pay-button button,
-  #apple-pay-button .apple-pay-button {
+    display: inline-block;
     -webkit-appearance: -apple-pay-button;
     -apple-pay-button-type: plain;
     -apple-pay-button-style: black;
-    width: 100%;
-    height: 48px;
     border: none;
     border-radius: 12px;
     cursor: pointer;
