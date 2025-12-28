@@ -1020,8 +1020,8 @@ const products = [
         const applePayButton = document.getElementById('apple-pay-button');
         const applePayDivider = document.getElementById('apple-pay-divider');
         if (applePayButton && applePay) {
-          // Apple Pay doesn't use attach() - we create our own button
-          applePayButton.innerHTML = '<button type="button" id="apple-pay-btn" class="apple-pay-btn"></button>';
+          // Apple Pay doesn't use attach() - we create our own styled button
+          applePayButton.innerHTML = '<button type="button" id="apple-pay-btn" style="-webkit-appearance: -apple-pay-button; -apple-pay-button-type: plain; -apple-pay-button-style: black; width: 100%; height: 48px; border: none; border-radius: 12px; cursor: pointer;"></button>';
           applePayButton.classList.remove('hidden');
           if (applePayDivider) applePayDivider.classList.remove('hidden');
           console.log('Apple Pay initialized successfully');
