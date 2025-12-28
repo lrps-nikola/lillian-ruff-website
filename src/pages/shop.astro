@@ -587,7 +587,7 @@ const products = [
             </p>
 
             <!-- Apple Pay Button -->
-            <button id="apple-pay-button" type="button" class="apple-pay-button hidden mb-3 w-full h-12 rounded-xl cursor-pointer"></button>
+            <div id="apple-pay-button" class="hidden mb-3"></div>
 
             <!-- Divider between Apple Pay and Card -->
             <div id="apple-pay-divider" class="hidden flex items-center gap-3 mb-3">
@@ -1023,9 +1023,11 @@ const products = [
           await applePay.attach('#apple-pay-button');
           applePayButton.classList.remove('hidden');
           if (applePayDivider) applePayDivider.classList.remove('hidden');
+          console.log('Apple Pay initialized successfully');
         }
       } catch (applePayError) {
         // Apple Pay not available - that's okay, card payment still works
+        console.log('Apple Pay not available:', applePayError?.message || applePayError);
       }
 
     } catch (error) {
@@ -1588,8 +1590,14 @@ const products = [
     overflow: hidden;
   }
 
-  /* Apple Pay Button Styling */
+  /* Apple Pay Button Styling - Square injects button inside the div */
   #apple-pay-button {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  #apple-pay-button button,
+  #apple-pay-button .apple-pay-button {
     -webkit-appearance: -apple-pay-button;
     -apple-pay-button-type: plain;
     -apple-pay-button-style: black;
@@ -1597,12 +1605,6 @@ const products = [
     height: 48px;
     border: none;
     border-radius: 12px;
-  }
-
-  /* Fallback for non-Safari browsers */
-  @supports not (-webkit-appearance: -apple-pay-button) {
-    #apple-pay-button {
-      display: none !important;
-    }
+    cursor: pointer;
   }
 </style>
