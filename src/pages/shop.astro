@@ -547,7 +547,7 @@ const products = [
             <div class="flex gap-2">
               <input type="text" id="address-city" class="flex-1 px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-900 focus:ring-0 transition-all text-sm outline-none" placeholder="City" />
               <input type="text" id="address-state" class="w-20 px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-900 focus:ring-0 transition-all text-sm outline-none" placeholder="State" />
-              <input type="text" id="address-zip" class="w-24 px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-900 focus:ring-0 transition-all text-sm outline-none" placeholder="ZIP" />
+              <input type="text" id="address-zip" class="w-20 min-w-0 px-3 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:border-gray-900 focus:ring-0 transition-all text-sm outline-none" placeholder="ZIP" />
             </div>
           </div>
 
@@ -980,14 +980,20 @@ const products = [
   // Build payment request for Apple Pay
   function buildPaymentRequest(payments) {
     const total = getCartTotal();
-    return payments.paymentRequest({
+    const fulfillmentMethod = document.querySelector('input[name="fulfillment"]:checked')?.value || 'delivery';
+
+    const request = {
       countryCode: 'US',
       currencyCode: 'USD',
       total: {
         amount: total.toFixed(2),
         label: 'Lillian Ruff Pet Spa',
       },
-    });
+      requestBillingContact: true,
+      requestShippingContact: fulfillmentMethod === 'delivery',
+    };
+
+    return payments.paymentRequest(request);
   }
 
   // Initialize Apple Pay
@@ -1043,8 +1049,9 @@ const products = [
   }
 
   // Process payment
-  async function processPayment(sourceId) {
-    const email = document.getElementById('customer-email')?.value;
+  async function processPayment(sourceId, applePayData = null) {
+    // Use Apple Pay contact info if provided, otherwise fall back to form fields
+    const email = applePayData?.email || document.getElementById('customer-email')?.value;
     const totalAmount = getCartTotal();
 
     // Show loading state
@@ -1144,17 +1151,20 @@ const products = [
       return;
     }
 
-    const email = document.getElementById('customer-email')?.value;
-    if (!email) {
-      showToast('Please enter your email');
-      return;
-    }
-
     try {
-      // Tokenize immediately on click per Square docs
+      // Tokenize - Apple Pay will collect contact info from user
       const result = await applePay.tokenize();
       if (result.status === 'OK') {
-        await processPayment(result.token);
+        // Extract contact info from Apple Pay result
+        const applePayContact = result.details?.shipping?.contact || result.details?.billing?.contact || {};
+        const applePayEmail = applePayContact.email || result.details?.billing?.contact?.email;
+
+        // Use Apple Pay contact info for the order
+        await processPayment(result.token, {
+          email: applePayEmail,
+          shippingContact: result.details?.shipping?.contact,
+          billingContact: result.details?.billing?.contact,
+        });
       } else {
         let errorMessage = 'Apple Pay verification failed';
         if (result.errors) {
@@ -1163,6 +1173,7 @@ const products = [
         showToast(errorMessage);
       }
     } catch (error) {
+      console.error('Apple Pay error:', error);
       showToast('Error processing Apple Pay. Please try again.');
     }
   });
