@@ -43,6 +43,7 @@ const socialLinks = [
 ---
 
 <Layout title="Contact">
+  <div class="overflow-x-hidden">
   <!-- Hero Section -->
   <section class="pt-8 pb-16 bg-transparent relative overflow-hidden">
     <Container>
@@ -124,7 +125,7 @@ const socialLinks = [
           <div class="rounded-2xl p-8 bg-white/80 backdrop-blur-sm border border-gray-100 shadow-lg flex-1 flex flex-col justify-center">
             <h3 class="text-xl font-bold text-gray-900 mb-4">Follow Us</h3>
             <p class="text-gray-600 mb-6">Stay connected and see our adorable clients!</p>
-            <div class="flex gap-3">
+            <div class="flex flex-wrap gap-3">
               {socialLinks.map((social) => (
                 <a
                   href={social.url}
@@ -289,6 +290,7 @@ const socialLinks = [
 
   <!-- Bottom Spacer -->
   <div style="height: 20px;"></div>
+  </div>
 </Layout>
 
 <script>
