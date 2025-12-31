@@ -224,52 +224,123 @@ const pricingData = {
   </section>
 
   <!-- Video Section -->
-  <section class="py-12 bg-gray-50">
+  <section class="pt-4 md:pt-6 pb-12 md:pb-16 video-section relative">
+    <!-- Animated Background Elements - contained to prevent mobile overflow -->
+    <div class="video-orbs-container">
+      <div class="video-bg-orb video-bg-orb-1"></div>
+      <div class="video-bg-orb video-bg-orb-2"></div>
+      <div class="video-bg-orb video-bg-orb-3"></div>
+    </div>
+
     <Container>
-      <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-8">
-          <div class="inline-flex items-center gap-3 mb-3">
-            <div class="h-px w-8 bg-gradient-to-r from-transparent to-brand-green/50"></div>
-            <Icon name="lucide:play-circle" class="w-5 h-5 text-brand-green" />
-            <div class="h-px w-8 bg-gradient-to-l from-transparent to-brand-green/50"></div>
+      <div class="max-w-4xl mx-auto relative">
+        <!-- Section Header with Animation -->
+        <div class="text-center mb-10 video-header-animate">
+          <!-- Simple eyebrow with icon -->
+          <div class="inline-flex items-center gap-2 text-brand-green text-sm font-semibold tracking-wide uppercase mb-3">
+            <Icon name="lucide:clock" class="w-4 h-4" />
+            <span>1-Minute Explainer</span>
           </div>
-          <h2 class="text-2xl md:text-3xl font-bold text-gray-900">See How It Works</h2>
-          <p class="text-gray-500 text-sm mt-1">Watch how our membership program can benefit you and your furry friend</p>
+
+          <!-- Main headline with gradient -->
+          <h2 class="text-3xl md:text-5xl font-black text-gray-900 mb-4 leading-tight">
+            See How It
+            <span class="relative inline-block">
+              <span class="video-headline-gradient">Works</span>
+              <svg class="absolute -bottom-2 left-0 w-full h-3 text-brand-green/30" viewBox="0 0 100 12" preserveAspectRatio="none">
+                <path d="M0,8 Q25,0 50,8 T100,8" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </h2>
+
+          <!-- Subtitle -->
+          <p class="text-gray-500 text-base md:text-lg max-w-md mx-auto">
+            Discover how our membership program benefits you & your furry friend
+          </p>
         </div>
 
-        <!-- Video Container -->
-        <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-black aspect-video cursor-pointer group" id="video-container">
-          <!-- Thumbnail with Play Button -->
-          <div id="video-thumbnail" class="absolute inset-0 z-10">
-            <img
-              src="https://img.youtube.com/vi/zXfWBVMD0wU/maxresdefault.jpg"
-              alt="Membership Video Thumbnail"
-              class="w-full h-full object-cover"
-            />
-            <div class="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors"></div>
-            <div class="absolute inset-0 flex items-center justify-center">
-              <div class="w-20 h-20 md:w-24 md:h-24 bg-brand-green rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
-                <Icon name="lucide:play" class="w-10 h-10 md:w-12 md:h-12 text-white ml-1" />
+        <!-- Video Container with Decorative Frame -->
+        <div class="relative video-container-wrapper">
+          <!-- Decorative Corner Elements -->
+          <div class="absolute -top-3 -left-3 w-12 h-12 border-t-4 border-l-4 border-brand-green/30 rounded-tl-xl video-corner-animate"></div>
+          <div class="absolute -top-3 -right-3 w-12 h-12 border-t-4 border-r-4 border-brand-green/30 rounded-tr-xl video-corner-animate"></div>
+          <div class="absolute -bottom-3 -left-3 w-12 h-12 border-b-4 border-l-4 border-brand-green/30 rounded-bl-xl video-corner-animate"></div>
+          <div class="absolute -bottom-3 -right-3 w-12 h-12 border-b-4 border-r-4 border-brand-green/30 rounded-br-xl video-corner-animate"></div>
+
+          <!-- Glow Effect Behind Video -->
+          <div class="absolute -inset-4 bg-gradient-to-r from-brand-green/20 via-emerald-400/20 to-brand-green/20 rounded-3xl blur-2xl video-glow-animate"></div>
+
+          <!-- Video Container -->
+          <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-black aspect-video cursor-pointer group video-frame-animate" id="video-container">
+            <!-- Animated Border -->
+            <div class="absolute inset-0 rounded-2xl video-border-gradient pointer-events-none z-20"></div>
+
+            <!-- Thumbnail with Play Button -->
+            <div id="video-thumbnail" class="absolute inset-0 z-10">
+              <img
+                src="https://img.youtube.com/vi/zXfWBVMD0wU/maxresdefault.jpg"
+                alt="Membership Video Thumbnail"
+                class="w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/20 group-hover:from-black/70 group-hover:via-black/40 transition-all duration-500"></div>
+
+              <!-- Play Button with Pulse Animation -->
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="relative">
+                  <!-- Pulse Rings -->
+                  <div class="absolute inset-0 w-24 h-24 md:w-32 md:h-32 -m-2 md:-m-4">
+                    <div class="absolute inset-0 bg-brand-green/30 rounded-full animate-ping-slow"></div>
+                    <div class="absolute inset-2 bg-brand-green/20 rounded-full animate-ping-slower"></div>
+                  </div>
+                  <!-- Play Button -->
+                  <div class="relative w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-brand-green to-emerald-600 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:shadow-brand-green/50 transition-all duration-300">
+                    <Icon name="lucide:play" class="w-10 h-10 md:w-12 md:h-12 text-white ml-1" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Watch Now Text -->
+              <div class="absolute bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:-translate-y-1">
+                <span class="bg-white/90 backdrop-blur-sm text-gray-900 text-sm font-semibold px-4 py-2 rounded-full shadow-lg">
+                  Click to Watch
+                </span>
               </div>
             </div>
-          </div>
 
-          <!-- YouTube Iframe (hidden until clicked) -->
-          <iframe
-            id="youtube-video"
-            class="absolute inset-0 w-full h-full hidden"
-            src=""
-            title="Lillian Ruff Pet Spa Membership"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+            <!-- YouTube Iframe (hidden until clicked) -->
+            <iframe
+              id="youtube-video"
+              class="absolute inset-0 w-full h-full hidden"
+              src=""
+              title="Lillian Ruff Pet Spa Membership"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+
+        <!-- CTA Button -->
+        <div class="mt-10 text-center video-cta-animate">
+          <a
+            href="#become-member"
+            class="video-cta-button inline-flex items-center gap-3 bg-gradient-to-r from-brand-green to-emerald-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl hover:shadow-brand-green/30 transition-all duration-300 group"
+          >
+            <Icon name="lucide:crown" class="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
+            <span>Become a Member</span>
+            <Icon name="lucide:arrow-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300" />
+          </a>
+          <p class="mt-4 text-gray-500 text-sm flex items-center justify-center gap-2">
+            <Icon name="lucide:sparkles" class="w-4 h-4 text-brand-green" />
+            <span>Join 500+ happy pet parents saving money</span>
+            <Icon name="lucide:sparkles" class="w-4 h-4 text-brand-green" />
+          </p>
         </div>
       </div>
     </Container>
   </section>
 
-  <div class="py-12">
+  <div class="pt-4 pb-12">
     <Container>
       <!-- Choose Your Plan Header -->
       <div class="text-center mb-8">
@@ -638,7 +709,7 @@ const pricingData = {
       </div>
 
       <!-- Become a Member Section -->
-      <div class="max-w-5xl mx-auto mb-12">
+      <div id="become-member" class="max-w-5xl mx-auto mb-12 scroll-mt-24">
         <!-- Section Header with decorative elements -->
         <div class="text-center mb-10">
           <div class="inline-flex items-center gap-3 mb-3">
@@ -989,6 +1060,22 @@ const pricingData = {
   </div>
 </Layout>
 
+<!-- YouTube Video Click Handler - Separate script without define:vars -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const videoContainer = document.getElementById('video-container');
+    const videoThumbnail = document.getElementById('video-thumbnail');
+    const youtubeVideo = document.getElementById('youtube-video');
+
+    if (videoContainer && videoThumbnail && youtubeVideo) {
+      videoContainer.addEventListener('click', () => {
+        videoThumbnail.classList.add('hidden');
+        youtubeVideo.classList.remove('hidden');
+        youtubeVideo.setAttribute('src', 'https://www.youtube.com/embed/zXfWBVMD0wU?autoplay=1&rel=0');
+      });
+    }
+  });
+</script>
 
 <script define:vars={{ dogBreeds, pricingData }}>
   let dogCounter = 0;
@@ -1868,19 +1955,7 @@ Submitted on: ${new Date().toLocaleString()}
         }
       });
     });
-  });
 
-  // YouTube video click-to-play handler
-  const videoContainer = document.getElementById('video-container');
-  const videoThumbnail = document.getElementById('video-thumbnail');
-  const youtubeVideo = document.getElementById('youtube-video') as HTMLIFrameElement;
-
-  videoContainer?.addEventListener('click', () => {
-    if (videoThumbnail && youtubeVideo) {
-      videoThumbnail.classList.add('hidden');
-      youtubeVideo.classList.remove('hidden');
-      youtubeVideo.src = 'https://www.youtube.com/embed/zXfWBVMD0wU?autoplay=1&rel=0';
-    }
   });
 </script>
 
@@ -2201,5 +2276,276 @@ Submitted on: ${new Date().toLocaleString()}
 
   button:not(:disabled) .locked-icon {
     display: none;
+  }
+
+  /* Video Section Animations */
+  .video-section {
+    background: transparent;
+  }
+
+  .video-orbs-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    /* No overflow hidden - orbs positioned within bounds */
+  }
+
+  .video-bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.4;
+  }
+
+  /* Orbs positioned within viewport (no negative right values) */
+  .video-bg-orb-1 {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, #7ba650 0%, #10b981 100%);
+    top: -80px;
+    left: -30px;
+    animation: floatOrb1 8s ease-in-out infinite;
+  }
+
+  .video-bg-orb-2 {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+    top: 40%;
+    right: 0;
+    animation: floatOrb2 10s ease-in-out infinite;
+  }
+
+  .video-bg-orb-3 {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, #10b981 0%, #7ba650 100%);
+    bottom: -40px;
+    left: 30%;
+    animation: floatOrb3 12s ease-in-out infinite;
+  }
+
+  /* Mobile: smaller orbs fully within viewport */
+  @media (max-width: 768px) {
+    .video-bg-orb-1 {
+      width: 150px;
+      height: 150px;
+      top: -40px;
+      left: 0;
+    }
+
+    .video-bg-orb-2 {
+      width: 120px;
+      height: 120px;
+      right: 0;
+    }
+
+    .video-bg-orb-3 {
+      width: 100px;
+      height: 100px;
+      bottom: -25px;
+    }
+  }
+
+  @keyframes floatOrb1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(20px, 15px) scale(1.1); }
+  }
+
+  @keyframes floatOrb2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-15px, -20px) scale(1.15); }
+  }
+
+  @keyframes floatOrb3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(15px, -10px) scale(1.05); }
+  }
+
+  .video-header-animate {
+    animation: fadeSlideUp 0.8s ease-out forwards;
+  }
+
+  .video-line-animate {
+    animation: expandLine 1s ease-out 0.3s forwards;
+    transform-origin: center;
+    transform: scaleX(0);
+  }
+
+  .video-icon-wrapper {
+    animation: bounceIn 0.6s ease-out 0.5s forwards;
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  @keyframes fadeSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes expandLine {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .video-container-wrapper {
+    animation: fadeSlideUp 0.8s ease-out 0.2s forwards;
+    opacity: 0;
+  }
+
+  .video-corner-animate {
+    animation: cornerFadeIn 0.6s ease-out 0.6s forwards;
+    opacity: 0;
+  }
+
+  @keyframes cornerFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .video-glow-animate {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.02);
+    }
+  }
+
+  .video-frame-animate {
+    animation: frameSlideIn 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  @keyframes frameSlideIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .video-border-gradient {
+    background: linear-gradient(90deg, transparent, rgba(123, 166, 80, 0.3), transparent);
+    background-size: 200% 100%;
+    animation: shimmerBorder 3s linear infinite;
+    border: 2px solid transparent;
+    border-radius: inherit;
+  }
+
+  @keyframes shimmerBorder {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .animate-ping-slow {
+    animation: pingSlow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  .animate-ping-slower {
+    animation: pingSlow 2.5s cubic-bezier(0, 0, 0.2, 1) infinite 0.5s;
+  }
+
+  @keyframes pingSlow {
+    0% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    75%, 100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  .video-cta-animate {
+    animation: fadeSlideUp 0.8s ease-out 0.8s forwards;
+    opacity: 0;
+  }
+
+  .video-cta-button {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .video-cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: buttonShine 3s ease-in-out infinite;
+  }
+
+  @keyframes buttonShine {
+    0%, 100% { left: -100%; }
+    50% { left: 100%; }
+  }
+
+  .video-cta-button:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Video Headline Gradient */
+  .video-headline-gradient {
+    background: linear-gradient(135deg, #7ba650 0%, #10b981 50%, #7ba650 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: headlineGradientShift 4s ease-in-out infinite;
+  }
+
+  @keyframes headlineGradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Video Badge Animation */
+  .video-badge-animate {
+    animation: badgePulse 2s ease-in-out infinite;
+  }
+
+  @keyframes badgePulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(123, 166, 80, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(123, 166, 80, 0);
+    }
   }
 </style>

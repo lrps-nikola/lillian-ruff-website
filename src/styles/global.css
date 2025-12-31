@@ -50,6 +50,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Prevent horizontal scroll from decorative elements */
+body {
+  overflow-x: hidden;
+}
+
 /* Base transitions for smooth animations */
 @layer components {
   .transition-smooth {
