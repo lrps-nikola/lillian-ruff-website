@@ -352,13 +352,14 @@ const pricingData = {
         <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Choose Your Plan</h2>
         <p class="text-gray-500 text-sm mt-1">Select a plan below, then choose how often you'd like to be billed</p>
       </div>
+    </Container>
 
-      <!-- Membership Cards Grid - Horizontal slider on mobile -->
-      <div class="md:hidden overflow-hidden mb-10" id="membership-cards-carousel">
+    <!-- Membership Cards Grid - Horizontal slider on mobile (FULL WIDTH) -->
+    <div class="md:hidden overflow-hidden mb-10" id="membership-cards-carousel">
         <div class="flex gap-4 animate-scroll-membership-cards" id="membership-cards-track">
           <!-- First set of cards -->
           <!-- Bath Plan - BLUE -->
-          <div class="membership-card-mobile membership-card-blue flex-shrink-0 w-[280px] rounded-2xl overflow-hidden shadow-lg border border-blue-200 relative flex flex-col">
+          <div class="membership-card-mobile membership-card-blue flex-shrink-0 w-[280px] rounded-2xl overflow-hidden border border-blue-200 relative flex flex-col">
             <div class="p-5 relative z-10">
               <div class="flex flex-col items-center text-center gap-3 mb-4">
                 <div class="w-14 h-14 rounded-xl bg-blue-100 border-2 border-blue-300 flex items-center justify-center">
@@ -387,7 +388,7 @@ const pricingData = {
             </div>
           </div>
           <!-- Groom Plan - GREEN -->
-          <div class="membership-card-mobile membership-card-green flex-shrink-0 w-[280px] rounded-2xl overflow-hidden shadow-lg border border-emerald-200 relative flex flex-col">
+          <div class="membership-card-mobile membership-card-green flex-shrink-0 w-[280px] rounded-2xl overflow-hidden border border-emerald-200 relative flex flex-col">
             <div class="p-5 relative z-10">
               <div class="flex flex-col items-center text-center gap-3 mb-4">
                 <div class="w-14 h-14 rounded-xl bg-emerald-100 border-2 border-emerald-300 flex items-center justify-center">
@@ -416,11 +417,11 @@ const pricingData = {
             </div>
           </div>
           <!-- Groom+ Plan - PREMIUM GREEN -->
-          <div class="membership-card-mobile membership-card-green-premium flex-shrink-0 w-[280px] rounded-2xl overflow-hidden shadow-xl border-2 border-emerald-400 relative flex flex-col">
+          <div class="membership-card-mobile membership-card-green-premium flex-shrink-0 w-[280px] rounded-2xl overflow-hidden border-2 border-emerald-400 relative flex flex-col">
             <div class="absolute top-0 right-0 bg-gradient-to-r from-brand-green to-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl z-20">BEST VALUE</div>
             <div class="p-5 relative z-10">
               <div class="flex flex-col items-center text-center gap-3 mb-4">
-                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-green to-emerald-600 flex items-center justify-center shadow-lg ring-2 ring-emerald-300">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-green to-emerald-600 flex items-center justify-center ring-2 ring-emerald-300">
                   <Icon name="lucide:crown" class="w-7 h-7 text-white" />
                 </div>
                 <div>
@@ -447,7 +448,7 @@ const pricingData = {
           </div>
           <!-- Duplicate set for seamless infinite loop -->
           <!-- Bath Plan - BLUE (duplicate) -->
-          <div class="membership-card-mobile membership-card-blue flex-shrink-0 w-[280px] rounded-2xl overflow-hidden shadow-lg border border-blue-200 relative flex flex-col">
+          <div class="membership-card-mobile membership-card-blue flex-shrink-0 w-[280px] rounded-2xl overflow-hidden border border-blue-200 relative flex flex-col">
             <div class="p-5 relative z-10">
               <div class="flex flex-col items-center text-center gap-3 mb-4">
                 <div class="w-14 h-14 rounded-xl bg-blue-100 border-2 border-blue-300 flex items-center justify-center">
@@ -476,7 +477,7 @@ const pricingData = {
             </div>
           </div>
           <!-- Groom Plan - GREEN (duplicate) -->
-          <div class="membership-card-mobile membership-card-green flex-shrink-0 w-[280px] rounded-2xl overflow-hidden shadow-lg border border-emerald-200 relative flex flex-col">
+          <div class="membership-card-mobile membership-card-green flex-shrink-0 w-[280px] rounded-2xl overflow-hidden border border-emerald-200 relative flex flex-col">
             <div class="p-5 relative z-10">
               <div class="flex flex-col items-center text-center gap-3 mb-4">
                 <div class="w-14 h-14 rounded-xl bg-emerald-100 border-2 border-emerald-300 flex items-center justify-center">
@@ -505,11 +506,11 @@ const pricingData = {
             </div>
           </div>
           <!-- Groom+ Plan - PREMIUM GREEN (duplicate) -->
-          <div class="membership-card-mobile membership-card-green-premium flex-shrink-0 w-[280px] rounded-2xl overflow-hidden shadow-xl border-2 border-emerald-400 relative flex flex-col">
+          <div class="membership-card-mobile membership-card-green-premium flex-shrink-0 w-[280px] rounded-2xl overflow-hidden border-2 border-emerald-400 relative flex flex-col">
             <div class="absolute top-0 right-0 bg-gradient-to-r from-brand-green to-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl z-20">BEST VALUE</div>
             <div class="p-5 relative z-10">
               <div class="flex flex-col items-center text-center gap-3 mb-4">
-                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-green to-emerald-600 flex items-center justify-center shadow-lg ring-2 ring-emerald-300">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-green to-emerald-600 flex items-center justify-center ring-2 ring-emerald-300">
                   <Icon name="lucide:crown" class="w-7 h-7 text-white" />
                 </div>
                 <div>
@@ -536,7 +537,9 @@ const pricingData = {
           </div>
         </div>
       </div>
+    </div>
 
+    <Container>
       <!-- Desktop Grid - Unchanged -->
       <div class="hidden md:grid md:grid-cols-3 gap-6 mb-10">
         <!-- Bath Plan - BLUE -->
