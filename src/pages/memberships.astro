@@ -278,7 +278,7 @@ const pricingData = {
             <!-- Thumbnail with Play Button -->
             <div id="video-thumbnail" class="absolute inset-0 z-10">
               <img
-                src="https://img.youtube.com/vi/zXfWBVMD0wU/maxresdefault.jpg"
+                src="/images/membership-promo-thumbnail.webp"
                 alt="Membership Video Thumbnail"
                 class="w-full h-full object-cover"
               />
@@ -307,16 +307,16 @@ const pricingData = {
               </div>
             </div>
 
-            <!-- YouTube Iframe (hidden until clicked) -->
-            <iframe
-              id="youtube-video"
+            <!-- Local Video (hidden until clicked) -->
+            <video
+              id="local-video"
               class="absolute inset-0 w-full h-full hidden"
-              src=""
-              title="Lillian Ruff Pet Spa Membership"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
+              controls
+              playsinline
+            >
+              <source src="/videos/membership-promo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
 
@@ -1063,18 +1063,18 @@ const pricingData = {
   </div>
 </Layout>
 
-<!-- YouTube Video Click Handler - Separate script without define:vars -->
+<!-- Local Video Click Handler - Separate script without define:vars -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const videoContainer = document.getElementById('video-container');
     const videoThumbnail = document.getElementById('video-thumbnail');
-    const youtubeVideo = document.getElementById('youtube-video');
+    const localVideo = document.getElementById('local-video') as HTMLVideoElement;
 
-    if (videoContainer && videoThumbnail && youtubeVideo) {
-      videoContainer.addEventListener('click', () => {
+    if (videoContainer && videoThumbnail && localVideo) {
+      videoThumbnail.addEventListener('click', () => {
         videoThumbnail.classList.add('hidden');
-        youtubeVideo.classList.remove('hidden');
-        youtubeVideo.setAttribute('src', 'https://www.youtube.com/embed/zXfWBVMD0wU?autoplay=1&rel=0');
+        localVideo.classList.remove('hidden');
+        localVideo.play();
       });
     }
   });
