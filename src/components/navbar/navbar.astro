@@ -232,6 +232,7 @@ const menuitems = [
     const mobileMenuClose = document.getElementById('mobile-menu-close');
     const menuIcon = document.getElementById('menu-icon');
     const closeIcon = document.getElementById('close-icon');
+    const floatingButtons = document.getElementById('floatingButtons');
 
     function openMenu() {
       if (mobileMenuOverlay) {
@@ -242,8 +243,8 @@ const menuitems = [
         mobileMenu.classList.remove('translate-x-full');
         mobileMenu.classList.add('translate-x-0');
       }
-      if (menuIcon) menuIcon.classList.add('hidden');
-      if (closeIcon) closeIcon.classList.remove('hidden');
+      if (mobileMenuToggle) mobileMenuToggle.classList.add('hidden');
+      if (floatingButtons) floatingButtons.classList.add('hidden');
       document.body.classList.add('overflow-hidden');
     }
 
@@ -256,8 +257,8 @@ const menuitems = [
         mobileMenu.classList.remove('translate-x-0');
         mobileMenu.classList.add('translate-x-full');
       }
-      if (menuIcon) menuIcon.classList.remove('hidden');
-      if (closeIcon) closeIcon.classList.add('hidden');
+      if (mobileMenuToggle) mobileMenuToggle.classList.remove('hidden');
+      if (floatingButtons) floatingButtons.classList.remove('hidden');
       document.body.classList.remove('overflow-hidden');
     }
 
