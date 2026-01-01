@@ -27,8 +27,13 @@
     "astro-icon": "^1.1.5",
     "astro-navbar": "^2.3.9",
     "astro-seo": "^0.8.4",
+    "nodemailer": "^7.0.12",
     "sharp": "^0.33.5",
     "square": "^43.2.1",
     "tailwindcss": "^4.0.14"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^7.0.4",
+    "vercel": "^50.1.3"
   }
 }

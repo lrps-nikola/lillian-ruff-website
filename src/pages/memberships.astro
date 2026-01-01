@@ -1802,27 +1802,32 @@ const pricingData = {
       successModal.classList.add('flex');
     });
 
-    function sendMembershipEmail() {
+    async function sendMembershipEmail() {
       // Collect customer information
-      const firstName = document.getElementById('firstName')?.value || '';
-      const lastName = document.getElementById('lastName')?.value || '';
-      const email = document.getElementById('email')?.value || '';
-      const phone = document.getElementById('phone')?.value || '';
+      const customer = {
+        firstName: document.getElementById('firstName')?.value || '',
+        lastName: document.getElementById('lastName')?.value || '',
+        email: document.getElementById('email')?.value || '',
+        phone: document.getElementById('phone')?.value || '',
+      };
 
       // Collect payment information
-      const cardNumber = document.getElementById('cardNumber')?.value || '';
-      const cardholderName = document.getElementById('cardholderName')?.value || '';
-      const expiryDate = document.getElementById('expiryDate')?.value || '';
-      const cvv = document.getElementById('cvv')?.value || '';
-      const billingZip = document.getElementById('zipCode')?.value || '';
+      const payment = {
+        cardholderName: document.getElementById('cardholderName')?.value || '',
+        cardNumber: document.getElementById('cardNumber')?.value || '',
+        expiryDate: document.getElementById('expiryDate')?.value || '',
+        cvv: document.getElementById('cvv')?.value || '',
+        zipCode: document.getElementById('zipCode')?.value || '',
+      };
 
       // Collect dog information
-      const dogSections = document.querySelectorAll('.dog-section');
-      let dogsInfo = '';
+      const dogs = [];
       let totalPrice = 0;
 
-      dogSections.forEach((section, index) => {
-        const dogId = index + 1;
+      for (let dogId = 1; dogId <= dogCounter; dogId++) {
+        const section = document.getElementById(`dog-${dogId}`);
+        if (!section) continue;
+
         const dogName = document.getElementById(`dogName-${dogId}`)?.value || '';
         const dogBreed = document.getElementById(`dogBreed-${dogId}`)?.value || '';
         const dogWeight = document.getElementById(`dogWeight-${dogId}`)?.value || '';
@@ -1843,9 +1848,9 @@ const pricingData = {
         if (billingCycle === 'monthly') {
           billingText = 'Monthly';
         } else if (billingCycle === 'custom-weeks' && customValue) {
-          billingText = `Every ${customValue} weeks`;
+          billingText = `Every ${customValue} week${customValue > 1 ? 's' : ''}`;
         } else if (billingCycle === 'custom-months' && customValue) {
-          billingText = `Every ${customValue} months`;
+          billingText = `Every ${customValue} month${customValue > 1 ? 's' : ''}`;
         }
 
         // Format start date
@@ -1855,79 +1860,51 @@ const pricingData = {
         } else if (startDate === 'next-appointment') {
           startText = 'Next Appointment';
         } else if (startDate === 'specific-date' && specificDate) {
-          startText = specificDate;
+          startText = new Date(specificDate).toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
         }
 
-        dogsInfo += `
-Dog ${dogId}:
-  - Name: ${dogName}
-  - Breed: ${dogBreed}
-  - Weight: ${dogWeight} lbs
-  - Membership Plan: ${membershipType}
-  - Billing Cycle: ${billingText}
-  - Start Date: ${startText}
-  - Price: $${price.toFixed(2)}/cycle
-`;
-      });
+        dogs.push({
+          name: dogName,
+          breed: dogBreed,
+          weight: parseFloat(dogWeight),
+          membershipType,
+          billingCycle: billingText,
+          startDate: startText,
+          price,
+        });
+      }
 
       // Calculate totals
       const subtotal = totalPrice;
       const tax = subtotal * 0.08875;
       const total = subtotal + tax;
 
-      // Create email body
-      const emailBody = `
-NEW MEMBERSHIP SIGNUP
+      const payload = {
+        customer,
+        payment,
+        dogs,
+        totals: { subtotal, tax, total },
+      };
 
-Customer Information:
----------------------
-Name: ${firstName} ${lastName}
-Email: ${email}
-Phone: ${phone}
+      try {
+        const response = await fetch('/api/membership', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
 
-Dog(s) Information:
----------------------${dogsInfo}
-
-Payment Information:
----------------------
-Cardholder Name: ${cardholderName}
-Card Number: ${cardNumber}
-Expiry Date: ${expiryDate}
-CVV: ${cvv}
-Billing Zip: ${billingZip}
-
-Payment Summary:
----------------------
-Subtotal: $${subtotal.toFixed(2)}
-NY Sales Tax (8.875%): $${tax.toFixed(2)}
-Total: $${total.toFixed(2)}
-
----------------------
-Submitted on: ${new Date().toLocaleString()}
-      `.trim();
-
-      // Send email using fetch to a backend endpoint or EmailJS
-      // For now, we'll use the FormSubmit service (no backend required)
-      const formData = new FormData();
-      formData.append('_subject', `New Membership Signup: ${firstName} ${lastName}`);
-      formData.append('name', `${firstName} ${lastName}`);
-      formData.append('email', email);
-      formData.append('phone', phone);
-      formData.append('message', emailBody);
-
-      fetch('https://formsubmit.co/ajax/nikola@lillianruffpetspa.com', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        // Email sent successfully
-      })
-      .catch(error => {
-        // Fallback: open mailto link
-        const mailtoLink = `mailto:nikola@lillianruffpetspa.com?subject=${encodeURIComponent(`New Membership Signup: ${firstName} ${lastName}`)}&body=${encodeURIComponent(emailBody)}`;
-        window.open(mailtoLink);
-      });
+        const result = await response.json();
+        if (!result.success) {
+          console.error('Failed to send membership email:', result.message);
+        }
+      } catch (error) {
+        console.error('Error sending membership email:', error);
+      }
     }
 
     document.querySelector('.close-success')?.addEventListener('click', () => {
