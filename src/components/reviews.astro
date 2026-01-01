@@ -68,7 +68,7 @@ const carousel = shuffled.slice(3);
       <div class="featured-cards-track">
         {featured.map((review, i) => (
           <div class="featured-card group" style={`--card-delay: ${i * 0.15}s`}>
-            <div class="relative bg-white rounded-2xl p-6 shadow-lg border border-gray-100 h-full transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-brand-green/30 overflow-hidden">
+            <div class="relative bg-white rounded-2xl p-6 shadow-none md:shadow-lg border border-gray-100 h-full transition-all duration-500 md:hover:shadow-2xl hover:-translate-y-2 hover:border-brand-green/30 overflow-hidden">
             <!-- Gradient overlay on hover -->
             <div class="absolute inset-0 bg-gradient-to-br from-brand-green/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
@@ -376,6 +376,19 @@ const carousel = shuffled.slice(3);
       opacity: 1;
       transform: none;
       stroke-dashoffset: 0;
+    }
+  }
+
+  /* Remove shadows on mobile */
+  @media (max-width: 767px) {
+    .apple-badge {
+      box-shadow: none;
+    }
+    .apple-chip {
+      box-shadow: none;
+    }
+    .apple-button-content {
+      box-shadow: none;
     }
   }
 </style>

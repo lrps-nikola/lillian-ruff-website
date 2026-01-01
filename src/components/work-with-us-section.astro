@@ -2,7 +2,7 @@
 import { Icon } from "astro-icon/components";
 ---
 
-<section class="py-12 md:py-16 mx-4 md:mx-8 lg:mx-16 my-8 md:my-12 rounded-3xl work-glass-section overflow-hidden relative">
+<section class="py-10 md:py-12 mx-4 md:mx-8 lg:mx-16 my-8 md:my-10 rounded-3xl work-glass-section overflow-hidden relative">
   <!-- Animated decorative elements - Blue theme -->
   <div class="absolute top-6 left-6 md:top-10 md:left-10 animate-float-slow">
     <div class="relative">
@@ -115,63 +115,26 @@ import { Icon } from "astro-icon/components";
     </div>
 
     <!-- Desktop Layout -->
-    <div class="hidden md:grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <div class="hidden md:flex gap-10 lg:gap-14 items-center">
       <!-- Content - Left side -->
-      <div class="text-gray-800 relative z-10">
+      <div class="text-gray-800 relative z-10 flex-shrink-0 w-[340px] lg:w-[400px]">
         <!-- Badge -->
-        <div class="inline-flex items-center gap-2 bg-gradient-to-r from-white/90 to-white/70 backdrop-blur-md px-5 py-2.5 rounded-full mb-5 shadow-lg border border-white/50 shine-badge overflow-hidden">
-          <div class="w-6 h-6 bg-gradient-to-br from-brand-blue to-sky-500 rounded-full flex items-center justify-center">
-            <Icon name="lucide:briefcase" class="w-3.5 h-3.5 text-white" />
+        <div class="inline-flex items-center gap-2 bg-gradient-to-r from-white/90 to-white/70 backdrop-blur-md px-4 py-2 rounded-full mb-4 shadow-lg border border-white/50 shine-badge overflow-hidden">
+          <div class="w-5 h-5 bg-gradient-to-br from-brand-blue to-sky-500 rounded-full flex items-center justify-center">
+            <Icon name="lucide:briefcase" class="w-3 h-3 text-white" />
           </div>
-          <span class="text-sm font-bold text-brand-blue tracking-wide">Join Our Team</span>
+          <span class="text-xs font-bold text-brand-blue tracking-wide">Join Our Team</span>
         </div>
 
-        <h2 class="text-4xl lg:text-5xl font-extrabold mb-5 leading-tight">
+        <h2 class="text-3xl lg:text-4xl font-extrabold mb-4 leading-tight">
           <span class="text-gray-900">Love Pets?</span>
           <br />
           <span class="bg-gradient-to-r from-brand-blue via-sky-500 to-brand-blue bg-clip-text text-transparent">Work With Us!</span>
         </h2>
 
-        <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-lg">
-          Join our passionate team of pet care professionals! We're looking for groomers, bathers, and pet lovers who want to make a difference in the lives of pets and their families.
+        <p class="text-sm lg:text-base text-gray-600 mb-5 leading-relaxed">
+          Join our passionate team! We're looking for groomers, bathers, and pet lovers who want to make a difference.
         </p>
-
-        <!-- Benefits cards -->
-        <div class="flex flex-col gap-3 mb-8">
-          <div class="feature-card group/card bg-white/80 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-white/50 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 cursor-default">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 bg-gradient-to-br from-brand-blue/20 to-brand-blue/10 rounded-xl flex items-center justify-center group-hover/card:scale-110 transition-transform duration-300 flex-shrink-0">
-                <Icon name="lucide:calendar" class="w-5 h-5 text-brand-blue" />
-              </div>
-              <div>
-                <span class="text-sm font-semibold text-gray-800">Flexible Hours</span>
-                <p class="text-xs text-gray-500">Work-life balance</p>
-              </div>
-            </div>
-          </div>
-          <div class="feature-card group/card bg-white/80 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-white/50 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 cursor-default">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 bg-gradient-to-br from-brand-green/20 to-brand-green/10 rounded-xl flex items-center justify-center group-hover/card:scale-110 transition-transform duration-300 flex-shrink-0">
-                <Icon name="lucide:trending-up" class="w-5 h-5 text-brand-green" />
-              </div>
-              <div>
-                <span class="text-sm font-semibold text-gray-800">Career Growth</span>
-                <p class="text-xs text-gray-500">Advance your skills</p>
-              </div>
-            </div>
-          </div>
-          <div class="feature-card group/card bg-white/80 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-white/50 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 cursor-default">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 bg-gradient-to-br from-pink-500/20 to-pink-500/10 rounded-xl flex items-center justify-center group-hover/card:scale-110 transition-transform duration-300 flex-shrink-0">
-                <Icon name="lucide:gift" class="w-5 h-5 text-pink-500" />
-              </div>
-              <div>
-                <span class="text-sm font-semibold text-gray-800">Great Perks</span>
-                <p class="text-xs text-gray-500">Competitive benefits</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- CTA Button -->
         <a
@@ -185,24 +148,62 @@ import { Icon } from "astro-icon/components";
         </a>
       </div>
 
-      <!-- Image - Right side -->
-      <div class="relative group">
+      <!-- Image with floating cards - Right side -->
+      <div class="relative group flex-1">
         <div class="absolute inset-0 bg-gradient-to-br from-brand-blue/30 via-sky-400/20 to-brand-blue/30 rounded-3xl blur-2xl scale-95 opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
         <div class="relative z-10">
           <img
             src="/workwithus.webp"
             alt="Join Our Team at Lillian Ruff Pet Spa"
-            class="w-full h-auto object-cover rounded-3xl transform group-hover:scale-105 transition-transform duration-700 ease-out drop-shadow-2xl"
+            class="w-full h-auto object-cover rounded-3xl transform group-hover:scale-[1.02] transition-transform duration-700 ease-out drop-shadow-2xl"
           />
         </div>
-        <div class="absolute bottom-4 left-4 z-20 bg-white rounded-2xl px-4 py-2 shadow-xl border border-brand-blue/10 animate-bounce-subtle">
+
+        <!-- Floating benefit cards over the image -->
+        <div class="absolute bottom-4 left-4 right-4 z-20 flex gap-2 lg:gap-3">
+          <div class="feature-card group/card bg-white/95 backdrop-blur-md rounded-xl p-2.5 shadow-xl border border-white/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 cursor-default flex-1">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 bg-gradient-to-br from-brand-blue/20 to-brand-blue/10 rounded-lg flex items-center justify-center group-hover/card:scale-110 transition-transform duration-300 flex-shrink-0">
+                <Icon name="lucide:calendar" class="w-4 h-4 text-brand-blue" />
+              </div>
+              <div>
+                <span class="text-xs font-semibold text-gray-800 block leading-tight">Flexible Hours</span>
+                <p class="text-[10px] text-gray-500 leading-tight">Work-life balance</p>
+              </div>
+            </div>
+          </div>
+          <div class="feature-card group/card bg-white/95 backdrop-blur-md rounded-xl p-2.5 shadow-xl border border-white/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 cursor-default flex-1">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 bg-gradient-to-br from-brand-green/20 to-brand-green/10 rounded-lg flex items-center justify-center group-hover/card:scale-110 transition-transform duration-300 flex-shrink-0">
+                <Icon name="lucide:trending-up" class="w-4 h-4 text-brand-green" />
+              </div>
+              <div>
+                <span class="text-xs font-semibold text-gray-800 block leading-tight">Career Growth</span>
+                <p class="text-[10px] text-gray-500 leading-tight">Advance your skills</p>
+              </div>
+            </div>
+          </div>
+          <div class="feature-card group/card bg-white/95 backdrop-blur-md rounded-xl p-2.5 shadow-xl border border-white/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 cursor-default flex-1">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 bg-gradient-to-br from-pink-500/20 to-pink-500/10 rounded-lg flex items-center justify-center group-hover/card:scale-110 transition-transform duration-300 flex-shrink-0">
+                <Icon name="lucide:gift" class="w-4 h-4 text-pink-500" />
+              </div>
+              <div>
+                <span class="text-xs font-semibold text-gray-800 block leading-tight">Great Perks</span>
+                <p class="text-[10px] text-gray-500 leading-tight">Competitive benefits</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- We're Hiring badge -->
+        <div class="absolute top-4 right-4 z-20 bg-white rounded-xl px-3 py-1.5 shadow-xl border border-brand-blue/10 animate-bounce-subtle">
           <div class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-gradient-to-br from-brand-blue to-sky-500 rounded-full flex items-center justify-center">
-              <Icon name="lucide:heart-handshake" class="w-4 h-4 text-white" />
+            <div class="w-6 h-6 bg-gradient-to-br from-brand-blue to-sky-500 rounded-full flex items-center justify-center">
+              <Icon name="lucide:heart-handshake" class="w-3 h-3 text-white" />
             </div>
             <div>
-              <p class="text-xs font-bold text-gray-900">We're Hiring!</p>
-              <p class="text-[10px] text-gray-500">Apply Today</p>
+              <p class="text-[10px] font-bold text-gray-900 leading-tight">We're Hiring!</p>
             </div>
           </div>
         </div>

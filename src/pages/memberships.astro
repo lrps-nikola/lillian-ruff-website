@@ -320,8 +320,32 @@ const pricingData = {
           </div>
         </div>
 
+        <!-- Member Limit Counter -->
+        <div class="mt-10 mb-6 max-w-md mx-auto">
+          <div class="flex items-center gap-4">
+            <div class="flex items-baseline gap-1">
+              <span class="text-3xl font-black membership-gradient-text member-count-number" data-start="488" data-start-date="2026-01-01">488</span>
+              <span class="text-gray-400 text-sm font-medium">/ 1,000</span>
+            </div>
+            <div class="flex-1 flex items-center gap-1">
+              <!-- Segmented bar -->
+              <div class="member-segment h-3 rounded-sm bg-brand-green transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-brand-green transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-brand-green transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-brand-green transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-gray-200/80 backdrop-blur-sm transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-gray-200/80 backdrop-blur-sm transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-gray-200/80 backdrop-blur-sm transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-gray-200/80 backdrop-blur-sm transition-all duration-300 border-2 border-dashed border-gray-400" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-gray-200/80 backdrop-blur-sm transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-gray-200/80 backdrop-blur-sm transition-all duration-300" style="flex: 1;"></div>
+            </div>
+          </div>
+          <p class="text-xs text-gray-500 mt-2 text-center">At <span class="font-bold text-gray-800">800 members</span>, grooming becomes member-exclusive</p>
+        </div>
+
         <!-- CTA Button -->
-        <div class="mt-10 text-center video-cta-animate">
+        <div class="text-center video-cta-animate">
           <a
             href="#become-member"
             class="video-cta-button inline-flex items-center gap-3 bg-gradient-to-r from-brand-green to-emerald-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl hover:shadow-brand-green/30 transition-all duration-300 group"
@@ -330,17 +354,12 @@ const pricingData = {
             <span>Become a Member</span>
             <Icon name="lucide:arrow-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300" />
           </a>
-          <p class="mt-4 text-gray-500 text-sm flex items-center justify-center gap-2">
-            <Icon name="lucide:sparkles" class="w-4 h-4 text-brand-green" />
-            <span>Join 500+ happy pet parents saving money</span>
-            <Icon name="lucide:sparkles" class="w-4 h-4 text-brand-green" />
-          </p>
         </div>
       </div>
     </Container>
   </section>
 
-  <div class="pt-4 pb-12">
+  <div class="pb-12">
     <Container>
       <!-- Choose Your Plan Header -->
       <div class="text-center mb-8">
@@ -1940,6 +1959,15 @@ const pricingData = {
 </script>
 
 <style>
+  /* Member count gradient text */
+  .membership-gradient-text {
+    background: linear-gradient(135deg, #7ba650 0%, #34d399 50%, #7ba650 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
   /* ===== MEMBERSHIP HERO SECTION - Premium Professional ===== */
   .membership-hero-section {
     padding-top: 0;

@@ -108,6 +108,16 @@ const products = [
 ---
 
 <Layout title="Shop">
+  <!-- Make mobile menu button non-sticky on shop page -->
+  <style is:global>
+    #mobile-menu-toggle {
+      position: absolute !important;
+      top: 0.75rem !important;
+      right: 1rem !important;
+      z-index: 60 !important;
+    }
+  </style>
+
   <!-- Hero Banner Slider - Hidden on mobile -->
   <section class="relative isolate pt-4 md:pt-6 hidden md:block">
     <Container>

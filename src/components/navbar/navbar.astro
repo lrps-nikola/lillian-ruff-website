@@ -151,15 +151,11 @@ const menuitems = [
       </div>
     </div>
 
-    <!-- Mobile Layout: Just Logo and Menu Button -->
+    <!-- Mobile Layout: Just Logo -->
     <div class="flex lg:hidden items-center justify-center relative">
       <a href="/" style="display: inline-flex; align-items: center;">
         <img src="/logo.webp" alt="Lillian Ruff Pet Spa" style="height: 50px; width: auto; object-fit: contain;" />
       </a>
-      <button id="mobile-menu-toggle" class="icon-button absolute right-0">
-        <Icon name="lucide:menu" class="w-6 h-6" id="menu-icon" />
-        <Icon name="lucide:x" class="w-6 h-6 hidden" id="close-icon" />
-      </button>
     </div>
   </Container>
 
@@ -222,6 +218,12 @@ const menuitems = [
   </div>
 </header>
 
+<!-- Sticky Mobile Menu Button (Fixed Position) -->
+<button id="mobile-menu-toggle" class="lg:hidden fixed top-4 right-4 z-[60] w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-105 hover:shadow-xl border border-gray-100">
+  <Icon name="lucide:menu" class="w-6 h-6 text-gray-700" id="menu-icon" />
+  <Icon name="lucide:x" class="w-6 h-6 text-gray-700 hidden" id="close-icon" />
+</button>
+
 <script>
   (function() {
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
@@ -259,7 +261,16 @@ const menuitems = [
       document.body.classList.remove('overflow-hidden');
     }
 
-    if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', openMenu);
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', function() {
+        // Toggle between open and close based on current state
+        if (mobileMenu && mobileMenu.classList.contains('translate-x-0')) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+    }
     if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMenu);
     if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMenu);
 

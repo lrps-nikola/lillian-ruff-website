@@ -35,11 +35,35 @@ import { Icon } from "astro-icon/components";
           <span class="text-sm font-bold membership-gradient-text tracking-wide">Grooming Memberships</span>
         </div>
 
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-2 lg:mb-5 leading-tight">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 lg:mb-6 leading-tight">
           <span class="text-gray-900">Save More with</span>
           <br class="hidden sm:block" />
           <span class="membership-gradient-text">Membership Plans</span>
         </h2>
+
+        <!-- Member Limit Counter - Desktop -->
+        <div class="hidden md:block mb-5 lg:mb-6">
+          <div class="flex items-center gap-4">
+            <div class="flex items-baseline gap-1">
+              <span class="text-3xl font-black membership-gradient-text member-count-number" data-start="488" data-start-date="2026-01-01">488</span>
+              <span class="text-gray-400 text-sm font-medium">/ 1,000</span>
+            </div>
+            <div class="flex-1 flex items-center gap-1">
+              <!-- Segmented bar -->
+              <div class="member-segment h-3 rounded-sm bg-brand-green transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-brand-green transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-brand-green transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-brand-green transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-white/80 transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-white/80 transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-white/80 transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-white/80 transition-all duration-300 border-2 border-dashed border-gray-400" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-white/80 transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-3 rounded-sm bg-white/80 transition-all duration-300" style="flex: 1;"></div>
+            </div>
+          </div>
+          <p class="text-xs text-gray-500 mt-2">At <span class="font-bold text-gray-800">800 members</span>, grooming becomes member-exclusive</p>
+        </div>
 
         <!-- CTA Button - Hidden on mobile -->
         <a
@@ -119,24 +143,46 @@ import { Icon } from "astro-icon/components";
       </div>
 
       <!-- Mobile-only content section (shows after video) -->
-      <div class="md:hidden text-gray-800 relative z-10 order-3">
+      <div class="md:hidden text-gray-800 relative z-10 order-3 w-full">
+        <!-- Member Limit Counter - Mobile -->
+        <div class="mb-5">
+          <div class="flex items-center gap-3">
+            <div class="flex items-baseline gap-1">
+              <span class="text-2xl font-black membership-gradient-text member-count-number" data-start="488" data-start-date="2026-01-01">488</span>
+              <span class="text-gray-400 text-xs font-medium">/ 1,000</span>
+            </div>
+            <div class="flex-1 flex items-center gap-0.5">
+              <!-- Segmented bar -->
+              <div class="member-segment h-2.5 rounded-sm bg-brand-green transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-2.5 rounded-sm bg-brand-green transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-2.5 rounded-sm bg-brand-green transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-2.5 rounded-sm bg-brand-green transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-2.5 rounded-sm bg-white/80 transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-2.5 rounded-sm bg-white/80 transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-2.5 rounded-sm bg-white/80 transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-2.5 rounded-sm bg-white/80 transition-all duration-300 border-2 border-dashed border-gray-400" style="flex: 1;"></div>
+              <div class="member-segment h-2.5 rounded-sm bg-white/80 transition-all duration-300" style="flex: 1;"></div>
+              <div class="member-segment h-2.5 rounded-sm bg-white/80 transition-all duration-300" style="flex: 1;"></div>
+            </div>
+          </div>
+          <p class="text-[11px] text-gray-500 mt-1.5">At <span class="font-bold text-gray-800">800</span>, grooming becomes member-exclusive</p>
+        </div>
+
         <!-- CTA Button - Mobile -->
-        <a
-          href="/memberships#become-member"
-          class="group inline-flex items-center gap-3 membership-cta-button text-white px-8 py-4 rounded-full font-bold text-base shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 relative overflow-hidden"
-        >
+        <div class="text-center">
+          <a
+            href="/memberships#become-member"
+            class="group inline-flex items-center gap-3 membership-cta-button text-white px-8 py-4 rounded-full font-bold text-base shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 relative overflow-hidden"
+          >
           <span class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/25 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700"></span>
           <Icon name="lucide:crown" class="w-5 h-5 relative z-10" />
           <span class="relative z-10">Become a Member</span>
           <Icon name="lucide:arrow-right" class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 relative z-10" />
-        </a>
+          </a>
+        </div>
 
         <!-- Trust indicators - Mobile -->
         <div class="flex items-center gap-6 mt-6 pt-6 border-t border-brand-green/10">
-          <div class="flex items-center gap-2">
-            <Icon name="lucide:users" class="w-4 h-4 text-brand-green" />
-            <span class="text-xs text-gray-500">500+ Happy Members</span>
-          </div>
           <div class="flex items-center gap-2">
             <Icon name="lucide:repeat" class="w-4 h-4 text-brand-blue" />
             <span class="text-xs text-gray-500">Cancel Anytime</span>
@@ -160,6 +206,47 @@ import { Icon } from "astro-icon/components";
         localVideo.play();
       });
     }
+
+    // Member count calculator
+    const memberCountElements = document.querySelectorAll('.member-count-number');
+    const spotsRemainingElements = document.querySelectorAll('.spots-remaining');
+    const progressBars = document.querySelectorAll('.member-progress-bar');
+
+    memberCountElements.forEach((el, index) => {
+      const startCount = parseInt(el.getAttribute('data-start') || '488');
+      const startDateStr = el.getAttribute('data-start-date') || '2026-01-01';
+      const startDate = new Date(startDateStr);
+      const today = new Date();
+
+      // Calculate days since start
+      const diffTime = today.getTime() - startDate.getTime();
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      // Add 2 members per day
+      const currentCount = Math.min(startCount + (diffDays * 2), 1000);
+      const percentage = (currentCount / 1000) * 100;
+
+      // Animate count up
+      let displayCount = startCount;
+      const countInterval = setInterval(() => {
+        if (displayCount < currentCount) {
+          displayCount++;
+          el.textContent = displayCount.toString();
+          if (spotsRemainingElements[index]) {
+            spotsRemainingElements[index].textContent = (1000 - displayCount).toString();
+          }
+        } else {
+          clearInterval(countInterval);
+        }
+      }, 30);
+
+      // Animate progress bar
+      setTimeout(() => {
+        if (progressBars[index]) {
+          (progressBars[index] as HTMLElement).style.width = percentage + '%';
+        }
+      }, 100);
+    });
   });
 </script>
 
@@ -308,5 +395,34 @@ import { Icon } from "astro-icon/components";
     .membership-promo-glass-section {
       background-size: 40px 40px, 100% 100%;
     }
+  }
+
+  /* Member limit counter animations */
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-subtle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.02); }
+  }
+
+  .animate-pulse-subtle {
+    animation: pulse-subtle 2s ease-in-out infinite;
+  }
+
+  /* Member limit container hover effect */
+  .member-limit-container {
+    transition: all 0.3s ease;
+  }
+
+  .member-limit-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   }
 </style>
