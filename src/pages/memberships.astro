@@ -283,7 +283,7 @@ const pricingData = {
     </Container>
 
     <!-- Membership Cards Grid - Horizontal slider on mobile (FULL WIDTH) -->
-    <div class="md:hidden overflow-hidden mb-10" id="membership-cards-carousel">
+    <div class="md:hidden overflow-x-auto mb-10 scrollbar-hide" id="membership-cards-carousel">
         <div class="flex gap-4 animate-scroll-membership-cards" id="membership-cards-track">
           <!-- First set of cards -->
           <!-- Bath Plan - BLUE -->
@@ -1003,6 +1003,27 @@ const pricingData = {
         videoThumbnail.classList.add('hidden');
         localVideo.classList.remove('hidden');
         localVideo.play();
+      });
+    }
+
+    // Membership cards carousel - pause animation on touch/scroll
+    const carousel = document.getElementById('membership-cards-carousel');
+    const track = document.getElementById('membership-cards-track');
+
+    if (carousel && track) {
+      // Pause animation when user starts touching
+      carousel.addEventListener('touchstart', () => {
+        track.style.animationPlayState = 'paused';
+      });
+
+      // Resume animation after user stops scrolling
+      let scrollTimeout: ReturnType<typeof setTimeout>;
+      carousel.addEventListener('scroll', () => {
+        track.style.animationPlayState = 'paused';
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          track.style.animationPlayState = 'running';
+        }, 3000); // Resume after 3 seconds of no scrolling
       });
     }
   });
@@ -1868,6 +1889,16 @@ const pricingData = {
 </script>
 
 <style>
+  /* Hide scrollbar but allow scrolling */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, Opera */
+  }
+
   /* Member count gradient text */
   .membership-gradient-text {
     background: linear-gradient(135deg, #7ba650 0%, #34d399 50%, #7ba650 100%);
