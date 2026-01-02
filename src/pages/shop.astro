@@ -16,6 +16,13 @@ const categories = [
     description: "Browse our complete collection"
   },
   {
+    id: "ruff",
+    name: "Ruff",
+    icon: "lucide:star",
+    description: "Premium Ruff collection",
+    featured: true
+  },
+  {
     id: "shampoos",
     name: "Shampoos",
     icon: "lucide:droplets",
@@ -54,6 +61,13 @@ const categories = [
 ];
 
 const products = [
+  // Ruff Collection - Premium products
+  { id: 100, name: "Activated Charcoal Shampoo", price: 19.95, image: "/images/products/activated-charcoal-shampoo.webp", badge: "Ruff", category: "ruff", rating: 5, reviews: 67, size: "16 oz", description: "Odor-neutralizing deep cleanser with activated charcoal that absorbs impurities, toxins, grease, and dirt while remaining gentle and pH-balanced. Neutralizes difficult odors like skunk spray, urine, and sweat. Acts as a stain remover for both light and dark coats. Infused with refreshing Lemon Sage scent. Gluten-free, paraben-free, sulfate-free, dye-free, and vegan.", features: ["Deep detoxifying", "Removes odors", "Purifies coat", "Lemon sage scent"], ingredients: "Purified Water, Activated Charcoal, Coconut Surfactants, Aloe Vera, Lemon Extract, Sage" },
+  { id: 101, name: "Shed Control De-Shedding Shampoo", price: 19.95, image: "/images/products/shed-control-shampoo.webp", badge: "Ruff", category: "ruff", rating: 5, reviews: 89, size: "16 oz", description: "Powerful concentrated 15:1 formula that reduces shedding and promotes healthy coat growth. Enriched with omega fatty acids and natural oils to strengthen hair follicles and prevent breakage. Leaves coat soft, shiny, and manageable while reducing loose fur.", features: ["Reduces shedding", "Omega fatty acids", "Strengthens coat", "15:1 concentration"], ingredients: "Purified Water, Omega-3 & 6 Fatty Acids, Flaxseed Oil, Vitamin E, Biotin" },
+  { id: 102, name: "Sandalwood Amber Oatmeal Shampoo", price: 19.95, image: "/images/products/sandalwood-amber-oatmeal-shampoo.webp", badge: "Ruff", category: "ruff", rating: 5, reviews: 54, size: "16 oz", description: "Luxurious oatmeal shampoo with a sophisticated sandalwood and amber fragrance. Premium colloidal oatmeal soothes and moisturizes while the warm, rich scent lingers for days. Perfect for pets with sensitive skin who deserve a spa-like experience.", features: ["Luxury scent", "Moisturizing oatmeal", "Long-lasting fragrance", "Sensitive skin safe"], ingredients: "Purified Water, Colloidal Oatmeal, Sandalwood Extract, Amber, Coconut Oil" },
+  { id: 103, name: "Sandalwood Coconut Oatmeal Conditioner", price: 19.95, image: "/images/products/sandalwood-coconut-conditioner.webp", badge: "Ruff", category: "ruff", rating: 5, reviews: 45, size: "16 oz", description: "Luxurious conditioner with calming sandalwood and coconut. Pairs perfectly with our Sandalwood Amber Oatmeal Shampoo for a complete spa experience. Deep conditioning oatmeal formula with a warm, sophisticated fragrance that lasts.", features: ["Luxury fragrance", "Deep conditioning", "Moisturizing", "Long-lasting scent"], ingredients: "Purified Water, Colloidal Oatmeal, Coconut Oil, Sandalwood Extract, Shea Butter" },
+  { id: 104, name: "RUFF Premium Lunchbox Travel Set", price: 25.99, image: "/images/products/ruff-lunchbox-travel-set.webp", badge: "Ruff", category: "ruff", rating: 5, reviews: 34, size: "Lunchbox Kit", description: "Adorable retro-style lunchbox filled with travel-sized grooming essentials. Includes 5 mini products in a reusable collectible case. Makes a perfect gift for any pet lover!", features: ["Cute lunchbox case", "5 travel products", "Reusable case", "Gift ready"], ingredients: "See individual products" },
+
   // Shampoos
   { id: 1, name: "Berry Blue Brightening Face & Body Wash", price: 19.95, image: "/images/products/berry-blue-brightening-wash.webp", badge: "Best Seller", category: "shampoos", rating: 5, reviews: 342, size: "16 oz", description: "The specially designed blueberry-infused formula safely and gently removes stain-causing particles from the fur around your dog's eyes while restoring even the whitest coat colors. Crafted with natural essential oils, it safely eliminates yellowing, stains & dingy fur to bring out your pet's natural bright coat. pH-balanced, sulfate-free, paraben-free, and proudly made in the USA.", features: ["Brightens white & light coats", "Tearless formula", "Removes tear stains", "pH balanced"], ingredients: "Water, Alpha Olefin Sulfonate, Coco-Glucoside, Cocamidopropyl Betaine, Panthenol, Blueberry Fruit Extract" },
   { id: 2, name: "Oatmeal Shampoo", price: 19.95, image: "/images/products/oatmeal-shampoo.webp", badge: "Sensitive Skin", category: "shampoos", rating: 5, reviews: 256, size: "16 oz", description: "Soothe and cleanse normal and sensitive skin with this gentle oatmeal formula. Made with premium colloidal oatmeal to relieve dry, itchy skin while moisturizing and conditioning your pet's coat. Calming lavender scent leaves your pet smelling fresh. Gluten-free, paraben-free, sulfate-free, and vegan.", features: ["Relieves itchy skin", "Moisturizes dry coats", "Hypoallergenic", "Calming lavender scent"], ingredients: "Purified Water, Colloidal Oatmeal, Coconut Oil, Lavender Extract, Vitamin E, Aloe Vera" },
@@ -122,8 +136,33 @@ const products = [
   <section class="relative isolate pt-4 md:pt-6 hidden md:block">
     <Container>
       <div id="banner-slider" class="group relative rounded-[2rem] overflow-hidden">
-        <!-- Slide 1 - Travel Size / Minis -->
+        <!-- Slide 1 - Behind the Brand / Ruff Collection -->
         <div class="banner-slide relative w-full h-[280px] md:h-[320px] lg:h-[360px]">
+          <img
+            src="/images/ruff-hero.png"
+            alt="Ruff Premium Collection"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent flex items-center">
+            <div class="px-8 md:px-12 lg:px-16 max-w-xl">
+              <p class="text-white/80 text-xs md:text-sm font-semibold tracking-wider uppercase mb-2 drop-shadow opacity-0">.</p>
+              <h1 class="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-3 drop-shadow-lg tracking-tight opacity-0">.</h1>
+              <p class="text-white/90 text-sm md:text-base mb-5 drop-shadow max-w-md hidden md:block opacity-0">.</p>
+              <button onclick="filterByCategory('ruff')" class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md text-white px-8 py-3.5 rounded-full font-bold hover:bg-white/30 transition-all duration-300 shadow-lg uppercase tracking-wider text-sm border border-white/30">
+                Shop Ruff
+              </button>
+            </div>
+          </div>
+          <!-- Free Shipping Badge -->
+          <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-xl text-gray-900 px-2.5 py-1.5 rounded-xl text-[10px] font-semibold shadow-lg flex items-center gap-1.5">
+            <span class="w-4 h-4 bg-brand-green rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            </span>
+            <span>Free Shipping Over $49.99</span>
+          </div>
+        </div>
+        <!-- Slide 2 - Travel Size / Minis -->
+        <div class="banner-slide hidden relative w-full h-[280px] md:h-[320px] lg:h-[360px]">
           <img
             src="/images/shop-banner-1.webp"
             alt="Lillian Ruff Travel Size Products"
@@ -144,14 +183,14 @@ const products = [
             </div>
           </div>
           <!-- Free Shipping Badge -->
-          <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-xl text-gray-900 px-4 py-2.5 rounded-2xl text-xs md:text-sm font-semibold shadow-2xl flex items-center gap-2.5">
-            <span class="w-6 h-6 bg-brand-green rounded-full flex items-center justify-center flex-shrink-0">
-              <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+          <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-xl text-gray-900 px-2.5 py-1.5 rounded-xl text-[10px] font-semibold shadow-lg flex items-center gap-1.5">
+            <span class="w-4 h-4 bg-brand-green rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
             </span>
             <span>Free Shipping Over $49.99</span>
           </div>
         </div>
-        <!-- Slide 2 - Bundles & Sets -->
+        <!-- Slide 3 - Bundles & Sets -->
         <div class="banner-slide hidden relative w-full h-[280px] md:h-[320px] lg:h-[360px]">
           <img
             src="/images/shop-banner-2.webp"
@@ -173,9 +212,9 @@ const products = [
             </div>
           </div>
           <!-- Free Shipping Badge -->
-          <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-xl text-gray-900 px-4 py-2.5 rounded-2xl text-xs md:text-sm font-semibold shadow-2xl flex items-center gap-2.5">
-            <span class="w-6 h-6 bg-brand-green rounded-full flex items-center justify-center flex-shrink-0">
-              <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+          <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-xl text-gray-900 px-2.5 py-1.5 rounded-xl text-[10px] font-semibold shadow-lg flex items-center gap-1.5">
+            <span class="w-4 h-4 bg-brand-green rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
             </span>
             <span>Free Shipping Over $49.99</span>
           </div>
@@ -184,6 +223,7 @@ const products = [
         <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
           <button class="slider-dot w-2.5 h-2.5 rounded-full bg-white/80 transition-all duration-300" data-slide="0"></button>
           <button class="slider-dot w-2.5 h-2.5 rounded-full bg-white/40 transition-all duration-300" data-slide="1"></button>
+          <button class="slider-dot w-2.5 h-2.5 rounded-full bg-white/40 transition-all duration-300" data-slide="2"></button>
         </div>
         <!-- Slider Arrows - Hidden by default, visible on hover -->
         <button id="prev-slide" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-all duration-300 opacity-0 group-hover:opacity-100">
@@ -217,7 +257,8 @@ const products = [
             {categories.map((cat, index) => (
               <button
                 data-category={cat.id}
-                class={`category-btn mobile-cat-btn flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ${index === 0 ? 'bg-gradient-to-r from-brand-green to-emerald-500 text-white shadow-md shadow-brand-green/30' : 'bg-gray-50 text-gray-600 hover:bg-gray-100 active:scale-95'}`}
+                data-featured={cat.featured ? "true" : undefined}
+                class={`category-btn mobile-cat-btn flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ${index === 0 ? 'bg-gradient-to-r from-brand-green to-emerald-500 text-white shadow-md shadow-brand-green/30' : cat.featured ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-md shadow-amber-500/30 scale-105' : 'bg-gray-50 text-gray-600 hover:bg-gray-100 active:scale-95'}`}
               >
                 <Icon name={cat.icon} class="w-3.5 h-3.5" />
                 <span>{cat.name}</span>
@@ -233,7 +274,8 @@ const products = [
         {categories.map((cat, index) => (
           <button
             data-category={cat.id}
-            class={`category-btn flex items-center gap-2 px-4 py-2.5 rounded-full border text-sm font-medium transition-all duration-300 ${index === 0 ? 'bg-brand-green text-white border-brand-green' : 'bg-white border-gray-200 text-gray-700 hover:border-brand-green hover:text-brand-green hover:bg-brand-green/5'}`}
+            data-featured={cat.featured ? "true" : undefined}
+            class={`category-btn flex items-center gap-2 px-4 py-2.5 rounded-full border text-sm font-medium transition-all duration-300 ${index === 0 ? 'bg-brand-green text-white border-brand-green' : cat.featured ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white border-amber-500 shadow-lg shadow-amber-500/25 scale-105 hover:shadow-xl' : 'bg-white border-gray-200 text-gray-700 hover:border-brand-green hover:text-brand-green hover:bg-brand-green/5'}`}
           >
             <Icon name={cat.icon} class="w-4 h-4" />
             <span>{cat.name}</span>
@@ -877,9 +919,13 @@ const products = [
           }
         } else {
           // Mobile button - new gradient design
-          b.classList.remove('bg-gradient-to-r', 'from-brand-green', 'to-emerald-500', 'text-white', 'shadow-md', 'shadow-brand-green/30', 'bg-gray-50', 'text-gray-600');
+          const isFeatured = b.dataset.featured === 'true';
+          b.classList.remove('bg-gradient-to-r', 'from-brand-green', 'to-emerald-500', 'from-amber-500', 'to-orange-500', 'text-white', 'shadow-md', 'shadow-brand-green/30', 'shadow-amber-500/30', 'bg-gray-50', 'text-gray-600', 'scale-105');
           if (isSameCategory) {
             b.classList.add('bg-gradient-to-r', 'from-brand-green', 'to-emerald-500', 'text-white', 'shadow-md', 'shadow-brand-green/30');
+          } else if (isFeatured) {
+            // Keep featured (Ruff) button styling even when not selected
+            b.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-orange-500', 'text-white', 'shadow-md', 'shadow-amber-500/30', 'scale-105');
           } else {
             b.classList.add('bg-gray-50', 'text-gray-600');
           }
@@ -1337,9 +1383,13 @@ const products = [
         }
       } else {
         // Mobile button - new gradient design
-        b.classList.remove('bg-gradient-to-r', 'from-brand-green', 'to-emerald-500', 'text-white', 'shadow-md', 'shadow-brand-green/30', 'bg-gray-50', 'text-gray-600');
+        const isFeatured = b.dataset.featured === 'true';
+        b.classList.remove('bg-gradient-to-r', 'from-brand-green', 'to-emerald-500', 'from-amber-500', 'to-orange-500', 'text-white', 'shadow-md', 'shadow-brand-green/30', 'shadow-amber-500/30', 'bg-gray-50', 'text-gray-600', 'scale-105');
         if (isSameCategory) {
           b.classList.add('bg-gradient-to-r', 'from-brand-green', 'to-emerald-500', 'text-white', 'shadow-md', 'shadow-brand-green/30');
+        } else if (isFeatured) {
+          // Keep featured (Ruff) button styling even when not selected
+          b.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-orange-500', 'text-white', 'shadow-md', 'shadow-amber-500/30', 'scale-105');
         } else {
           b.classList.add('bg-gray-50', 'text-gray-600');
         }
