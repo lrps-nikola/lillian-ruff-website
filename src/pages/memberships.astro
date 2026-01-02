@@ -284,7 +284,7 @@ const pricingData = {
 
     <!-- Membership Cards Grid - Horizontal slider on mobile (FULL WIDTH) -->
     <div class="md:hidden overflow-x-auto mb-10 scrollbar-hide" id="membership-cards-carousel">
-        <div class="flex gap-4 animate-scroll-membership-cards" id="membership-cards-track">
+        <div class="flex gap-4 pl-4" id="membership-cards-track">
           <!-- First set of cards -->
           <!-- Bath Plan - BLUE -->
           <div class="membership-card-mobile membership-card-blue flex-shrink-0 w-[280px] rounded-2xl overflow-hidden border border-blue-200 relative flex flex-col">
@@ -374,95 +374,8 @@ const pricingData = {
               </div>
             </div>
           </div>
-          <!-- Duplicate set for seamless infinite loop -->
-          <!-- Bath Plan - BLUE (duplicate) -->
-          <div class="membership-card-mobile membership-card-blue flex-shrink-0 w-[280px] rounded-2xl overflow-hidden border border-blue-200 relative flex flex-col">
-            <div class="p-5 relative z-10">
-              <div class="flex flex-col items-center text-center gap-3 mb-4">
-                <div class="w-14 h-14 rounded-xl bg-blue-100 border-2 border-blue-300 flex items-center justify-center">
-                  <Icon name="lucide:droplets" class="w-7 h-7 text-brand-blue" />
-                </div>
-                <div>
-                  <h3 class="text-lg font-bold text-gray-900">Bath</h3>
-                  <p class="text-brand-blue text-xs font-semibold">1x Bath & Brush per Billing Cycle</p>
-                </div>
-              </div>
-            </div>
-            <div class="flex flex-col flex-1">
-              <div class="bg-white/80 border-t border-blue-200 p-4 relative z-10 flex-1">
-                <p class="text-gray-600 text-xs font-bold uppercase tracking-wider mb-2">Also Included:</p>
-                <ul class="space-y-1.5">
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-blue flex-shrink-0" /><span>10% OFF additional sessions</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-blue flex-shrink-0" /><span>Unlimited wellness check-ups</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-blue flex-shrink-0" /><span>1 FREE nail trim</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-blue flex-shrink-0" /><span>1 FREE teeth brushing</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-blue flex-shrink-0" /><span>1 FREE ear cleaning</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-blue flex-shrink-0" /><span>5% OFF retail products</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-blue flex-shrink-0" /><span>10% OFF boarding</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-blue flex-shrink-0" /><span>Priority booking</span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- Groom Plan - GREEN (duplicate) -->
-          <div class="membership-card-mobile membership-card-green flex-shrink-0 w-[280px] rounded-2xl overflow-hidden border border-emerald-200 relative flex flex-col">
-            <div class="p-5 relative z-10">
-              <div class="flex flex-col items-center text-center gap-3 mb-4">
-                <div class="w-14 h-14 rounded-xl bg-emerald-100 border-2 border-emerald-300 flex items-center justify-center">
-                  <Icon name="lucide:scissors" class="w-7 h-7 text-brand-green" />
-                </div>
-                <div>
-                  <h3 class="text-lg font-bold text-gray-900">Groom</h3>
-                  <p class="text-brand-green text-xs font-semibold">1x Full Groom per Billing Cycle</p>
-                </div>
-              </div>
-            </div>
-            <div class="flex flex-col flex-1">
-              <div class="bg-white/80 border-t border-emerald-200 p-4 relative z-10 flex-1">
-                <p class="text-gray-600 text-xs font-bold uppercase tracking-wider mb-2">Also Included:</p>
-                <ul class="space-y-1.5">
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>10% OFF additional sessions</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>Unlimited wellness check-ups</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>1 FREE nail trim</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>1 FREE teeth brushing</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>1 FREE ear cleaning</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>5% OFF retail products</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>10% OFF boarding</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>Priority booking</span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- Groom+ Plan - PREMIUM GREEN (duplicate) -->
-          <div class="membership-card-mobile membership-card-green-premium flex-shrink-0 w-[280px] rounded-2xl overflow-hidden border-2 border-emerald-400 relative flex flex-col">
-            <div class="absolute top-0 right-0 bg-gradient-to-r from-brand-green to-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl z-20">BEST VALUE</div>
-            <div class="p-5 relative z-10">
-              <div class="flex flex-col items-center text-center gap-3 mb-4">
-                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-green to-emerald-600 flex items-center justify-center ring-2 ring-emerald-300">
-                  <Icon name="lucide:crown" class="w-7 h-7 text-white" />
-                </div>
-                <div>
-                  <h3 class="text-lg font-bold text-gray-900">Groom+</h3>
-                  <p class="text-brand-green text-xs font-semibold">1x Groom + 1x Bath per Billing Cycle</p>
-                </div>
-              </div>
-            </div>
-            <div class="flex flex-col flex-1">
-              <div class="bg-white/80 border-t border-emerald-300 p-4 relative z-10 flex-1">
-                <p class="text-gray-600 text-xs font-bold uppercase tracking-wider mb-2">Also Included:</p>
-                <ul class="space-y-1.5">
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>10% OFF additional sessions</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>Unlimited wellness check-ups</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>1 FREE nail trim</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>1 FREE teeth brushing</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>1 FREE ear cleaning</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>5% OFF retail products</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>10% OFF boarding</span></li>
-                  <li class="flex items-center gap-2 text-gray-800 text-xs"><Icon name="lucide:check-circle" class="w-3.5 h-3.5 text-brand-green flex-shrink-0" /><span>Priority booking</span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          <!-- Spacer for right padding (w-0.5 because gap-4 adds 16px) -->
+          <div class="flex-shrink-0 w-0.5"></div>
         </div>
       </div>
     </div>
@@ -1006,25 +919,55 @@ const pricingData = {
       });
     }
 
-    // Membership cards carousel - pause animation on touch/scroll
-    const carousel = document.getElementById('membership-cards-carousel');
-    const track = document.getElementById('membership-cards-track');
+    // Membership cards carousel - JavaScript-based auto-scroll
+    const carouselEl = document.getElementById('membership-cards-carousel');
 
-    if (carousel && track) {
-      // Pause animation when user starts touching
-      carousel.addEventListener('touchstart', () => {
-        track.style.animationPlayState = 'paused';
+    if (carouselEl) {
+      let isAutoScrolling = true;
+      let scrollInterval: ReturnType<typeof setInterval>;
+      let resumeTimeout: ReturnType<typeof setTimeout>;
+      const scrollSpeed = 1; // pixels per frame
+      let scrollDirection = 1; // 1 = right, -1 = left
+
+      // Start auto-scrolling
+      function startAutoScroll() {
+        isAutoScrolling = true;
+        scrollInterval = setInterval(() => {
+          if (isAutoScrolling && carouselEl) {
+            carouselEl.scrollLeft += scrollSpeed * scrollDirection;
+
+            // Reverse direction when reaching the end
+            if (carouselEl.scrollLeft >= carouselEl.scrollWidth - carouselEl.clientWidth - 5) {
+              scrollDirection = -1; // Start scrolling left
+            } else if (carouselEl.scrollLeft <= 5) {
+              scrollDirection = 1; // Start scrolling right
+            }
+          }
+        }, 30);
+      }
+
+      // Stop auto-scrolling
+      function stopAutoScroll() {
+        isAutoScrolling = false;
+        clearInterval(scrollInterval);
+      }
+
+      // Pause on touch
+      carouselEl.addEventListener('touchstart', () => {
+        stopAutoScroll();
+        clearTimeout(resumeTimeout);
       });
 
-      // Resume animation after user stops scrolling
-      let scrollTimeout: ReturnType<typeof setTimeout>;
-      carousel.addEventListener('scroll', () => {
-        track.style.animationPlayState = 'paused';
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          track.style.animationPlayState = 'running';
-        }, 3000); // Resume after 3 seconds of no scrolling
+      // Resume after touch ends (with delay)
+      carouselEl.addEventListener('touchend', () => {
+        clearTimeout(resumeTimeout);
+        resumeTimeout = setTimeout(() => {
+          startAutoScroll();
+        }, 3000);
       });
+
+      // Start auto-scroll on load
+      startAutoScroll();
     }
   });
 </script>
@@ -1911,27 +1854,6 @@ const pricingData = {
   /* Transition smooth utility */
   .transition-smooth {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* Mobile carousel auto-scroll - seamless infinite loop */
-  .animate-scroll-membership-cards {
-    animation: scrollMembershipCards 24s linear infinite;
-    /* Width of 3 cards (280px each) + 3 gaps (16px each) = 888px for first set */
-    width: calc((280px * 6) + (16px * 6));
-  }
-
-  @keyframes scrollMembershipCards {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      /* Move exactly half (the width of first 3 cards + gaps) */
-      transform: translateX(calc(-280px * 3 - 16px * 3));
-    }
-  }
-
-  .animate-scroll-membership-cards:hover {
-    animation-play-state: paused;
   }
 
   /* Mobile membership cards styling */
